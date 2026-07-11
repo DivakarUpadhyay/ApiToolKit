@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Meta Business Control Panel</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+<style>
+:root{--fb:#1877F2;--ig:#E1306C;--wa:#25D366;--ms:#0084FF;--th:#000;--sidebar-w:260px;}
+body{margin:0;font-family:'Segoe UI',sans-serif;background:#f0f2f5;overflow-x:hidden;}
+#sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:#fff;border-right:1px solid #e4e6eb;z-index:1000;overflow-y:auto;transition:.25s;}
+#sidebar .brand{padding:16px 20px;border-bottom:1px solid #e4e6eb;display:flex;align-items:center;gap:10px;}
+#sidebar .brand span{font-size:1.1rem;font-weight:700;color:#1c1e21;}
+#sidebar .nav-section{font-size:.7rem;font-weight:700;color:#65676b;text-transform:uppercase;padding:14px 20px 4px;}
+#sidebar .nav-link{display:flex;align-items:center;gap:10px;padding:9px 20px;color:#1c1e21;text-decoration:none;font-size:.875rem;border-radius:0;transition:.15s;}
+#sidebar .nav-link:hover{background:#f0f2f5;color:var(--fb);}
+#sidebar .nav-link.active{background:#e7f0fd;color:var(--fb);font-weight:600;}
+#sidebar .nav-link i{font-size:1rem;width:20px;text-align:center;}
+#main{margin-left:var(--sidebar-w);min-height:100vh;}
+#topbar{background:#fff;border-bottom:1px solid #e4e6eb;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:900;}
+.page-section{display:none;padding:24px;}
+.page-section.active{display:block;}
+.card{border:none;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.card-header{background:#fff;border-bottom:1px solid #e4e6eb;border-radius:12px 12px 0 0!important;font-weight:600;}
+.badge-fb{background:var(--fb)!important;}
+.badge-ig{background:var(--ig)!important;}
+.badge-wa{background:var(--wa)!important;color:#000!important;}
+.badge-ms{background:var(--ms)!important;}
+.badge-th{background:var(--th)!important;}
+.stat-card{border-radius:12px;padding:20px;color:#fff;position:relative;overflow:hidden;}
+.stat-card .stat-val{font-size:2rem;font-weight:700;}
+.stat-card .stat-label{opacity:.85;font-size:.85rem;}
+.stat-card i{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:3rem;opacity:.2;}
+.result-box{background:#1c1e21;color:#e4e6eb;border-radius:8px;padding:14px;font-size:.8rem;font-family:monospace;max-height:300px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;}
+.form-label{font-weight:500;font-size:.875rem;}
+.section-title{font-size:1.25rem;font-weight:700;color:#1c1e21;margin-bottom:4px;}
+.section-sub{font-size:.875rem;color:#65676b;margin-bottom:20px;}
+.btn-fb{background:var(--fb);color:#fff;border:none;}
+.btn-fb:hover{background:#166fe5;color:#fff;}
+.btn-ig{background:var(--ig);color:#fff;border:none;}
+.btn-ig:hover{background:#c1275b;color:#fff;}
+.btn-wa{background:var(--wa);color:#000;border:none;}
+.btn-wa:hover{background:#1db954;color:#000;}
+.credentials-bar{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:10px 16px;font-size:.85rem;margin-bottom:20px;display:none;}
+.credentials-bar.show{display:block;}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="brand">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    <span>Meta Business Hub</span>
+  </div>
+  <div class="nav-section">Overview</div>
+  <a class="nav-link active" href="#" data-section="dashboard"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+  <div class="nav-section">Catalog &amp; Products</div>
+  <a class="nav-link" href="#" data-section="catalogs"><i class="bi bi-collection-fill"></i> Catalogs</a>
+  <a class="nav-link" href="#" data-section="product-feeds"><i class="bi bi-rss-fill"></i> Product Feeds</a>
+  <a class="nav-link" href="#" data-section="wa-catalog"><i class="bi bi-bag-fill"></i> WhatsApp Catalog</a>
+  <a class="nav-link" href="#" data-section="ig-shopping"><i class="bi bi-cart-fill"></i> Instagram Shopping</a>
+  <div class="nav-section">Commerce &amp; Orders</div>
+  <a class="nav-link" href="#" data-section="shops"><i class="bi bi-shop-window"></i> Shops</a>
+  <a class="nav-link" href="#" data-section="orders"><i class="bi bi-box-seam-fill"></i> Orders</a>
+  <div class="nav-section">Advertising</div>
+  <a class="nav-link" href="#" data-section="ad-accounts"><i class="bi bi-credit-card-fill"></i> Ad Accounts</a>
+  <a class="nav-link" href="#" data-section="campaigns"><i class="bi bi-megaphone-fill"></i> Campaigns</a>
+  <a class="nav-link" href="#" data-section="adsets"><i class="bi bi-people-fill"></i> Ad Sets</a>
+  <a class="nav-link" href="#" data-section="ads"><i class="bi bi-image-fill"></i> Ads</a>
+  <a class="nav-link" href="#" data-section="pixel"><i class="bi bi-broadcast"></i> Pixel &amp; Tracking</a>
+  <a class="nav-link" href="#" data-section="capi"><i class="bi bi-cloud-upload-fill"></i> Conversions API</a>
+  <div class="nav-section">Content</div>
+  <a class="nav-link" href="#" data-section="posts"><i class="bi bi-file-post-fill"></i> Posts</a>
+  <a class="nav-link" href="#" data-section="photos"><i class="bi bi-images"></i> Photos</a>
+  <a class="nav-link" href="#" data-section="videos"><i class="bi bi-camera-video-fill"></i> Videos</a>
+  <a class="nav-link" href="#" data-section="live"><i class="bi bi-broadcast-pin"></i> Live Streaming</a>
+  <a class="nav-link" href="#" data-section="threads"><i class="bi bi-chat-square-text-fill"></i> Threads</a>
+  <div class="nav-section">Community</div>
+  <a class="nav-link" href="#" data-section="pages"><i class="bi bi-flag-fill"></i> Pages</a>
+  <a class="nav-link" href="#" data-section="events"><i class="bi bi-calendar-event-fill"></i> Events</a>
+  <a class="nav-link" href="#" data-section="comments"><i class="bi bi-chat-dots-fill"></i> Comments</a>
+  <div class="nav-section">Messaging</div>
+  <a class="nav-link" href="#" data-section="messenger"><i class="bi bi-messenger"></i> Messenger</a>
+  <a class="nav-link" href="#" data-section="whatsapp"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+  <div class="nav-section">Insights &amp; Data</div>
+  <a class="nav-link" href="#" data-section="insights"><i class="bi bi-bar-chart-fill"></i> Analytics</a>
+  <a class="nav-link" href="#" data-section="instagram"><i class="bi bi-instagram"></i> Instagram</a>
+  <div class="nav-section">Administration</div>
+  <a class="nav-link" href="#" data-section="business"><i class="bi bi-building-fill"></i> Business Manager</a>
+  <a class="nav-link" href="#" data-section="webhooks"><i class="bi bi-link-45deg"></i> Webhooks</a>
+  <a class="nav-link" href="#" data-section="settings"><i class="bi bi-gear-fill"></i> Settings</a>
+</nav>
+
+<!-- MAIN -->
+<div id="main">
+  <div id="topbar">
+    <div class="d-flex align-items-center gap-3">
+      <span id="section-breadcrumb" class="fw-semibold text-secondary fs-6">Dashboard</span>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+      <span id="token-status" class="badge bg-danger">No Token</span>
+      <span class="text-muted small" id="topbar-token-hint">Configure in Settings</span>
+      <button class="btn btn-sm btn-fb" onclick="navigate('settings')"><i class="bi bi-gear"></i> Settings</button>
+    </div>
+  </div>
+
+  <div id="cred-warning" class="credentials-bar mx-4 mt-3">
+    <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+    <strong>No credentials configured.</strong> Go to <a href="#" onclick="navigate('settings');return false;">Settings</a> to add your Access Token before using the panel.
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="page-section active" id="section-dashboard">
+    <div class="section-title">Dashboard</div>
+    <div class="section-sub">Meta Business overview — Facebook · Instagram · WhatsApp · Messenger · Threads</div>
+    <div class="row g-3 mb-4">
+      <div class="col-md-3"><div class="stat-card" style="background:var(--fb)"><div class="stat-label">Platform</div><div class="stat-val">Facebook</div><i class="bi bi-facebook"></i></div></div>
+      <div class="col-md-3"><div class="stat-card" style="background:var(--ig)"><div class="stat-label">Platform</div><div class="stat-val">Instagram</div><i class="bi bi-instagram"></i></div></div>
+      <div class="col-md-3"><div class="stat-card" style="background:var(--wa);color:#000"><div class="stat-label">Platform</div><div class="stat-val">WhatsApp</div><i class="bi bi-whatsapp"></i></div></div>
+      <div class="col-md-3"><div class="stat-card" style="background:var(--ms)"><div class="stat-label">Platform</div><div class="stat-val">Messenger</div><i class="bi bi-messenger"></i></div></div>
+    </div>
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3"><i class="bi bi-check2-circle text-success me-2"></i>Platform Capabilities</div>
+          <div class="card-body p-0">
+            <table class="table table-sm mb-0">
+              <thead class="table-light"><tr><th>Platform</th><th>Products</th><th>Selling</th><th>Followers</th><th>Ads</th><th>Live</th></tr></thead>
+              <tbody>
+                <tr><td><span class="badge badge-fb">Facebook</span></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td></tr>
+                <tr><td><span class="badge badge-ig">Instagram</span></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td></tr>
+                <tr><td><span class="badge badge-wa">WhatsApp</span></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-dash-circle-fill text-secondary"></i></td><td><i class="bi bi-x-circle-fill text-danger"></i></td></tr>
+                <tr><td><span class="badge badge-ms">Messenger</span></td><td><i class="bi bi-x-circle-fill text-danger"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-x-circle-fill text-danger"></i></td><td><i class="bi bi-dash-circle-fill text-secondary"></i></td><td><i class="bi bi-x-circle-fill text-danger"></i></td></tr>
+                <tr><td><span class="badge badge-th">Threads</span></td><td><i class="bi bi-x-circle-fill text-danger"></i></td><td><i class="bi bi-dash-circle-fill text-secondary"></i></td><td><i class="bi bi-check-circle-fill text-success"></i></td><td><i class="bi bi-dash-circle-fill text-secondary"></i></td><td><i class="bi bi-x-circle-fill text-danger"></i></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header py-3"><i class="bi bi-lightning-fill text-warning me-2"></i>Quick Actions</div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <button class="btn btn-fb" onclick="navigate('posts')"><i class="bi bi-plus-circle me-2"></i>Create Post</button>
+              <button class="btn btn-ig" onclick="navigate('campaigns')"><i class="bi bi-megaphone me-2"></i>New Campaign</button>
+              <button class="btn btn-wa" onclick="navigate('orders')"><i class="bi bi-box-seam me-2"></i>View Orders</button>
+              <button class="btn btn-outline-secondary" onclick="navigate('insights')"><i class="bi bi-bar-chart me-2"></i>View Analytics</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header py-3"><i class="bi bi-info-circle me-2"></i>Payment Reality for Merchandise</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4"><div class="border rounded p-3"><h6><span class="badge badge-fb me-1">FB</span><span class="badge badge-ig">IG</span> Native Checkout</h6><p class="text-muted small mb-1">Meta Pay (Facebook/Instagram Shop checkout) — US only.</p><span class="badge bg-warning text-dark">Redirect non-US users to website</span></div></div>
+          <div class="col-md-4"><div class="border rounded p-3"><h6><span class="badge badge-wa me-1">WA</span> WhatsApp Pay</h6><p class="text-muted small mb-1">WhatsApp Pay — India &amp; Brazil only.</p><span class="badge bg-warning text-dark">Use Order API + external payment globally</span></div></div>
+          <div class="col-md-4"><div class="border rounded p-3"><h6><i class="bi bi-globe me-1"></i> Global Strategy</h6><p class="text-muted small mb-1">Redirect to your website with Stripe/PayPal for payment processing.</p><span class="badge bg-success">Works Everywhere</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATALOGS -->
+  <div class="page-section" id="section-catalogs">
+    <div class="section-title">Catalogs</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span><span class="badge badge-ig me-1">Instagram</span> Manage product catalogs</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Get Business Catalogs</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Business ID</label><input class="form-control" id="cat-biz-id" placeholder="Business ID"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('GET',`/api/facebook/catalog/${v('cat-biz-id')}/catalogs`,'cat-result')">Get Catalogs</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Create Catalog</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Business ID</label><input class="form-control" id="cat-create-biz" placeholder="Business ID"/></div>
+            <div class="mb-2"><label class="form-label">Catalog Name</label><input class="form-control" id="cat-name" placeholder="My Product Catalog"/></div>
+            <div class="mb-3"><label class="form-label">Vertical</label>
+              <select class="form-select" id="cat-vertical"><option value="commerce">Commerce</option><option value="destinations">Destinations</option><option value="flights">Flights</option><option value="hotels">Hotels</option></select>
+            </div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/catalog/${v('cat-create-biz')}/catalogs`,{name:v('cat-name'),vertical:v('cat-vertical')},'cat-result')">Create Catalog</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Catalog Products</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Catalog ID</label><input class="form-control" id="cat-prod-id" placeholder="Catalog ID"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('GET',`/api/facebook/catalog/${v('cat-prod-id')}/products`,'cat-result')">Get Products</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Add Product</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Catalog ID</label><input class="form-control" id="cat-addp-id" placeholder="Catalog ID"/></div>
+            <div class="mb-2"><label class="form-label">Retailer ID / SKU</label><input class="form-control" id="cat-retailer-id" placeholder="SKU-001"/></div>
+            <div class="mb-2"><label class="form-label">Name</label><input class="form-control" id="cat-p-name" placeholder="Product name"/></div>
+            <div class="mb-2"><label class="form-label">Price (cents)</label><input class="form-control" type="number" id="cat-p-price" placeholder="2999"/></div>
+            <div class="mb-2"><label class="form-label">Currency</label><input class="form-control" id="cat-p-currency" value="USD"/></div>
+            <div class="mb-3"><label class="form-label">Image URL</label><input class="form-control" id="cat-p-img" placeholder="https://..."/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/catalog/${v('cat-addp-id')}/products`,{retailer_id:v('cat-retailer-id'),name:v('cat-p-name'),price:Number(v('cat-p-price')),currency:v('cat-p-currency'),image_url:v('cat-p-img')},'cat-result')">Add Product</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="cat-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- PRODUCT FEEDS -->
+  <div class="page-section" id="section-product-feeds">
+    <div class="section-title">Product Feeds</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Upload and manage product data feeds</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Create Product Feed</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Catalog ID</label><input class="form-control" id="pf-cat-id" placeholder="Catalog ID"/></div>
+            <div class="mb-2"><label class="form-label">Feed Name</label><input class="form-control" id="pf-name" placeholder="Daily Product Feed"/></div>
+            <div class="mb-2"><label class="form-label">Format</label><select class="form-select" id="pf-format"><option>CSV</option><option>TSV</option><option>XML</option><option>JSON</option></select></div>
+            <div class="mb-3"><label class="form-label">Schedule URL (optional)</label><input class="form-control" id="pf-url" placeholder="https://yourstore.com/feed.csv"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/product-feed/${v('pf-cat-id')}/feeds`,{name:v('pf-name'),format:v('pf-format'),scheduleUrl:v('pf-url')||null},'pf-result')">Create Feed</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Upload &amp; Manage</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Catalog ID (for listing)</label><input class="form-control" id="pf-get-cat" placeholder="Catalog ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/product-feed/${v('pf-get-cat')}/feeds`,'pf-result')">Get All Feeds</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Feed ID</label><input class="form-control" id="pf-feed-id" placeholder="Feed ID"/></div>
+            <div class="mb-3"><label class="form-label">Upload File (CSV/XML/TSV/JSON)</label><input class="form-control" type="file" id="pf-file" accept=".csv,.xml,.tsv,.json"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="uploadFeed()">Upload Feed File</button>
+            <button class="btn btn-outline-secondary w-100 mb-2" onclick="apiCall('GET',`/api/facebook/product-feed/feeds/${v('pf-feed-id')}/uploads`,'pf-result')">Get Uploads</button>
+            <button class="btn btn-outline-secondary w-100" onclick="apiCall('GET',`/api/facebook/product-feed/feeds/${v('pf-feed-id')}/errors`,'pf-result')">Get Feed Errors</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="pf-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- WHATSAPP CATALOG -->
+  <div class="page-section" id="section-wa-catalog">
+    <div class="section-title">WhatsApp Catalog</div>
+    <div class="section-sub"><span class="badge badge-wa me-1">WhatsApp</span> Manage product catalogs for WhatsApp Business</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Catalogs</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">WABA ID</label><input class="form-control" id="wac-waba-id" placeholder="WhatsApp Business Account ID"/></div>
+            <button class="btn btn-wa w-100 mb-2" onclick="apiCall('GET',`/api/facebook/whatsapp/catalog/${v('wac-waba-id')}/catalogs`,'wac-result')">Get Catalogs</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Catalog Name</label><input class="form-control" id="wac-name" placeholder="My WA Catalog"/></div>
+            <button class="btn btn-wa w-100" onclick="apiCall('POST',`/api/facebook/whatsapp/catalog/${v('wac-waba-id')}/catalogs`,{name:v('wac-name')},'wac-result')">Create Catalog</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Catalog Products</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Catalog ID</label><input class="form-control" id="wac-cat-id" placeholder="Catalog ID"/></div>
+            <button class="btn btn-wa w-100 mb-3" onclick="apiCall('GET',`/api/facebook/whatsapp/catalog/${v('wac-cat-id')}/products`,'wac-result')">Get Products</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Product Name</label><input class="form-control" id="wac-p-name" placeholder="T-Shirt Black"/></div>
+            <div class="mb-2"><label class="form-label">Price (cents)</label><input class="form-control" type="number" id="wac-p-price" placeholder="2999"/></div>
+            <div class="mb-2"><label class="form-label">Currency</label><input class="form-control" id="wac-p-cur" value="USD"/></div>
+            <div class="mb-3"><label class="form-label">Image URL</label><input class="form-control" id="wac-p-img" placeholder="https://..."/></div>
+            <button class="btn btn-wa w-100" onclick="apiCall('POST',`/api/facebook/whatsapp/catalog/${v('wac-cat-id')}/products`,{name:v('wac-p-name'),price:Number(v('wac-p-price')),currency:v('wac-p-cur'),imageUrl:v('wac-p-img')},'wac-result')">Add Product</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="wac-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- INSTAGRAM SHOPPING -->
+  <div class="page-section" id="section-ig-shopping">
+    <div class="section-title">Instagram Shopping</div>
+    <div class="section-sub"><span class="badge badge-ig me-1">Instagram</span> Tag products on posts, manage shopping</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Eligibility &amp; Catalog</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Instagram User ID</label><input class="form-control" id="igs-uid" placeholder="IG User ID"/></div>
+            <button class="btn btn-ig w-100 mb-2" onclick="apiCall('GET',`/api/facebook/instagram-shopping/${v('igs-uid')}/eligibility`,'igs-result')">Check Eligibility</button>
+            <button class="btn btn-ig w-100 mb-2" onclick="apiCall('GET',`/api/facebook/instagram-shopping/${v('igs-uid')}/catalogs`,'igs-result')">Get IG Shops</button>
+            <button class="btn btn-ig w-100" onclick="apiCall('GET',`/api/facebook/instagram-shopping/${v('igs-uid')}/available-catalogs`,'igs-result')">Available Catalogs</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Tag Products on Post</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Media ID</label><input class="form-control" id="igs-media-id" placeholder="Media Object ID"/></div>
+            <div class="mb-2"><label class="form-label">Product ID</label><input class="form-control" id="igs-prod-id" placeholder="Catalog Product ID"/></div>
+            <div class="mb-2"><label class="form-label">X Position (0-1)</label><input class="form-control" type="number" step="0.01" id="igs-x" value="0.5"/></div>
+            <div class="mb-3"><label class="form-label">Y Position (0-1)</label><input class="form-control" type="number" step="0.01" id="igs-y" value="0.5"/></div>
+            <button class="btn btn-ig w-100 mb-2" onclick="apiCall('POST',`/api/facebook/instagram-shopping/${v('igs-media-id')}/product-tags`,{productTags:[{productId:v('igs-prod-id'),x:Number(v('igs-x')),y:Number(v('igs-y'))}]},'igs-result')">Tag Products</button>
+            <button class="btn btn-outline-secondary w-100" onclick="apiCall('GET',`/api/facebook/instagram-shopping/${v('igs-media-id')}/product-tags`,'igs-result')">Get Tags</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="igs-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- SHOPS -->
+  <div class="page-section" id="section-shops">
+    <div class="section-title">Facebook Shops</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span><span class="badge badge-ig me-1">Instagram</span> View and manage your shops</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Get Shops</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Commerce Account ID</label><input class="form-control" id="sh-acc-id" placeholder="Commerce Account ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/commerce/${v('sh-acc-id')}/shops`,'sh-result')">Get All Shops</button>
+            <button class="btn btn-outline-secondary w-100 mb-2" onclick="apiCall('GET',`/api/facebook/commerce/${v('sh-acc-id')}/settings`,'sh-result')">Get Shop Settings</button>
+            <button class="btn btn-outline-secondary w-100" onclick="apiCall('GET',`/api/facebook/commerce/${v('sh-acc-id')}/tax-settings`,'sh-result')">Tax Settings</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Commerce Account</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Commerce Account ID</label><input class="form-control" id="sh-ca-id" placeholder="Commerce Account ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/commerce/${v('sh-ca-id')}/account`,'sh-result')">Get Account Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="sh-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- ORDERS -->
+  <div class="page-section" id="section-orders">
+    <div class="section-title">Orders &amp; Fulfillment</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span><span class="badge badge-ig me-1">Instagram</span> Manage orders, shipments, and refunds</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Orders</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Commerce Account ID</label><input class="form-control" id="ord-acc-id" placeholder="Commerce Account ID"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('GET',`/api/facebook/commerce/${v('ord-acc-id')}/orders`,'ord-result')">Get Orders</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Order Actions</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Order ID</label><input class="form-control" id="ord-id" placeholder="Order ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('POST',`/api/facebook/commerce/orders/${v('ord-id')}/acknowledge`,{},'ord-result')">Acknowledge Order</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Tracking Number</label><input class="form-control" id="ord-track" placeholder="1Z999AA10123456784"/></div>
+            <div class="mb-2"><label class="form-label">Carrier</label><input class="form-control" id="ord-carrier" placeholder="UPS"/></div>
+            <div class="mb-3"><label class="form-label">Item IDs (comma separated)</label><input class="form-control" id="ord-items" placeholder="item1,item2"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="shipOrder()">Add Shipment</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Cancel Reason</label><input class="form-control" id="ord-cancel-reason" placeholder="OUT_OF_STOCK"/></div>
+            <button class="btn btn-outline-danger w-100" onclick="apiCall('POST',`/api/facebook/commerce/orders/${v('ord-id')}/cancel`,{reasonCode:v('ord-cancel-reason')},'ord-result')">Cancel Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="ord-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- AD ACCOUNTS -->
+  <div class="page-section" id="section-ad-accounts">
+    <div class="section-title">Ad Accounts</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Manage advertising accounts</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Get Ad Accounts</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">User ID</label><input class="form-control" id="aa-uid" placeholder="me or User ID"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('GET',`/api/facebook/adaccount/${v('aa-uid')}/adaccounts`,'aa-result')">Get Ad Accounts</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Ad Account Details</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Ad Account ID</label><input class="form-control" id="aa-id" placeholder="1234567890"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/adaccount/${v('aa-id')}`,'aa-result')">Get Details</button>
+            <button class="btn btn-outline-secondary w-100" onclick="apiCall('GET',`/api/facebook/adaccount/${v('aa-id')}/campaigns`,'aa-result')">Get Campaigns</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="aa-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- CAMPAIGNS -->
+  <div class="page-section" id="section-campaigns">
+    <div class="section-title">Campaigns</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span><span class="badge badge-ig me-1">Instagram</span> Create and manage ad campaigns</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Create Campaign</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Ad Account ID</label><input class="form-control" id="camp-aa" placeholder="Ad Account ID"/></div>
+            <div class="mb-2"><label class="form-label">Campaign Name</label><input class="form-control" id="camp-name" placeholder="Summer Sale 2025"/></div>
+            <div class="mb-2"><label class="form-label">Objective</label>
+              <select class="form-select" id="camp-obj"><option value="OUTCOME_SALES">Sales</option><option value="OUTCOME_TRAFFIC">Traffic</option><option value="OUTCOME_AWARENESS">Awareness</option><option value="OUTCOME_ENGAGEMENT">Engagement</option><option value="OUTCOME_LEADS">Leads</option></select>
+            </div>
+            <div class="mb-2"><label class="form-label">Status</label><select class="form-select" id="camp-status"><option value="PAUSED">Paused</option><option value="ACTIVE">Active</option></select></div>
+            <div class="mb-3"><label class="form-label">Daily Budget (cents)</label><input class="form-control" type="number" id="camp-budget" placeholder="5000"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/campaign/${v('camp-aa')}/campaigns`,{name:v('camp-name'),objective:v('camp-obj'),status:v('camp-status'),dailyBudget:Number(v('camp-budget'))},'camp-result')">Create Campaign</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Manage Campaigns</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Ad Account ID</label><input class="form-control" id="camp-list-aa" placeholder="Ad Account ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/campaign/${v('camp-list-aa')}/campaigns`,'camp-result')">Get All Campaigns</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Campaign ID</label><input class="form-control" id="camp-id" placeholder="Campaign ID"/></div>
+            <div class="mb-2"><label class="form-label">New Status</label><select class="form-select" id="camp-new-status"><option value="ACTIVE">Active</option><option value="PAUSED">Paused</option></select></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('PUT',`/api/facebook/campaign/${v('camp-id')}`,{status:v('camp-new-status')},'camp-result')">Update Campaign</button>
+            <button class="btn btn-outline-danger w-100" onclick="apiCall('DELETE',`/api/facebook/campaign/${v('camp-id')}`,null,'camp-result')">Delete Campaign</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="camp-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- AD SETS -->
+  <div class="page-section" id="section-adsets">
+    <div class="section-title">Ad Sets</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Define targeting and budget for ad groups</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Create Ad Set</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Campaign ID</label><input class="form-control" id="as-camp-id" placeholder="Campaign ID"/></div>
+            <div class="mb-2"><label class="form-label">Ad Set Name</label><input class="form-control" id="as-name" placeholder="Adults 25-45 — Merchandise Interest"/></div>
+            <div class="mb-2"><label class="form-label">Daily Budget (cents)</label><input class="form-control" type="number" id="as-budget" placeholder="2000"/></div>
+            <div class="mb-2"><label class="form-label">Optimization Goal</label>
+              <select class="form-select" id="as-opt"><option value="OFFSITE_CONVERSIONS">Conversions</option><option value="LINK_CLICKS">Link Clicks</option><option value="REACH">Reach</option><option value="IMPRESSIONS">Impressions</option></select>
+            </div>
+            <div class="mb-3"><label class="form-label">Billing Event</label>
+              <select class="form-select" id="as-bill"><option value="IMPRESSIONS">Impressions</option><option value="LINK_CLICKS">Link Clicks</option></select>
+            </div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/adset/${v('as-camp-id')}/adsets`,{name:v('as-name'),dailyBudget:Number(v('as-budget')),optimizationGoal:v('as-opt'),billingEvent:v('as-bill')},'as-result')">Create Ad Set</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Manage Ad Sets</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Campaign ID</label><input class="form-control" id="as-list-camp" placeholder="Campaign ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/adset/${v('as-list-camp')}/adsets`,'as-result')">Get Ad Sets</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Ad Set ID</label><input class="form-control" id="as-id" placeholder="Ad Set ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/adset/${v('as-id')}`,'as-result')">Get Details</button>
+            <button class="btn btn-outline-danger w-100" onclick="apiCall('DELETE',`/api/facebook/adset/${v('as-id')}`,null,'as-result')">Delete Ad Set</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="as-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- ADS -->
+  <div class="page-section" id="section-ads">
+    <div class="section-title">Ads</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span><span class="badge badge-ig me-1">Instagram</span> Create and manage individual ads</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Create Ad</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Ad Set ID</label><input class="form-control" id="ad-as-id" placeholder="Ad Set ID"/></div>
+            <div class="mb-2"><label class="form-label">Ad Name</label><input class="form-control" id="ad-name" placeholder="Summer Sale — Image Ad"/></div>
+            <div class="mb-2"><label class="form-label">Creative ID</label><input class="form-control" id="ad-creative" placeholder="Ad Creative ID"/></div>
+            <div class="mb-3"><label class="form-label">Status</label><select class="form-select" id="ad-status"><option value="PAUSED">Paused</option><option value="ACTIVE">Active</option></select></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/ad/${v('ad-as-id')}/ads`,{name:v('ad-name'),adsetId:v('ad-as-id'),creativeId:v('ad-creative'),status:v('ad-status')},'ad-result')">Create Ad</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Manage Ads</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Ad Set ID</label><input class="form-control" id="ad-list-as" placeholder="Ad Set ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/ad/${v('ad-list-as')}/ads`,'ad-result')">Get Ads</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Ad ID</label><input class="form-control" id="ad-id" placeholder="Ad ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/ad/${v('ad-id')}`,'ad-result')">Get Ad Details</button>
+            <button class="btn btn-outline-danger w-100" onclick="apiCall('DELETE',`/api/facebook/ad/${v('ad-id')}`,null,'ad-result')">Delete Ad</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="ad-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- PIXEL -->
+  <div class="page-section" id="section-pixel">
+    <div class="section-title">Meta Pixel &amp; Tracking</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Install and manage Meta Pixel for website tracking</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Pixel Management</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Ad Account ID (without act_)</label><input class="form-control" id="px-aa" placeholder="1234567890"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/pixel/${v('px-aa')}/pixels`,'px-result')">Get Pixels</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Pixel Name</label><input class="form-control" id="px-name" placeholder="My Website Pixel"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/pixel/${v('px-aa')}/pixels`,{name:v('px-name')},'px-result')">Create Pixel</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Pixel Stats &amp; Sharing</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Pixel ID</label><input class="form-control" id="px-id" placeholder="Pixel ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/pixel/${v('px-id')}`,'px-result')">Get Pixel Details</button>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/pixel/${v('px-id')}/stats`,'px-result')">Get Pixel Stats</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Share with Ad Account ID</label><input class="form-control" id="px-share-aa" placeholder="Ad Account ID"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/pixel/${v('px-id')}/share`,{adAccountId:v('px-share-aa')},'px-result')">Share Pixel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="px-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- CAPI -->
+  <div class="page-section" id="section-capi">
+    <div class="section-title">Conversions API (CAPI)</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Send server-side conversion events — bypasses browser tracking limits</div>
+    <div class="alert alert-info py-2 px-3 mb-3 small"><i class="bi bi-info-circle me-2"></i>CAPI embeds the access token in the POST body, not as a query param.</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Send Purchase Event</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Pixel ID</label><input class="form-control" id="capi-px" placeholder="Pixel ID"/></div>
+            <div class="mb-2"><label class="form-label">CAPI Access Token</label><input class="form-control" id="capi-token" placeholder="System User or Page Access Token"/></div>
+            <div class="mb-2"><label class="form-label">Order ID</label><input class="form-control" id="capi-order" placeholder="ORDER-12345"/></div>
+            <div class="mb-2"><label class="form-label">Value (USD)</label><input class="form-control" type="number" step="0.01" id="capi-value" placeholder="29.99"/></div>
+            <div class="mb-2"><label class="form-label">Customer Email</label><input class="form-control" id="capi-email" placeholder="customer@example.com"/></div>
+            <div class="mb-3"><label class="form-label">Test Event Code (optional)</label><input class="form-control" id="capi-test-code" placeholder="TEST12345"/></div>
+            <button class="btn btn-fb w-100" onclick="sendCapiPurchase()">Send Purchase Event</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Other Events</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Pixel ID</label><input class="form-control" id="capi2-px" placeholder="Pixel ID"/></div>
+            <div class="mb-2"><label class="form-label">CAPI Access Token</label><input class="form-control" id="capi2-token" placeholder="Access Token"/></div>
+            <div class="mb-2"><label class="form-label">Page URL</label><input class="form-control" id="capi2-url" placeholder="https://yourstore.com/product/shirt"/></div>
+            <div class="mb-3"><label class="form-label">Client IP</label><input class="form-control" id="capi2-ip" placeholder="Client IP address"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('POST','/api/facebook/capi/pageview',{pixelId:v('capi2-px'),accessToken:v('capi2-token'),pageUrl:v('capi2-url'),clientIpAddress:v('capi2-ip')},'capi-result',null,'')">Send PageView</button>
+            <button class="btn btn-outline-secondary w-100" onclick="apiCall('POST','/api/facebook/capi/addtocart',{pixelId:v('capi2-px'),accessToken:v('capi2-token'),pageUrl:v('capi2-url')},'capi-result',null,'')">Send AddToCart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="capi-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- POSTS -->
+  <div class="page-section" id="section-posts">
+    <div class="section-title">Posts</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Create and manage Facebook Page posts</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Create Post</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Page ID</label><input class="form-control" id="post-page-id" placeholder="Page ID"/></div>
+            <div class="mb-2"><label class="form-label">Message</label><textarea class="form-control" id="post-msg" rows="4" placeholder="Share your latest merchandise drop!"></textarea></div>
+            <div class="mb-3"><label class="form-label">Link (optional)</label><input class="form-control" id="post-link" placeholder="https://yourstore.com/products/new"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/post/${v('post-page-id')}/posts`,{message:v('post-msg'),link:v('post-link')||null},'post-result')">Publish Post</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Manage Posts</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Page ID</label><input class="form-control" id="post-list-page" placeholder="Page ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/post/${v('post-list-page')}/posts`,'post-result')">Get All Posts</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Post ID</label><input class="form-control" id="post-id" placeholder="Post ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/post/${v('post-id')}`,'post-result')">Get Post</button>
+            <button class="btn btn-outline-danger w-100" onclick="apiCall('DELETE',`/api/facebook/post/${v('post-id')}`,null,'post-result')">Delete Post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="post-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- PHOTOS -->
+  <div class="page-section" id="section-photos">
+    <div class="section-title">Photos</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Upload and manage photos</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Upload Photo</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Page ID</label><input class="form-control" id="ph-page-id" placeholder="Page ID"/></div>
+            <div class="mb-2"><label class="form-label">Photo URL</label><input class="form-control" id="ph-url" placeholder="https://yourcdn.com/product-photo.jpg"/></div>
+            <div class="mb-3"><label class="form-label">Caption</label><textarea class="form-control" id="ph-caption" rows="3" placeholder="New collection just dropped!"></textarea></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/photo/${v('ph-page-id')}/photos`,{url:v('ph-url'),caption:v('ph-caption')},'ph-result')">Upload Photo</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Manage Photos</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Page ID</label><input class="form-control" id="ph-list-page" placeholder="Page ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/photo/${v('ph-list-page')}/photos`,'ph-result')">Get All Photos</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Photo ID</label><input class="form-control" id="ph-id" placeholder="Photo ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/photo/${v('ph-id')}`,'ph-result')">Get Photo</button>
+            <button class="btn btn-outline-danger w-100" onclick="apiCall('DELETE',`/api/facebook/photo/${v('ph-id')}`,null,'ph-result')">Delete Photo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="ph-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- VIDEOS -->
+  <div class="page-section" id="section-videos">
+    <div class="section-title">Videos</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Upload and manage videos</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Upload Video</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Page ID</label><input class="form-control" id="vid-page-id" placeholder="Page ID"/></div>
+            <div class="mb-2"><label class="form-label">Video File URL</label><input class="form-control" id="vid-url" placeholder="https://yourcdn.com/promo-video.mp4"/></div>
+            <div class="mb-2"><label class="form-label">Title</label><input class="form-control" id="vid-title" placeholder="Summer Collection 2025"/></div>
+            <div class="mb-3"><label class="form-label">Description</label><textarea class="form-control" id="vid-desc" rows="2" placeholder="Shop our new summer merchandise."></textarea></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/video/${v('vid-page-id')}/videos`,{fileUrl:v('vid-url'),title:v('vid-title'),description:v('vid-desc')},'vid-result')">Upload Video</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Manage Videos</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Page ID</label><input class="form-control" id="vid-list-page" placeholder="Page ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/video/${v('vid-list-page')}/videos`,'vid-result')">Get All Videos</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Video ID</label><input class="form-control" id="vid-id" placeholder="Video ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/video/${v('vid-id')}`,'vid-result')">Get Video</button>
+            <button class="btn btn-outline-danger w-100" onclick="apiCall('DELETE',`/api/facebook/video/${v('vid-id')}`,null,'vid-result')">Delete Video</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="vid-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- LIVE -->
+  <div class="page-section" id="section-live">
+    <div class="section-title">Live Streaming</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span><span class="badge badge-ig me-1">Instagram</span> Start live broadcasts and sell products in real time</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Start Live Stream</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Page ID</label><input class="form-control" id="live-page-id" placeholder="Page ID"/></div>
+            <div class="mb-2"><label class="form-label">Title</label><input class="form-control" id="live-title" placeholder="Live Product Launch"/></div>
+            <div class="mb-2"><label class="form-label">Description</label><textarea class="form-control" id="live-desc" rows="2" placeholder="Watch and shop our new collection live!"></textarea></div>
+            <div class="mb-3"><label class="form-label">Privacy</label><select class="form-select" id="live-privacy"><option value="SELF">Only Me (test)</option><option value="EVERYONE">Public</option><option value="FRIENDS">Friends</option></select></div>
+            <button class="btn btn-danger w-100" onclick="apiCall('POST',`/api/facebook/live/${v('live-page-id')}/live_videos`,{title:v('live-title'),description:v('live-desc'),privacy:v('live-privacy')},'live-result')"><i class="bi bi-record-circle me-2"></i>Start Live</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Manage Live</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Page ID</label><input class="form-control" id="live-list-page" placeholder="Page ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/live/${v('live-list-page')}/live_videos`,'live-result')">Get Live Videos</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Live Video ID</label><input class="form-control" id="live-id" placeholder="Live Video ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/live/${v('live-id')}`,'live-result')">Get Live Video</button>
+            <button class="btn btn-warning w-100 mb-2" onclick="apiCall('POST',`/api/facebook/live/${v('live-id')}/end`,{},'live-result')"><i class="bi bi-stop-fill me-2"></i>End Live Stream</button>
+            <button class="btn btn-outline-secondary w-100" onclick="apiCall('GET',`/api/facebook/live/${v('live-id')}/errors`,'live-result')">Get Stream Errors</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="live-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- THREADS -->
+  <div class="page-section" id="section-threads">
+    <div class="section-title">Threads</div>
+    <div class="section-sub"><span class="badge badge-th me-1">Threads</span> Manage Threads posts and grow audience</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Create &amp; Publish Thread</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Threads User ID</label><input class="form-control" id="th-uid" placeholder="Threads User ID"/></div>
+            <div class="mb-2"><label class="form-label">Threads Access Token</label><input class="form-control" id="th-token" type="password" placeholder="Threads Access Token"/></div>
+            <div class="mb-2"><label class="form-label">Text Content</label><textarea class="form-control" id="th-text" rows="3" placeholder="Check out our new merchandise! Link in bio."></textarea></div>
+            <div class="mb-2"><label class="form-label">Media URL (optional)</label><input class="form-control" id="th-media-url" placeholder="https://yourcdn.com/product.jpg"/></div>
+            <div class="mb-3"><label class="form-label">Container ID (from create step)</label><input class="form-control" id="th-container-id" placeholder="Auto-filled after Create Container"/></div>
+            <button class="btn btn-dark w-100 mb-2" onclick="createThread()">1. Create Container</button>
+            <button class="btn btn-dark w-100" onclick="apiCall('POST',`/api/facebook/threads/${v('th-uid')}/threads_publish`,{creationId:v('th-container-id')},null,null,v('th-token'),'th-result')">2. Publish Thread</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Profile &amp; Feed</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Threads User ID</label><input class="form-control" id="th-view-uid" placeholder="Threads User ID"/></div>
+            <div class="mb-3"><label class="form-label">Threads Access Token</label><input class="form-control" id="th-view-token" type="password" placeholder="Threads Access Token"/></div>
+            <button class="btn btn-outline-dark w-100 mb-2" onclick="apiCall('GET',`/api/facebook/threads/${v('th-view-uid')}/profile`,null,null,null,v('th-view-token'),'th-result')">Get Profile</button>
+            <button class="btn btn-outline-dark w-100 mb-2" onclick="apiCall('GET',`/api/facebook/threads/${v('th-view-uid')}/threads`,null,null,null,v('th-view-token'),'th-result')">Get My Threads</button>
+            <button class="btn btn-outline-dark w-100" onclick="apiCall('GET',`/api/facebook/threads/${v('th-view-uid')}/insights`,null,null,null,v('th-view-token'),'th-result')">Get Insights</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="th-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- PAGES -->
+  <div class="page-section" id="section-pages">
+    <div class="section-title">Pages</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Manage your Facebook Business Pages</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Page Management</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">User ID or "me"</label><input class="form-control" id="pg-uid" value="me"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/page/${v('pg-uid')}/accounts`,'pg-result')">Get My Pages</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Page ID</label><input class="form-control" id="pg-id" placeholder="Page ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/page/${v('pg-id')}`,'pg-result')">Get Page Details</button>
+            <button class="btn btn-outline-secondary w-100" onclick="apiCall('GET',`/api/facebook/page/${v('pg-id')}/fans`,'pg-result')">Get Fan Count</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Page Insights</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Page ID</label><input class="form-control" id="pg-ins-id" placeholder="Page ID"/></div>
+            <div class="mb-3"><label class="form-label">Metric</label>
+              <select class="form-select" id="pg-metric">
+                <option value="page_fans">Page Fans</option><option value="page_views_total">Page Views</option><option value="page_post_engagements">Engagements</option><option value="page_impressions">Impressions</option>
+              </select>
+            </div>
+            <button class="btn btn-fb w-100" onclick="apiCall('GET',`/api/facebook/page/${v('pg-ins-id')}/insights?metric=${v('pg-metric')}`,'pg-result')">Get Page Insights</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="pg-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="page-section" id="section-events">
+    <div class="section-title">Events</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Create events for product launches and sales</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Create Event</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Page ID</label><input class="form-control" id="ev-page-id" placeholder="Page ID"/></div>
+            <div class="mb-2"><label class="form-label">Event Name</label><input class="form-control" id="ev-name" placeholder="Summer Sale Launch Party"/></div>
+            <div class="mb-2"><label class="form-label">Start Time</label><input class="form-control" type="datetime-local" id="ev-start"/></div>
+            <div class="mb-2"><label class="form-label">End Time</label><input class="form-control" type="datetime-local" id="ev-end"/></div>
+            <div class="mb-3"><label class="form-label">Description</label><textarea class="form-control" id="ev-desc" rows="2" placeholder="Join us for our summer collection launch!"></textarea></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/event/${v('ev-page-id')}/events`,{name:v('ev-name'),startTime:v('ev-start'),endTime:v('ev-end'),description:v('ev-desc')},'ev-result')">Create Event</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Manage Events</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Page ID</label><input class="form-control" id="ev-list-page" placeholder="Page ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/event/${v('ev-list-page')}/events`,'ev-result')">Get Events</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Event ID</label><input class="form-control" id="ev-id" placeholder="Event ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/event/${v('ev-id')}`,'ev-result')">Get Event Details</button>
+            <button class="btn btn-outline-secondary w-100" onclick="apiCall('GET',`/api/facebook/event/${v('ev-id')}/attending`,'ev-result')">Get Attendees</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="ev-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- COMMENTS -->
+  <div class="page-section" id="section-comments">
+    <div class="section-title">Comments &amp; Reactions</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Engage with customers through post comments</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Post Comments</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Post ID</label><input class="form-control" id="cm-post-id" placeholder="Post ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/comment/${v('cm-post-id')}/comments`,'cm-result')">Get Comments</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Reply Message</label><textarea class="form-control" id="cm-reply" rows="2" placeholder="Thanks for your interest! DM us for details."></textarea></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/comment/${v('cm-post-id')}/comments`,{message:v('cm-reply')},'cm-result')">Post Reply</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Manage Comments</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Comment ID</label><input class="form-control" id="cm-id" placeholder="Comment ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/comment/${v('cm-id')}`,'cm-result')">Get Comment</button>
+            <button class="btn btn-outline-danger w-100 mb-3" onclick="apiCall('DELETE',`/api/facebook/comment/${v('cm-id')}`,null,'cm-result')">Delete Comment</button>
+            <hr/>
+            <div class="mb-3"><label class="form-label">Object ID (Post/Comment)</label><input class="form-control" id="cm-react-id" placeholder="Object ID"/></div>
+            <button class="btn btn-outline-secondary w-100" onclick="apiCall('GET',`/api/facebook/comment/${v('cm-react-id')}/reactions`,'cm-result')">Get Reactions</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="cm-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- MESSENGER -->
+  <div class="page-section" id="section-messenger">
+    <div class="section-title">Messenger</div>
+    <div class="section-sub"><span class="badge badge-ms me-1">Messenger</span> Handle customer support and order follow-ups</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Send Message</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Page ID</label><input class="form-control" id="msg-page-id" placeholder="Page ID"/></div>
+            <div class="mb-2"><label class="form-label">Recipient PSID</label><input class="form-control" id="msg-recipient" placeholder="Page-Scoped User ID"/></div>
+            <div class="mb-3"><label class="form-label">Message</label><textarea class="form-control" id="msg-text" rows="3" placeholder="Hi! Your order has shipped. Tracking: ..."></textarea></div>
+            <button class="btn w-100" style="background:var(--ms);color:#fff;border:none;" onclick="apiCall('POST',`/api/facebook/messenger/${v('msg-page-id')}/messages`,{recipientId:v('msg-recipient'),message:v('msg-text')},'msg-result')">Send Message</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Conversations</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Page ID</label><input class="form-control" id="msg-conv-page" placeholder="Page ID"/></div>
+            <button class="btn w-100 mb-3" style="background:var(--ms);color:#fff;border:none;" onclick="apiCall('GET',`/api/facebook/messenger/${v('msg-conv-page')}/conversations`,'msg-result')">Get Conversations</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Conversation ID</label><input class="form-control" id="msg-conv-id" placeholder="Conversation ID"/></div>
+            <button class="btn w-100" style="background:var(--ms);color:#fff;border:none;" onclick="apiCall('GET',`/api/facebook/messenger/${v('msg-conv-id')}/messages`,'msg-result')">Get Messages</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="msg-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- WHATSAPP -->
+  <div class="page-section" id="section-whatsapp">
+    <div class="section-title">WhatsApp Business</div>
+    <div class="section-sub"><span class="badge badge-wa me-1">WhatsApp</span> Send messages, manage templates, handle customer orders</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Send Message</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Phone Number ID</label><input class="form-control" id="wa-phone-id" placeholder="WhatsApp Phone Number ID"/></div>
+            <div class="mb-2"><label class="form-label">To (with country code)</label><input class="form-control" id="wa-to" placeholder="15551234567"/></div>
+            <div class="mb-2"><label class="form-label">Message Type</label><select class="form-select" id="wa-type"><option value="text">Text</option><option value="template">Template</option></select></div>
+            <div class="mb-3"><label class="form-label">Message Text</label><textarea class="form-control" id="wa-text" rows="3" placeholder="Hello! Your order is confirmed."></textarea></div>
+            <button class="btn btn-wa w-100" onclick="apiCall('POST',`/api/facebook/whatsapp/${v('wa-phone-id')}/messages`,{to:v('wa-to'),type:v('wa-type'),text:{body:v('wa-text')}},'wa-result')">Send Message</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Templates &amp; Account</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">WABA ID</label><input class="form-control" id="wa-waba-id" placeholder="WhatsApp Business Account ID"/></div>
+            <button class="btn btn-wa w-100 mb-2" onclick="apiCall('GET',`/api/facebook/whatsapp/${v('wa-waba-id')}/templates`,'wa-result')">Get Message Templates</button>
+            <button class="btn btn-wa w-100 mb-3" onclick="apiCall('GET',`/api/facebook/whatsapp/${v('wa-waba-id')}/phone_numbers`,'wa-result')">Get Phone Numbers</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Phone Number ID</label><input class="form-control" id="wa-reg-phone" placeholder="Phone Number ID"/></div>
+            <button class="btn btn-outline-success w-100" onclick="apiCall('POST',`/api/facebook/whatsapp/${v('wa-reg-phone')}/register`,{},'wa-result')">Register Phone</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="wa-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- ANALYTICS -->
+  <div class="page-section" id="section-insights">
+    <div class="section-title">Analytics &amp; Insights</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span><span class="badge badge-ig me-1">Instagram</span> View performance metrics</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Ad Account Insights</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Ad Account ID</label><input class="form-control" id="ins-aa" placeholder="Ad Account ID"/></div>
+            <div class="mb-2"><label class="form-label">Date Range</label>
+              <select class="form-select" id="ins-range"><option value="today">Today</option><option value="yesterday">Yesterday</option><option value="last_7d">Last 7 Days</option><option value="last_30d">Last 30 Days</option><option value="last_90d">Last 90 Days</option></select>
+            </div>
+            <div class="mb-3"><label class="form-label">Level</label><select class="form-select" id="ins-level"><option value="account">Account</option><option value="campaign">Campaign</option><option value="adset">Ad Set</option><option value="ad">Ad</option></select></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('GET',`/api/facebook/insight/${v('ins-aa')}/insights?datePreset=${v('ins-range')}&level=${v('ins-level')}`,'ins-result')">Get Insights</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Campaign Insights</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Campaign ID</label><input class="form-control" id="ins-camp-id" placeholder="Campaign ID"/></div>
+            <div class="mb-3"><label class="form-label">Date Range</label>
+              <select class="form-select" id="ins-camp-range"><option value="last_7d">Last 7 Days</option><option value="last_30d">Last 30 Days</option><option value="today">Today</option></select>
+            </div>
+            <button class="btn btn-fb w-100" onclick="apiCall('GET',`/api/facebook/insight/campaign/${v('ins-camp-id')}/insights?datePreset=${v('ins-camp-range')}`,'ins-result')">Get Campaign Insights</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="ins-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- INSTAGRAM -->
+  <div class="page-section" id="section-instagram">
+    <div class="section-title">Instagram</div>
+    <div class="section-sub"><span class="badge badge-ig me-1">Instagram</span> Manage business profile, media, and publish content</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Profile &amp; Media</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Instagram User ID</label><input class="form-control" id="ig-uid" placeholder="IG Business Account User ID"/></div>
+            <button class="btn btn-ig w-100 mb-2" onclick="apiCall('GET',`/api/facebook/instagram/${v('ig-uid')}`,'ig-result')">Get Profile</button>
+            <button class="btn btn-ig w-100 mb-2" onclick="apiCall('GET',`/api/facebook/instagram/${v('ig-uid')}/media`,'ig-result')">Get Media</button>
+            <button class="btn btn-ig w-100 mb-2" onclick="apiCall('GET',`/api/facebook/instagram/${v('ig-uid')}/stories`,'ig-result')">Get Stories</button>
+            <button class="btn btn-outline-secondary w-100" onclick="apiCall('GET',`/api/facebook/instagram/${v('ig-uid')}/insights`,'ig-result')">Get Insights</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Publish to Instagram</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Instagram User ID</label><input class="form-control" id="ig-pub-uid" placeholder="IG User ID"/></div>
+            <div class="mb-2"><label class="form-label">Image URL</label><input class="form-control" id="ig-img-url" placeholder="https://yourcdn.com/product.jpg"/></div>
+            <div class="mb-2"><label class="form-label">Caption</label><textarea class="form-control" id="ig-caption" rows="2" placeholder="New drop! Shop via link in bio. #merchandise"></textarea></div>
+            <div class="mb-3 form-check"><input class="form-check-input" type="checkbox" id="ig-is-reel"/><label class="form-check-label" for="ig-is-reel">Publish as Reel</label></div>
+            <button class="btn btn-ig w-100" onclick="publishIgMedia()">Publish to Instagram</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="ig-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- BUSINESS MANAGER -->
+  <div class="page-section" id="section-business">
+    <div class="section-title">Business Manager</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Manage users, assets, system users, and permissions</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Business Info</div>
+          <div class="card-body">
+            <div class="mb-3"><label class="form-label">Business ID</label><input class="form-control" id="bm-id" placeholder="Business Manager ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/business/${v('bm-id')}`,'bm-result')">Get Business</button>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/business/${v('bm-id')}/owned_pages`,'bm-result')">Get Owned Pages</button>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/business/${v('bm-id')}/owned_ad_accounts`,'bm-result')">Get Ad Accounts</button>
+            <button class="btn btn-fb w-100" onclick="apiCall('GET',`/api/facebook/business/${v('bm-id')}/owned_instagram_accounts`,'bm-result')">Get IG Accounts</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Users &amp; System Users</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Business ID</label><input class="form-control" id="bm-usr-id" placeholder="Business Manager ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/business/${v('bm-usr-id')}/business_users`,'bm-result')">Get Business Users</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Invite Email</label><input class="form-control" id="bm-invite-email" placeholder="user@company.com"/></div>
+            <div class="mb-2"><label class="form-label">Role</label><select class="form-select" id="bm-role"><option value="EMPLOYEE">Employee</option><option value="ADMIN">Admin</option></select></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('POST',`/api/facebook/business/${v('bm-usr-id')}/business_users`,{email:v('bm-invite-email'),role:v('bm-role')},'bm-result')">Invite User</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">System User Name</label><input class="form-control" id="bm-sys-name" placeholder="API Integration User"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/business/${v('bm-usr-id')}/system_users`,{name:v('bm-sys-name'),role:'EMPLOYEE'},'bm-result')">Create System User</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="bm-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- WEBHOOKS -->
+  <div class="page-section" id="section-webhooks">
+    <div class="section-title">Webhooks</div>
+    <div class="section-sub"><span class="badge badge-fb me-1">Facebook</span> Subscribe to real-time event notifications</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">App Webhooks</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">App ID</label><input class="form-control" id="wh-app-id" placeholder="Facebook App ID"/></div>
+            <button class="btn btn-fb w-100 mb-3" onclick="apiCall('GET',`/api/facebook/webhook/${v('wh-app-id')}/subscriptions`,'wh-result')">Get Subscriptions</button>
+            <hr/>
+            <div class="mb-2"><label class="form-label">Object Type</label><select class="form-select" id="wh-obj"><option value="page">Page</option><option value="user">User</option></select></div>
+            <div class="mb-2"><label class="form-label">Callback URL</label><input class="form-control" id="wh-callback" placeholder="https://yourapp.com/webhooks/facebook"/></div>
+            <div class="mb-2"><label class="form-label">Verify Token</label><input class="form-control" id="wh-verify" placeholder="your_secret_verify_token"/></div>
+            <div class="mb-3"><label class="form-label">Fields (comma separated)</label><input class="form-control" id="wh-fields" placeholder="feed,messages,message_reactions"/></div>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/webhook/${v('wh-app-id')}/subscriptions`,{object:v('wh-obj'),callbackUrl:v('wh-callback'),verifyToken:v('wh-verify'),fields:v('wh-fields').split(',')},'wh-result')">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">Page Webhooks</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Page ID</label><input class="form-control" id="wh-pg-id" placeholder="Page ID"/></div>
+            <button class="btn btn-fb w-100 mb-2" onclick="apiCall('GET',`/api/facebook/webhook/${v('wh-pg-id')}/page_subscribed_apps`,'wh-result')">Get Page Subscriptions</button>
+            <button class="btn btn-fb w-100" onclick="apiCall('POST',`/api/facebook/webhook/${v('wh-pg-id')}/subscribed_apps`,{subscribedFields:['feed','messages']},'wh-result')">Subscribe Page</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3"><label class="form-label fw-bold">API Response</label><div class="result-box" id="wh-result">Results will appear here...</div></div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="page-section" id="section-settings">
+    <div class="section-title">Settings</div>
+    <div class="section-sub">Credentials stored in browser localStorage — never sent anywhere except your local API at http://localhost:5150</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3"><i class="bi bi-key-fill me-2 text-warning"></i>Access Tokens</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Facebook Page Access Token</label><input class="form-control" id="cfg-fb-token" type="password" placeholder="EAAxxxxxxx..."/></div>
+            <div class="mb-2"><label class="form-label">Instagram Access Token</label><input class="form-control" id="cfg-ig-token" type="password" placeholder="EAAxxxxxxx..."/></div>
+            <div class="mb-2"><label class="form-label">WhatsApp Cloud API Token</label><input class="form-control" id="cfg-wa-token" type="password" placeholder="EAAxxxxxxx..."/></div>
+            <div class="mb-3"><label class="form-label">Threads Access Token</label><input class="form-control" id="cfg-th-token" type="password" placeholder="THxxxxxxx..."/></div>
+            <button class="btn btn-fb w-100" onclick="saveSettings()"><i class="bi bi-floppy-fill me-2"></i>Save All Settings</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3"><i class="bi bi-building me-2 text-primary"></i>Business IDs</div>
+          <div class="card-body">
+            <div class="mb-2"><label class="form-label">Default Page ID</label><input class="form-control" id="cfg-page-id" placeholder="Your Facebook Page ID"/></div>
+            <div class="mb-2"><label class="form-label">Default Business ID</label><input class="form-control" id="cfg-biz-id" placeholder="Business Manager ID"/></div>
+            <div class="mb-2"><label class="form-label">Default Ad Account ID</label><input class="form-control" id="cfg-aa-id" placeholder="Ad Account ID (without act_)"/></div>
+            <div class="mb-2"><label class="form-label">Default Catalog ID</label><input class="form-control" id="cfg-cat-id" placeholder="Product Catalog ID"/></div>
+            <div class="mb-2"><label class="form-label">Instagram Business Account ID</label><input class="form-control" id="cfg-ig-uid" placeholder="IG Business User ID"/></div>
+            <div class="mb-2"><label class="form-label">WhatsApp Business Account (WABA) ID</label><input class="form-control" id="cfg-waba-id" placeholder="WABA ID"/></div>
+            <div class="mb-3"><label class="form-label">WhatsApp Phone Number ID</label><input class="form-control" id="cfg-wa-phone" placeholder="WA Phone Number ID"/></div>
+            <button class="btn btn-fb w-100" onclick="saveSettings()"><i class="bi bi-floppy-fill me-2"></i>Save All Settings</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card border-danger">
+          <div class="card-header py-3 text-danger"><i class="bi bi-exclamation-triangle-fill me-2"></i>Danger Zone</div>
+          <div class="card-body">
+            <p class="text-muted small mb-2">Clear all saved credentials from localStorage.</p>
+            <button class="btn btn-outline-danger" onclick="clearSettings()"><i class="bi bi-trash-fill me-2"></i>Clear All Settings</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="settings-alert" class="alert mt-3" style="display:none;"></div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index:9999">
+  <div id="toast" class="toast align-items-center text-white border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body" id="toast-msg"></div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const BASE = 'http://localhost:5150';
+const STORAGE_KEY = 'meta_biz_hub_cfg';
+
+function navigate(sectionId) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#sidebar .nav-link').forEach(l => l.classList.remove('active'));
+  const sec = document.getElementById('section-' + sectionId);
+  if (sec) sec.classList.add('active');
+  const link = document.querySelector(`[data-section="${sectionId}"]`);
+  if (link) {
+    link.classList.add('active');
+    document.getElementById('section-breadcrumb').textContent = link.textContent.trim();
+  }
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('#sidebar .nav-link[data-section]').forEach(link => {
+  link.addEventListener('click', e => { e.preventDefault(); navigate(link.dataset.section); });
+});
+
+const CFG_KEYS = ['fb-token','ig-token','wa-token','th-token','page-id','biz-id','aa-id','cat-id','ig-uid','waba-id','wa-phone'];
+
+function loadSettings() {
+  try {
+    const cfg = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    CFG_KEYS.forEach(k => { const el = document.getElementById('cfg-' + k); if (el && cfg[k]) el.value = cfg[k]; });
+    updateTokenStatus(cfg);
+  } catch(e) {}
+}
+
+function saveSettings() {
+  const cfg = {};
+  CFG_KEYS.forEach(k => { const el = document.getElementById('cfg-' + k); if (el) cfg[k] = el.value.trim(); });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
+  updateTokenStatus(cfg);
+  const el = document.getElementById('settings-alert');
+  el.className = 'alert alert-success mt-3';
+  el.textContent = 'Settings saved to localStorage.';
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 3000);
+  document.getElementById('cred-warning').classList.remove('show');
+  showToast('Settings saved!', 'success');
+}
+
+function clearSettings() {
+  if (!confirm('Clear all saved credentials?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  CFG_KEYS.forEach(k => { const el = document.getElementById('cfg-' + k); if (el) el.value = ''; });
+  updateTokenStatus({});
+  document.getElementById('cred-warning').classList.add('show');
+  showToast('Settings cleared.', 'danger');
+}
+
+function updateTokenStatus(cfg) {
+  const ts = document.getElementById('token-status');
+  const th = document.getElementById('topbar-token-hint');
+  if (cfg['fb-token']) {
+    ts.className = 'badge bg-success'; ts.textContent = 'Token Set';
+    th.textContent = 'Credentials configured';
+  } else {
+    ts.className = 'badge bg-danger'; ts.textContent = 'No Token';
+    th.textContent = 'Configure in Settings';
+    document.getElementById('cred-warning').classList.add('show');
+  }
+}
+
+function getCfg(key) {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')[key] || ''; } catch(e) { return ''; }
+}
+
+function v(id) { return (document.getElementById(id) || {}).value || ''; }
+
+function showToast(msg, type) {
+  const el = document.getElementById('toast');
+  el.className = `toast align-items-center text-white border-0 bg-${type||'success'}`;
+  document.getElementById('toast-msg').textContent = msg;
+  new bootstrap.Toast(el, {delay: 3000}).show();
+}
+
+function setResult(id, data) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+}
+
+async function apiCall(method, path, body, resultId, _unused, customToken, altResultId) {
+  const rid = altResultId || resultId;
+  const token = (customToken !== undefined && customToken !== null) ? customToken : getCfg('fb-token');
+  let url = BASE + path;
+  if (token) {
+    const sep = url.includes('?') ? '&' : '?';
+    url += sep + 'accessToken=' + encodeURIComponent(token);
+  }
+  if (rid) setResult(rid, 'Loading...');
+  try {
+    const opts = { method, headers: { 'Content-Type': 'application/json' } };
+    if (body !== null && body !== undefined && method !== 'GET') opts.body = JSON.stringify(body);
+    const res = await fetch(url, opts);
+    const text = await res.text();
+    let parsed; try { parsed = JSON.parse(text); } catch { parsed = text; }
+    if (rid) setResult(rid, parsed);
+    showToast((res.ok ? 'Success' : 'Error') + ' ' + res.status, res.ok ? 'success' : 'danger');
+    return parsed;
+  } catch(e) {
+    const msg = 'Network error: ' + e.message + '\n\nMake sure the server is running at ' + BASE;
+    if (rid) setResult(rid, msg);
+    showToast('Network error', 'danger');
+  }
+}
+
+async function uploadFeed() {
+  const feedId = v('pf-feed-id');
+  const file = document.getElementById('pf-file').files[0];
+  const token = getCfg('fb-token');
+  if (!feedId || !file) { showToast('Feed ID and file required', 'warning'); return; }
+  const fd = new FormData();
+  fd.append('file', file);
+  setResult('pf-result', 'Uploading...');
+  try {
+    const res = await fetch(`${BASE}/api/facebook/product-feed/feeds/${feedId}/upload?accessToken=${encodeURIComponent(token)}`, { method: 'POST', body: fd });
+    const parsed = await res.json();
+    setResult('pf-result', parsed);
+    showToast(res.ok ? 'Upload complete!' : 'Upload failed', res.ok ? 'success' : 'danger');
+  } catch(e) { setResult('pf-result', 'Error: ' + e.message); }
+}
+
+async function shipOrder() {
+  const orderId = v('ord-id');
+  const items = v('ord-items').split(',').map(i => i.trim()).filter(Boolean);
+  await apiCall('POST', `/api/facebook/commerce/orders/${orderId}/shipments`,
+    { trackingNumber: v('ord-track'), carrier: v('ord-carrier'), items: items.map(id => ({id})) }, 'ord-result');
+}
+
+async function sendCapiPurchase() {
+  const body = { pixelId: v('capi-px'), accessToken: v('capi-token'), orderId: v('capi-order'), value: parseFloat(v('capi-value')), currency: 'USD', testEventCode: v('capi-test-code') || null };
+  if (v('capi-email')) body.email = v('capi-email');
+  const token = getCfg('fb-token');
+  let url = `${BASE}/api/facebook/capi/purchase`;
+  if (token) url += '?accessToken=' + encodeURIComponent(token);
+  setResult('capi-result', 'Sending...');
+  try {
+    const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const parsed = await res.json();
+    setResult('capi-result', parsed);
+    showToast(res.ok ? 'Event sent!' : 'Error ' + res.status, res.ok ? 'success' : 'danger');
+  } catch(e) { setResult('capi-result', 'Error: ' + e.message); }
+}
+
+async function createThread() {
+  const uid = v('th-uid');
+  const token = v('th-token');
+  const mediaUrl = v('th-media-url');
+  const body = { text: v('th-text'), mediaType: mediaUrl ? 'IMAGE' : 'TEXT', imageUrl: mediaUrl || null };
+  const result = await apiCall('POST', `/api/facebook/threads/${uid}/threads`, body, null, null, token, 'th-result');
+  if (result && result.data && result.data.id) {
+    document.getElementById('th-container-id').value = result.data.id;
+    showToast('Container created! Now click Publish Thread.', 'info');
+  }
+}
+
+async function publishIgMedia() {
+  const uid = v('ig-pub-uid');
+  const token = getCfg('ig-token') || getCfg('fb-token');
+  const isReel = document.getElementById('ig-is-reel').checked;
+  const body = { imageUrl: v('ig-img-url'), caption: v('ig-caption'), mediaType: isReel ? 'REELS' : 'IMAGE' };
+  const container = await apiCall('POST', `/api/facebook/instagram/${uid}/media`, body, 'ig-result', null, token);
+  if (!container || !container.data) return;
+  await apiCall('POST', `/api/facebook/instagram/${uid}/media_publish`, { creationId: container.data.id }, 'ig-result', null, token);
+}
+
+loadSettings();
+navigate('dashboard');
+</script>
+</body>
+</html>
