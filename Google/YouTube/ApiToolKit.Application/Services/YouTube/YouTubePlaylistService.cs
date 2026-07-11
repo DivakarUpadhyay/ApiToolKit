@@ -96,7 +96,7 @@ public class YouTubePlaylistService : IYouTubePlaylistService
             Description = mapped.Description,
             Status = mapped.Status,
             ItemCount = mapped.ItemCount,
-            PublishedAt = mapped.PublishedAt,
+            PublishedAt = (mapped.PublishedAt is DateTime dt && dt > new DateTime(1753, 1, 1)) ? dt : DateTime.UtcNow,
             ThumbnailUrl = mapped.ThumbnailUrl,
             CreatedAt = DateTime.UtcNow
         });
