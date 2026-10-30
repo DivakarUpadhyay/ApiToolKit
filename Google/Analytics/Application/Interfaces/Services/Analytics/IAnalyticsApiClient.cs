@@ -9,4 +9,5 @@ public interface IAnalyticsApiClient
     Task<AnalyticsTokenResponse> RefreshTokenAsync(string refreshToken);
     Task<T?> GetAsync<T>(string url, string accessToken);
     Task<T?> PostAsync<T>(string url, object body, string accessToken);
+    Task<(int StatusCode, string Body)> SendRawAsync(HttpMethod method, string url, string? jsonBody, string accessToken);
 }

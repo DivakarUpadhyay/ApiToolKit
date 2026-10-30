@@ -13,7 +13,7 @@ public class GoogleAdsCampaignService : IGoogleAdsCampaignService
     private readonly IGoogleAdsAuthRepository _authRepo;
     private readonly IGoogleAdsCampaignRepository _campaignRepo;
     private readonly IGoogleAdsApiClient _apiClient;
-    private const string BaseUrl = "https://googleads.googleapis.com/v18";
+    private const string BaseUrl = GoogleAdsApiVersion.BaseUrl;
 
     public GoogleAdsCampaignService(
         IGoogleAdsAuthRepository authRepo,
@@ -147,7 +147,9 @@ public class GoogleAdsCampaignService : IGoogleAdsCampaignService
                     campaignBudget = budgetResourceName,
                     startDate = string.IsNullOrEmpty(request.StartDate) ? DateTime.UtcNow.ToString("yyyyMMdd") : request.StartDate,
                     endDate = request.EndDate,
-                    targetCpa = request.BiddingStrategyType == "TARGET_CPA" ? new object() : null
+                    targetCpa = request.BiddingStrategyType == "TARGET_CPA" ? new object() : null,
+                    // Required by Google for every new campaign (EU political ads self-declaration).
+                    containsEuPoliticalAdvertising = request.ContainsEuPoliticalAdvertising
                 }
             }
         };

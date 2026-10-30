@@ -2437,3 +2437,42 @@ Authorization: Bearer {systemUserToken}
 | **TOTAL** | **95 modules** | **87** | |
 
 > **51 Playwright + xUnit tests** at `Google\Tests\` — run `dotnet test` after starting APIs.
+
+---
+
+## 6. Google Marketing APIs (added 2026-10-30)
+
+Six new modules plus additions to Google Ads and Google Analytics. Every endpoint was checked against Google's official reference and discovery documents. Each endpoint, its upstream Google URL and its verification status are listed in `API_LIST.csv`.
+
+| Module | Project path | Port | Endpoints | Google API (version) |
+|---|---|---|---|---|
+| Search Console + Indexing | `Google\SearchConsole\` | 5011 | 17 | Search Console API (webmasters v3, searchconsole v1), Indexing API v3 |
+| Business Profile | `Google\BusinessProfile\` | 5012 | 81 | Account Management, Business Information, Verifications, Place Actions, Notifications, Lodging, Performance (v1) + reviews/posts/media (v4) |
+| Tag Manager | `Google\TagManager\` | 5013 | 108 | Tag Manager API v2 (all resources) |
+| Campaign Manager 360 | `Google\CampaignManager\` | 5014 | 221 | Campaign Manager 360 API v5 (dfareporting) |
+| Display & Video 360 | `Google\DisplayVideo\` | 5015 | 180 | Display & Video 360 API v4 |
+| Merchant Center | `Google\Merchant\` | 5016 | 143 | Merchant API v1 (all 13 sub-APIs) + reviews/Product Studio v1alpha |
+| Google Ads (added) | `Google\GoogleAds\` → `api/googleads/rest/...` | 5001 | +177 | Google Ads API **v26** (every REST method: Keyword Planner, Reach/Audience planning, Shopping, Display, Demand Gen/YouTube, Performance Max, conversions upload, batch jobs, experiments, recommendations) |
+| Analytics (added) | `Google\Analytics\` | 5005 | +19 | GA4 Data API v1beta (batch pivot, compatibility, audience exports) + v1alpha (audience lists, report tasks, quotas, chat) |
+
+### Setup (new modules)
+1. Run `Google\<Module>\Database\<Module>.sql` on SQL Server. It creates `ApiToolKit_<Module>` with `<Module>_Tokens`, `<Module>_ApiLogs` and three stored procedures.
+2. In Google Cloud Console, enable the matching API and create an OAuth 2.0 Web client. Add the redirect URI `https://localhost:<port>/api/<module>/auth/callback`.
+3. Put `ClientId` / `ClientSecret` into `ApiToolKit.Web\appsettings.json` under `Google:<Module>`.
+4. `dotnet run --project Google\<Module>\ApiToolKit.Web`, then open `https://localhost:<port>/swagger`.
+5. Call `GET /api/<module>/auth/url?accountKey=<any-name>`, sign in, and Google returns to the callback, which stores the tokens under that `accountKey`.
+6. Pass the same `accountKey` to every endpoint. Tokens refresh automatically.
+
+Google Ads `rest` endpoints use the stored token of `customerId`, which comes from the existing `/api/googleads/auth` flow. Set `Google:Ads:LoginCustomerId` when you work through a manager (MCC) account.
+
+### Fixes in existing modules
+- Google Ads moved from **v18 (sunset, every call failed)** to **v26**. The version is set in one place: `GoogleAdsApiVersion.cs`. New campaigns now send `containsEuPoliticalAdvertising`, which Google requires.
+- Google Ads and Analytics token responses now map Google's snake_case fields (`access_token`, ...). Before this fix, stored tokens were always empty.
+- GA4 funnel reports now call `v1alpha` (`runFunnelReport` does not exist in v1beta).
+
+### Not included (and why)
+- **Google Trends API**: alpha with application-only access and no public reference.
+- **Business Profile Q&A API**: discontinued by Google on 3 Nov 2025. **v4 account/location methods** were replaced by the v1 APIs above.
+- **Search Console Mobile-Friendly Test API**: retired by Google in Dec 2023.
+- **5 file-upload methods** (CM360 `creativeAssets.insert`, `studioCreativeAssets.insert`; DV360 `assets.upload`, `adAssets.upload`, `media.upload`): these need multipart uploads and are not generated yet.
+- Google Ads **Video** campaigns can only be read, not created, through the API (Google restriction). Use Demand Gen for YouTube ads.

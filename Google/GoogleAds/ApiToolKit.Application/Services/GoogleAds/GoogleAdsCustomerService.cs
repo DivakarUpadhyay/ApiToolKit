@@ -10,7 +10,7 @@ public class GoogleAdsCustomerService : IGoogleAdsCustomerService
 {
     private readonly IGoogleAdsAuthRepository _authRepo;
     private readonly IGoogleAdsApiClient _apiClient;
-    private const string BaseUrl = "https://googleads.googleapis.com/v18";
+    private const string BaseUrl = GoogleAdsApiVersion.BaseUrl;
 
     public GoogleAdsCustomerService(IGoogleAdsAuthRepository authRepo, IGoogleAdsApiClient apiClient)
     {

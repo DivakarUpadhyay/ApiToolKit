@@ -38,6 +38,8 @@ public class CreateCampaignRequest
     public string StartDate { get; set; } = string.Empty;
     public string EndDate { get; set; } = string.Empty;
     public string BiddingStrategyType { get; set; } = "TARGET_CPA";
+    /// <summary>CONTAINS_EU_POLITICAL_ADVERTISING or DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING (required by Google for new campaigns)</summary>
+    public string ContainsEuPoliticalAdvertising { get; set; } = "DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING";
 }
 
 public class UpdateCampaignRequest

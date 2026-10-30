@@ -84,7 +84,8 @@ public class AnalyticsReportService : IAnalyticsReportService
 
     public async Task<Result<RunFunnelReportResponse>> RunFunnelReportAsync(RunFunnelReportRequest request, string accessToken)
     {
-        var url = $"{DataApiBase}properties/{request.PropertyId}:runFunnelReport";
+        // runFunnelReport only exists in the v1alpha Data API.
+        var url = $"https://analyticsdata.googleapis.com/v1alpha/properties/{request.PropertyId}:runFunnelReport";
         var response = await _apiClient.PostAsync<RunFunnelReportResponse>(url, request, accessToken);
 
         if (response == null)

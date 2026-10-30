@@ -13,7 +13,7 @@ public class GoogleAdsAdGroupService : IGoogleAdsAdGroupService
     private readonly IGoogleAdsAuthRepository _authRepo;
     private readonly IGoogleAdsAdGroupRepository _adGroupRepo;
     private readonly IGoogleAdsApiClient _apiClient;
-    private const string BaseUrl = "https://googleads.googleapis.com/v18";
+    private const string BaseUrl = GoogleAdsApiVersion.BaseUrl;
 
     public GoogleAdsAdGroupService(
         IGoogleAdsAuthRepository authRepo,

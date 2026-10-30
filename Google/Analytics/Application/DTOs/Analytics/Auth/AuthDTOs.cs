@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace ApiToolKit.Application.DTOs.Analytics.Auth;
 
@@ -17,13 +18,14 @@ public class ExchangeCodeRequest
 
 public class AnalyticsTokenResponse
 {
-    public string AccessToken { get; set; } = string.Empty;
-    public string? RefreshToken { get; set; }
-    public int ExpiresIn { get; set; }
-    public string TokenType { get; set; } = string.Empty;
-    public string? Scope { get; set; }
-    public string? Error { get; set; }
-    public string? ErrorDescription { get; set; }
+    // Google's token endpoint returns snake_case fields.
+    [JsonProperty("access_token")] public string AccessToken { get; set; } = string.Empty;
+    [JsonProperty("refresh_token")] public string? RefreshToken { get; set; }
+    [JsonProperty("expires_in")] public int ExpiresIn { get; set; }
+    [JsonProperty("token_type")] public string TokenType { get; set; } = string.Empty;
+    [JsonProperty("scope")] public string? Scope { get; set; }
+    [JsonProperty("error")] public string? Error { get; set; }
+    [JsonProperty("error_description")] public string? ErrorDescription { get; set; }
 }
 
 public class RefreshTokenRequest

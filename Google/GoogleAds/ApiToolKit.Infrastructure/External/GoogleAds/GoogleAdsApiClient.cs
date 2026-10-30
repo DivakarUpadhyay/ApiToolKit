@@ -1,5 +1,6 @@
 using ApiToolKit.Application.DTOs.GoogleAds.Auth;
 using ApiToolKit.Application.Interfaces.Services.GoogleAds;
+using ApiToolKit.Application.Services.GoogleAds;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Text;
@@ -13,6 +14,7 @@ public class GoogleAdsApiClient : IGoogleAdsApiClient
     private readonly string _clientSecret;
     private readonly string _redirectUri;
     private readonly string _developerToken;
+    private readonly string? _loginCustomerId;
 
     public GoogleAdsApiClient(HttpClient httpClient, IConfiguration configuration)
     {
@@ -20,6 +22,7 @@ public class GoogleAdsApiClient : IGoogleAdsApiClient
         _clientId = configuration["Google:Ads:ClientId"] ?? throw new InvalidOperationException("Google:Ads:ClientId missing");
         _clientSecret = configuration["Google:Ads:ClientSecret"] ?? throw new InvalidOperationException("Google:Ads:ClientSecret missing");
         _developerToken = configuration["Google:Ads:DeveloperToken"] ?? throw new InvalidOperationException("Google:Ads:DeveloperToken missing");
+        _loginCustomerId = configuration["Google:Ads:LoginCustomerId"];
         _redirectUri = configuration["Google:Ads:RedirectUri"] ?? throw new InvalidOperationException("Google:Ads:RedirectUri missing");
     }
 
@@ -106,7 +109,7 @@ public class GoogleAdsApiClient : IGoogleAdsApiClient
 
     public async Task<T?> SearchAsync<T>(string customerId, string query, string accessToken)
     {
-        var url = $"https://googleads.googleapis.com/v18/customers/{customerId}/googleAds:search";
+        var url = $"{GoogleAdsApiVersion.BaseUrl}/customers/{customerId}/googleAds:search";
         var body = new { query, pageSize = 1000 };
 
         var request = new HttpRequestMessage(HttpMethod.Post, url);
@@ -124,7 +127,7 @@ public class GoogleAdsApiClient : IGoogleAdsApiClient
 
     public async Task<T?> MutateAsync<T>(string customerId, string resource, object operations, string accessToken)
     {
-        var url = $"https://googleads.googleapis.com/v18/customers/{customerId}/{resource}:mutate";
+        var url = $"{GoogleAdsApiVersion.BaseUrl}/customers/{customerId}/{resource}:mutate";
 
         var request = new HttpRequestMessage(HttpMethod.Post, url);
         request.Headers.Add("Authorization", $"Bearer {accessToken}");
@@ -137,5 +140,21 @@ public class GoogleAdsApiClient : IGoogleAdsApiClient
         var response = await _httpClient.SendAsync(request);
         var responseString = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<T>(responseString);
+    }
+
+    public async Task<(int StatusCode, string Body)> SendRawAsync(HttpMethod method, string url, string accessToken, string? jsonBody, string? loginCustomerId)
+    {
+        using var request = new HttpRequestMessage(method, url);
+        request.Headers.Add("Authorization", $"Bearer {accessToken}");
+        request.Headers.Add("developer-token", _developerToken);
+        // Manager (MCC) access needs the manager id; falls back to Google:Ads:LoginCustomerId from appsettings.
+        var login = string.IsNullOrEmpty(loginCustomerId) ? _loginCustomerId : loginCustomerId;
+        if (!string.IsNullOrEmpty(login))
+            request.Headers.Add("login-customer-id", login);
+        if (jsonBody != null)
+            request.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.SendAsync(request);
+        return ((int)response.StatusCode, await response.Content.ReadAsStringAsync());
     }
 }

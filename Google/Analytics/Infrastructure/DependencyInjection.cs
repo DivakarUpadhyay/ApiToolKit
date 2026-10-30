@@ -28,6 +28,7 @@ public static class DependencyInjection
         services.AddScoped<IAnalyticsRealtimeService, AnalyticsRealtimeService>();
         services.AddScoped<IAnalyticsMetadataService, AnalyticsMetadataService>();
         services.AddScoped<IAnalyticsPropertyService, AnalyticsPropertyService>();
+        services.AddScoped<IAnalyticsDataApiService, AnalyticsDataApiService>();
 
         return services;
     }

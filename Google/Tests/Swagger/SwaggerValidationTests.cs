@@ -25,6 +25,12 @@ public class SwaggerValidationTests
         ["Search"]     = "https://localhost:5008",
         ["Identity"]   = "https://localhost:5009",
         ["Firebase"]   = "https://localhost:5010",
+        ["SearchConsole"] = "https://localhost:5011",
+        ["BusinessProfile"] = "https://localhost:5012",
+        ["TagManager"] = "https://localhost:5013",
+        ["CampaignManager"] = "https://localhost:5014",
+        ["DisplayVideo"] = "https://localhost:5015",
+        ["Merchant"] = "https://localhost:5016",
     };
 
     [SkippableTheory]
@@ -38,6 +44,12 @@ public class SwaggerValidationTests
     [InlineData("Search",     "https://localhost:5008")]
     [InlineData("Identity",   "https://localhost:5009")]
     [InlineData("Firebase",   "https://localhost:5010")]
+    [InlineData("SearchConsole", "https://localhost:5011")]
+    [InlineData("BusinessProfile", "https://localhost:5012")]
+    [InlineData("TagManager", "https://localhost:5013")]
+    [InlineData("CampaignManager", "https://localhost:5014")]
+    [InlineData("DisplayVideo", "https://localhost:5015")]
+    [InlineData("Merchant", "https://localhost:5016")]
     public async Task SwaggerJson_ShouldBeAvailable(string apiName, string baseUrl)
     {
         var handler = new HttpClientHandler { ServerCertificateCustomValidationCallback = (_, _, _, _) => true };

@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "ApiToolKit - Google Ads API",
         Version = "v1",
-        Description = "Complete Google Ads API v18 integration covering Auth, Campaigns, Ad Groups, Ads, Keywords, Customers, Reports, Budgets, Audiences, Conversions, and Bidding Strategies",
+        Description = "Complete Google Ads API v26 integration covering Auth, Campaigns, Ad Groups, Ads, Keywords, Customers, Reports, Budgets, Audiences, Conversions, and Bidding Strategies",
         Contact = new OpenApiContact { Name = "ApiToolKit", Email = "official@amplegroupglobal.com" }
     });
 

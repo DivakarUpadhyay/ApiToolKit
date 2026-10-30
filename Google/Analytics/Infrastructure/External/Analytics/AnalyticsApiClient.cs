@@ -100,4 +100,15 @@ public class AnalyticsApiClient : IAnalyticsApiClient
         var responseString = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<T>(responseString);
     }
+
+    public async Task<(int StatusCode, string Body)> SendRawAsync(HttpMethod method, string url, string? jsonBody, string accessToken)
+    {
+        using var request = new HttpRequestMessage(method, url);
+        request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+        if (jsonBody != null)
+            request.Content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.SendAsync(request);
+        return ((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+    }
 }

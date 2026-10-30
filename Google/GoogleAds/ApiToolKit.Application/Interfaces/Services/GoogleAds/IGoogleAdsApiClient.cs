@@ -11,4 +11,5 @@ public interface IGoogleAdsApiClient
     Task<T?> PostAsync<T>(string url, object body, string accessToken, string? customerId = null);
     Task<T?> SearchAsync<T>(string customerId, string query, string accessToken);
     Task<T?> MutateAsync<T>(string customerId, string resource, object operations, string accessToken);
+    Task<(int StatusCode, string Body)> SendRawAsync(HttpMethod method, string url, string accessToken, string? jsonBody, string? loginCustomerId);
 }

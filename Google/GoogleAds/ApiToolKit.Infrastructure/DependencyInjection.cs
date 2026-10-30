@@ -36,6 +36,7 @@ public static class DependencyInjection
         services.AddScoped<IGoogleAdsAudienceService, GoogleAdsAudienceService>();
         services.AddScoped<IGoogleAdsConversionService, GoogleAdsConversionService>();
         services.AddScoped<IGoogleAdsBiddingStrategyService, GoogleAdsBiddingStrategyService>();
+        services.AddScoped<IGoogleAdsRestService, GoogleAdsRestService>();
 
         return services;
     }
