@@ -2456,7 +2456,7 @@ Six new modules plus additions to Google Ads and Google Analytics. Every endpoin
 | Analytics (added) | `Google\Analytics\` | 5005 | +19 | GA4 Data API v1beta (batch pivot, compatibility, audience exports) + v1alpha (audience lists, report tasks, quotas, chat) |
 
 ### Setup (new modules)
-1. Run `Google\<Module>\Database\<Module>.sql` on SQL Server. It creates `ApiToolKit_<Module>` with `<Module>_Tokens`, `<Module>_ApiLogs` and three stored procedures.
+1. Point `ConnectionStrings:DefaultConnection` at your SQL Server (on a named instance, put it in `appsettings.Development.json`, which is git-ignored). **The database creates itself:** on startup each module runs its `Database\*.sql` scripts (idempotent), creating the database, tables and stored procedures. Google Ads (`Database\GoogleAds.sql`) and Analytics (`Database\Analytics.sql`) work the same way, so the `.bak` restore is no longer needed. Set `"Database": { "AutoInitialize": false }` to turn it off.
 2. In Google Cloud Console, enable the matching API and create an OAuth 2.0 Web client. Add the redirect URI `https://localhost:<port>/api/<module>/auth/callback`.
 3. Put `ClientId` / `ClientSecret` into `ApiToolKit.Web\appsettings.json` under `Google:<Module>`.
 4. `dotnet run --project Google\<Module>\ApiToolKit.Web`, then open `https://localhost:<port>/swagger`.

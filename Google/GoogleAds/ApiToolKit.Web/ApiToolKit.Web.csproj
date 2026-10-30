@@ -7,6 +7,11 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Database scripts run automatically on startup (see DatabaseInitializer). -->
+    <None Include="..\Database\*.sql" LinkBase="Database" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>

@@ -1,4 +1,5 @@
 using ApiToolKit.Infrastructure;
+using ApiToolKit.Infrastructure.Data;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -35,6 +36,9 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddInfrastructure();
 
 var app = builder.Build();
+
+// Creates/updates the database from Database*.sql (idempotent) before serving requests.
+app.Services.InitializeDatabase("ApiToolKit_Analytics");
 
 if (app.Environment.IsDevelopment())
 {
