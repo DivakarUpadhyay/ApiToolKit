@@ -94,6 +94,12 @@ public static class DependencyInjection
         // New application services (Modules 30–31)
         services.AddScoped<IFacebookLeadGenService, FacebookLeadGenService>();
         services.AddScoped<IFacebookWhatsAppFlowsService, FacebookWhatsAppFlowsService>();
+        services.AddScoped<IFacebookWhatsAppMessagingService, FacebookWhatsAppMessagingService>();
+        services.AddScoped<IFacebookWhatsAppAccountService, FacebookWhatsAppAccountService>();
+        services.AddScoped<IFacebookWhatsAppAnalyticsService, FacebookWhatsAppAnalyticsService>();
+        services.AddScoped<IFacebookWhatsAppGroupsService, FacebookWhatsAppGroupsService>();
+        services.AddScoped<IFacebookWhatsAppCallingService, FacebookWhatsAppCallingService>();
+        services.AddScoped<IFacebookWhatsAppPaymentsService, FacebookWhatsAppPaymentsService>();
 
         return services;
     }

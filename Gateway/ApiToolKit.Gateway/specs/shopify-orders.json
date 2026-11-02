@@ -1,0 +1,1156 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Shopify Orders API",
+    "description": "Shopify Admin REST API integration for Orders, Transactions, Refunds, and Draft Orders.",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/shopify/draft-orders": {
+      "get": {
+        "tags": [
+          "ShopifyDraftOrder"
+        ],
+        "summary": "List all draft orders",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ShopifyDraftOrder"
+        ],
+        "summary": "Create a draft order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateDraftOrderRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateDraftOrderRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateDraftOrderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/draft-orders/{draftOrderId}": {
+      "get": {
+        "tags": [
+          "ShopifyDraftOrder"
+        ],
+        "summary": "Get a draft order by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "draftOrderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ShopifyDraftOrder"
+        ],
+        "summary": "Update a draft order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "draftOrderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.UpdateDraftOrderRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.UpdateDraftOrderRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.UpdateDraftOrderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ShopifyDraftOrder"
+        ],
+        "summary": "Delete a draft order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "draftOrderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/draft-orders/count": {
+      "get": {
+        "tags": [
+          "ShopifyDraftOrder"
+        ],
+        "summary": "Count draft orders",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/draft-orders/{draftOrderId}/complete": {
+      "post": {
+        "tags": [
+          "ShopifyDraftOrder"
+        ],
+        "summary": "Complete a draft order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "draftOrderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders": {
+      "get": {
+        "tags": [
+          "ShopifyOrder"
+        ],
+        "summary": "List all orders",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ShopifyOrder"
+        ],
+        "summary": "Create an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateOrderRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateOrderRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateOrderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/{orderId}": {
+      "get": {
+        "tags": [
+          "ShopifyOrder"
+        ],
+        "summary": "Get an order by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ShopifyOrder"
+        ],
+        "summary": "Update an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.UpdateOrderRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.UpdateOrderRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.UpdateOrderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ShopifyOrder"
+        ],
+        "summary": "Delete an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/count": {
+      "get": {
+        "tags": [
+          "ShopifyOrder"
+        ],
+        "summary": "Count orders",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/{orderId}/cancel": {
+      "post": {
+        "tags": [
+          "ShopifyOrder"
+        ],
+        "summary": "Cancel an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/{orderId}/close": {
+      "post": {
+        "tags": [
+          "ShopifyOrder"
+        ],
+        "summary": "Close an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/{orderId}/open": {
+      "post": {
+        "tags": [
+          "ShopifyOrder"
+        ],
+        "summary": "Reopen an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/{orderId}/refunds": {
+      "get": {
+        "tags": [
+          "ShopifyRefund"
+        ],
+        "summary": "List refunds for an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ShopifyRefund"
+        ],
+        "summary": "Create a refund for an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateRefundRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateRefundRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateRefundRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/{orderId}/refunds/{refundId}": {
+      "get": {
+        "tags": [
+          "ShopifyRefund"
+        ],
+        "summary": "Get a refund by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "refundId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/{orderId}/refunds/calculate": {
+      "post": {
+        "tags": [
+          "ShopifyRefund"
+        ],
+        "summary": "Calculate a refund for an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CalculateRefundRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CalculateRefundRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CalculateRefundRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/{orderId}/transactions": {
+      "get": {
+        "tags": [
+          "ShopifyTransaction"
+        ],
+        "summary": "List transactions for an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ShopifyTransaction"
+        ],
+        "summary": "Create a transaction for an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateTransactionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateTransactionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateTransactionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/{orderId}/transactions/{transactionId}": {
+      "get": {
+        "tags": [
+          "ShopifyTransaction"
+        ],
+        "summary": "Get a transaction by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/orders/{orderId}/transactions/count": {
+      "get": {
+        "tags": [
+          "ShopifyTransaction"
+        ],
+        "summary": "Count transactions for an order",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.Shopify.Orders.CalculateRefundRequest": {
+        "type": "object",
+        "properties": {
+          "shipping": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "refundLineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.RefundLineItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Orders.CreateDraftOrderRequest": {
+        "required": [
+          "lineItems"
+        ],
+        "type": "object",
+        "properties": {
+          "lineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.DraftLineItem"
+            }
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "tags": {
+            "type": "string",
+            "nullable": true
+          },
+          "shippingAddress": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.OrderAddress"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Orders.CreateOrderLineItem": {
+        "required": [
+          "quantity",
+          "variantId"
+        ],
+        "type": "object",
+        "properties": {
+          "variantId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Orders.CreateOrderRequest": {
+        "required": [
+          "lineItems"
+        ],
+        "type": "object",
+        "properties": {
+          "lineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateOrderLineItem"
+            }
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "billingAddress": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.OrderAddress"
+          },
+          "shippingAddress": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.OrderAddress"
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "tags": {
+            "type": "string",
+            "nullable": true
+          },
+          "sendReceipt": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "sendFulfillmentReceipt": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Orders.CreateRefundRequest": {
+        "type": "object",
+        "properties": {
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "notify": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "refundLineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.RefundLineItem"
+            },
+            "nullable": true
+          },
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.CreateTransactionRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Orders.CreateTransactionRequest": {
+        "required": [
+          "kind"
+        ],
+        "type": "object",
+        "properties": {
+          "kind": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "amount": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Orders.DraftLineItem": {
+        "required": [
+          "quantity",
+          "variantId"
+        ],
+        "type": "object",
+        "properties": {
+          "variantId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Orders.OrderAddress": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "address1": {
+            "type": "string",
+            "nullable": true
+          },
+          "address2": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "province": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "zip": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinceCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Orders.RefundLineItem": {
+        "type": "object",
+        "properties": {
+          "lineItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "restockType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Orders.UpdateDraftOrderRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "tags": {
+            "type": "string",
+            "nullable": true
+          },
+          "lineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.DraftLineItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Orders.UpdateOrderRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "tags": {
+            "type": "string",
+            "nullable": true
+          },
+          "shippingAddress": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Orders.OrderAddress"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

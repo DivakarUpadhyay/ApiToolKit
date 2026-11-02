@@ -11,7 +11,7 @@ public class FacebookWhatsAppCatalogController : ControllerBase
     private readonly IFacebookWhatsAppCatalogService _service;
     public FacebookWhatsAppCatalogController(IFacebookWhatsAppCatalogService service) => _service = service;
 
-    /// <summary>Get all product catalogs linked to a WhatsApp Business Account.</summary>
+    /// <summary>Get the product catalogs connected to a WhatsApp Business Account.</summary>
     [HttpGet("{wabaId}/catalogs")]
     public async Task<IActionResult> GetCatalogs(string wabaId, [FromQuery] string accessToken)
     {
@@ -19,11 +19,43 @@ public class FacebookWhatsAppCatalogController : ControllerBase
         return Ok(result);
     }
 
-    /// <summary>Create a new product catalog for a WhatsApp Business Account.</summary>
-    [HttpPost("{wabaId}/catalogs")]
-    public async Task<IActionResult> CreateCatalog(string wabaId, [FromBody] CreateWabaCatalogRequest request, [FromQuery] string accessToken)
+    /// <summary>Connect an existing catalog to a WhatsApp Business Account.</summary>
+    [HttpPost("{wabaId}/catalogs/{catalogId}")]
+    public async Task<IActionResult> ConnectCatalog(string wabaId, string catalogId, [FromQuery] string accessToken)
     {
-        var result = await _service.CreateCatalogAsync(wabaId, request, accessToken);
+        var result = await _service.ConnectCatalogAsync(wabaId, catalogId, accessToken);
+        return Ok(result);
+    }
+
+    /// <summary>Disconnect a catalog from a WhatsApp Business Account.</summary>
+    [HttpDelete("{wabaId}/catalogs/{catalogId}")]
+    public async Task<IActionResult> DisconnectCatalog(string wabaId, string catalogId, [FromQuery] string accessToken)
+    {
+        var result = await _service.DisconnectCatalogAsync(wabaId, catalogId, accessToken);
+        return Ok(result);
+    }
+
+    /// <summary>List the catalogs owned by a Meta Business portfolio.</summary>
+    [HttpGet("businesses/{businessId}/catalogs")]
+    public async Task<IActionResult> GetBusinessCatalogs(string businessId, [FromQuery] string accessToken)
+    {
+        var result = await _service.GetBusinessCatalogsAsync(businessId, accessToken);
+        return Ok(result);
+    }
+
+    /// <summary>Create a catalog owned by a Meta Business portfolio (connect it to the WABA afterwards).</summary>
+    [HttpPost("businesses/{businessId}/catalogs")]
+    public async Task<IActionResult> CreateCatalog(string businessId, [FromBody] CreateWabaCatalogRequest request, [FromQuery] string accessToken)
+    {
+        var result = await _service.CreateCatalogAsync(businessId, request, accessToken);
+        return Ok(result);
+    }
+
+    /// <summary>Update a product in a WhatsApp Business catalog.</summary>
+    [HttpPost("products/{productId}")]
+    public async Task<IActionResult> UpdateCatalogProduct(string productId, [FromBody] UpdateWabaCatalogProductRequest request, [FromQuery] string accessToken)
+    {
+        var result = await _service.UpdateCatalogProductAsync(productId, request, accessToken);
         return Ok(result);
     }
 

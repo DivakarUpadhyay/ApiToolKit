@@ -1,0 +1,541 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Shopify Analytics API",
+    "description": "Shopify Admin REST API for Reports, ShopifyPayments (Payouts, Disputes, Balance Transactions), and Events.",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/shopify/events": {
+      "get": {
+        "tags": [
+          "ShopifyEvent"
+        ],
+        "summary": "List all events",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sinceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "verb",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/events/{eventId}": {
+      "get": {
+        "tags": [
+          "ShopifyEvent"
+        ],
+        "summary": "Get an event by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/events/count": {
+      "get": {
+        "tags": [
+          "ShopifyEvent"
+        ],
+        "summary": "Count events",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "verb",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/payments/payouts": {
+      "get": {
+        "tags": [
+          "ShopifyPayments"
+        ],
+        "summary": "List all payouts",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/payments/payouts/{payoutId}": {
+      "get": {
+        "tags": [
+          "ShopifyPayments"
+        ],
+        "summary": "Get a payout by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "payoutId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/payments/disputes": {
+      "get": {
+        "tags": [
+          "ShopifyPayments"
+        ],
+        "summary": "List all disputes",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "initiatedAt",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/payments/disputes/{disputeId}": {
+      "get": {
+        "tags": [
+          "ShopifyPayments"
+        ],
+        "summary": "Get a dispute by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "disputeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/payments/balance/transactions": {
+      "get": {
+        "tags": [
+          "ShopifyPayments"
+        ],
+        "summary": "List balance transactions",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "payoutId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/reports": {
+      "get": {
+        "tags": [
+          "ShopifyReport"
+        ],
+        "summary": "List all reports",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sinceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ShopifyReport"
+        ],
+        "summary": "Create a report",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Analytics.CreateReportRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Analytics.CreateReportRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Analytics.CreateReportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/reports/{reportId}": {
+      "get": {
+        "tags": [
+          "ShopifyReport"
+        ],
+        "summary": "Get a report by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ShopifyReport"
+        ],
+        "summary": "Update a report",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Analytics.UpdateReportRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Analytics.UpdateReportRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Analytics.UpdateReportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ShopifyReport"
+        ],
+        "summary": "Delete a report",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/reports/count": {
+      "get": {
+        "tags": [
+          "ShopifyReport"
+        ],
+        "summary": "Count reports",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.Shopify.Analytics.CreateReportRequest": {
+        "required": [
+          "name",
+          "shopifyqlQuery"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "shopifyqlQuery": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Analytics.UpdateReportRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shopifyqlQuery": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

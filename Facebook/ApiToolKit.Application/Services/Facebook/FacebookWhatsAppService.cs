@@ -5,6 +5,8 @@ using ApiToolKit.Domain.Entities.Facebook;
 using ApiToolKit.Domain.Interfaces.Repositories.Facebook;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace ApiToolKit.Application.Services.Facebook;
 
@@ -21,20 +23,35 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         _config = config;
     }
 
-    private string ApiVersion => _config["WhatsApp:ApiVersion"] ?? "v21.0";
+    // Meta returns snake_case; DTOs use PascalCase without [JsonProperty], so map with a snake_case contract.
+    private static readonly JsonSerializer SnakeCase = JsonSerializer.Create(new JsonSerializerSettings
+    {
+        ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() }
+    });
+
+    private static T? Map<T>(object? response) =>
+        response == null ? default : JToken.FromObject(response).ToObject<T>(SnakeCase);
     private string WebhookVerifyToken => _config["WhatsApp:WebhookVerifyToken"] ?? string.Empty;
 
     private async Task LogAsync(string apiName, bool success, int statusCode = 200, string? request = null, string? response = null)
     {
-        await _waRepo.SaveApiLogAsync(new FacebookApiLog
+        // Best-effort: an unreachable log database must not fail a WhatsApp call that already succeeded.
+        try
         {
-            ApiName = apiName,
-            RequestBody = request ?? string.Empty,
-            ResponseBody = response ?? string.Empty,
-            IsSuccess = success,
-            StatusCode = statusCode,
-            CreatedAt = DateTime.UtcNow
-        });
+            await _waRepo.SaveApiLogAsync(new FacebookApiLog
+            {
+                ApiName = apiName,
+                RequestBody = request ?? string.Empty,
+                ResponseBody = response ?? string.Empty,
+                IsSuccess = success,
+                StatusCode = statusCode,
+                CreatedAt = DateTime.UtcNow
+            });
+        }
+        catch
+        {
+            // ignored — see comment above
+        }
     }
 
     // ─── Messages ────────────────────────────────────────────────────────────
@@ -54,7 +71,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendTextMessage", true, response: JsonConvert.SerializeObject(response));
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -78,7 +95,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendTemplateMessage", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -102,7 +119,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendImageMessage", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -126,7 +143,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendVideoMessage", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -149,7 +166,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendAudioMessage", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -172,7 +189,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendDocumentMessage", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -195,7 +212,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendStickerMessage", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -220,7 +237,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendLocationMessage", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -247,7 +264,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendContactMessage", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -266,7 +283,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendReactionMessage", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -299,7 +316,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendInteractiveButtons", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -333,7 +350,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendInteractiveList", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -358,7 +375,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendInteractiveProduct", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -390,7 +407,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendInteractiveCatalog", true);
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -419,7 +436,9 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var fileBytes = await httpClient.GetByteArrayAsync(request.FileUrl);
 
         var content = new MultipartFormDataContent();
-        content.Add(new ByteArrayContent(fileBytes), "file", "upload");
+        var file = new ByteArrayContent(fileBytes);
+        file.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(request.MimeType); // Meta rejects files without a MIME type
+        content.Add(file, "file", "upload");
         content.Add(new System.Net.Http.StringContent(request.MimeType), "type");
         content.Add(new System.Net.Http.StringContent("whatsapp"), "messaging_product");
 
@@ -435,7 +454,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.GetAsync<dynamic>($"/{mediaId}", accessToken);
         if (response == null) return Result<WaMediaResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WaMediaResponse>(JsonConvert.SerializeObject(response)) ?? new WaMediaResponse();
+        var result = Map<WaMediaResponse>(response) ?? new WaMediaResponse();
         await LogAsync("GetMedia", true);
         return Result<WaMediaResponse>.Ok(result);
     }
@@ -456,7 +475,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.GetAsync<dynamic>($"/{wabaId}/phone_numbers", accessToken);
         if (response == null) return Result<WaPhoneNumbersResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WaPhoneNumbersResponse>(JsonConvert.SerializeObject(response)) ?? new WaPhoneNumbersResponse();
+        var result = Map<WaPhoneNumbersResponse>(response) ?? new WaPhoneNumbersResponse();
         await LogAsync("GetPhoneNumbers", true);
         return Result<WaPhoneNumbersResponse>.Ok(result);
     }
@@ -467,7 +486,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.GetAsync<dynamic>($"/{phoneNumberId}", accessToken, queryParams);
         if (response == null) return Result<WaPhoneNumberDto>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WaPhoneNumberDto>(JsonConvert.SerializeObject(response)) ?? new WaPhoneNumberDto();
+        var result = Map<WaPhoneNumberDto>(response) ?? new WaPhoneNumberDto();
         await LogAsync("GetPhoneNumber", true);
         return Result<WaPhoneNumberDto>.Ok(result);
     }
@@ -538,7 +557,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.GetAsync<dynamic>($"/{phoneNumberId}/whatsapp_business_profile", accessToken, queryParams);
         if (response == null) return Result<WaBusinessProfileResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WaBusinessProfileResponse>(JsonConvert.SerializeObject(response)) ?? new WaBusinessProfileResponse();
+        var result = Map<WaBusinessProfileResponse>(response) ?? new WaBusinessProfileResponse();
         await LogAsync("GetBusinessProfile", true);
         return Result<WaBusinessProfileResponse>.Ok(result);
     }
@@ -576,7 +595,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.WabaId}/message_templates", request.AccessToken, body);
         if (response == null) return Result<WaTemplateDto>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WaTemplateDto>(JsonConvert.SerializeObject(response)) ?? new WaTemplateDto();
+        var result = Map<WaTemplateDto>(response) ?? new WaTemplateDto();
         await LogAsync("CreateTemplate", true);
         return Result<WaTemplateDto>.Ok(result);
     }
@@ -586,7 +605,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.GetAsync<dynamic>($"/{wabaId}/message_templates", accessToken);
         if (response == null) return Result<WaTemplatesResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WaTemplatesResponse>(JsonConvert.SerializeObject(response)) ?? new WaTemplatesResponse();
+        var result = Map<WaTemplatesResponse>(response) ?? new WaTemplatesResponse();
         await LogAsync("GetTemplates", true);
         return Result<WaTemplatesResponse>.Ok(result);
     }
@@ -596,7 +615,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.GetAsync<dynamic>($"/{templateId}", accessToken);
         if (response == null) return Result<WaTemplateDto>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WaTemplateDto>(JsonConvert.SerializeObject(response)) ?? new WaTemplateDto();
+        var result = Map<WaTemplateDto>(response) ?? new WaTemplateDto();
         await LogAsync("GetTemplate", true);
         return Result<WaTemplateDto>.Ok(result);
     }
@@ -611,9 +630,11 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         return Result<bool>.Ok(true);
     }
 
-    public async Task<Result<bool>> DeleteTemplateAsync(string templateId, string accessToken)
+    public async Task<Result<bool>> DeleteTemplateAsync(string wabaId, string templateId, string templateName, string accessToken)
     {
-        var response = await _apiClient.DeleteAsync<dynamic>($"/{templateId}", accessToken);
+        // Templates are deleted through the WABA edge; hsm_id + name removes only this language version.
+        var query = new Dictionary<string, string> { ["hsm_id"] = templateId, ["name"] = templateName };
+        var response = await _apiClient.DeleteAsync<dynamic>($"/{wabaId}/message_templates", accessToken, query);
         if (response == null) return Result<bool>.Fail("No response from WhatsApp API.");
 
         await LogAsync("DeleteTemplate", true);
@@ -628,7 +649,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/message_qrdls", request.AccessToken, body);
         if (response == null) return Result<WaQrCodeDto>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WaQrCodeDto>(JsonConvert.SerializeObject(response)) ?? new WaQrCodeDto();
+        var result = Map<WaQrCodeDto>(response) ?? new WaQrCodeDto();
         await LogAsync("CreateQrCode", true);
         return Result<WaQrCodeDto>.Ok(result);
     }
@@ -638,25 +659,26 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         var response = await _apiClient.GetAsync<dynamic>($"/{phoneNumberId}/message_qrdls", accessToken);
         if (response == null) return Result<WaQrCodesResponse>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WaQrCodesResponse>(JsonConvert.SerializeObject(response)) ?? new WaQrCodesResponse();
+        var result = Map<WaQrCodesResponse>(response) ?? new WaQrCodesResponse();
         await LogAsync("GetQrCodes", true);
         return Result<WaQrCodesResponse>.Ok(result);
     }
 
     public async Task<Result<WaQrCodeDto>> GetQrCodeAsync(string phoneNumberId, string qrCodeId, string accessToken)
     {
-        var response = await _apiClient.GetAsync<dynamic>($"/{phoneNumberId}/message_qrdls/{qrCodeId}", accessToken);
+        var response = await _apiClient.GetAsync<JObject>($"/{phoneNumberId}/message_qrdls/{qrCodeId}", accessToken);
         if (response == null) return Result<WaQrCodeDto>.Fail("No response from WhatsApp API.");
 
-        var result = JsonConvert.DeserializeObject<WaQrCodeDto>(JsonConvert.SerializeObject(response)) ?? new WaQrCodeDto();
+        // The single-code lookup still returns a "data" array.
+        var result = Map<WaQrCodeDto>(response["data"]?.FirstOrDefault() ?? response) ?? new WaQrCodeDto();
         await LogAsync("GetQrCode", true);
         return Result<WaQrCodeDto>.Ok(result);
     }
 
     public async Task<Result<bool>> UpdateQrCodeAsync(UpdateQrCodeRequest request)
     {
-        var body = new { prefilled_message = request.PrefilledMessage };
-        var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/message_qrdls/{request.QrCodeId}", request.AccessToken, body);
+        var body = new { code = request.QrCodeId, prefilled_message = request.PrefilledMessage };
+        var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/message_qrdls", request.AccessToken, body);
         if (response == null) return Result<bool>.Fail("No response from WhatsApp API.");
 
         await LogAsync("UpdateQrCode", true);
@@ -676,12 +698,14 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
 
     public async Task<Result<bool>> SubscribeWebhookAsync(WaWebhookSubscribeRequest request)
     {
+        // App-level subscription (needs an app access token: APP_ID|APP_SECRET). To receive a WABA's
+        // events you must also call POST /{waba-id}/subscribed_apps (see FacebookWhatsAppAccountController).
         var body = new
         {
-            object_type = "whatsapp_business_account",
+            @object = "whatsapp_business_account",
             callback_url = request.CallbackUrl,
             verify_token = request.VerifyToken,
-            fields = new[] { "messages" }
+            fields = string.Join(",", request.Fields is { Count: > 0 } ? request.Fields : new List<string> { "messages" })
         };
         var response = await _apiClient.PostAsync<dynamic>($"/{request.AppId}/subscriptions", request.AccessToken, body);
         if (response == null) return Result<bool>.Fail("No response from WhatsApp API.");
@@ -721,7 +745,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         };
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendInteractiveLocationRequest", true, response: JsonConvert.SerializeObject(response));
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -749,7 +773,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         };
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendInteractiveCtaUrl", true, response: JsonConvert.SerializeObject(response));
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -785,7 +809,7 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         };
         var response = await _apiClient.PostAsync<dynamic>($"/{request.PhoneNumberId}/messages", request.AccessToken, body);
         if (response == null) return Result<WhatsAppMessageResponse>.Fail("No response from WhatsApp API.");
-        var result = JsonConvert.DeserializeObject<WhatsAppMessageResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppMessageResponse();
+        var result = Map<WhatsAppMessageResponse>(response) ?? new WhatsAppMessageResponse();
         await LogAsync("SendInteractiveFlow", true, response: JsonConvert.SerializeObject(response));
         return Result<WhatsAppMessageResponse>.Ok(result);
     }
@@ -798,20 +822,20 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
         };
         var response = await _apiClient.GetAsync<dynamic>($"/{wabaId}", accessToken, queryParams);
         if (response == null) return Result<WabaInfoResponse>.Fail("No response from WhatsApp API.");
-        var result = JsonConvert.DeserializeObject<WabaInfoResponse>(JsonConvert.SerializeObject(response)) ?? new WabaInfoResponse();
+        var result = Map<WabaInfoResponse>(response) ?? new WabaInfoResponse();
         await LogAsync("GetWabaInfo", true);
         return Result<WabaInfoResponse>.Ok(result);
     }
 
     public async Task<Result<object>> GetAnalyticsAsync(WaAnalyticsRequest request)
     {
-        var queryParams = new Dictionary<string, string>
-        {
-            ["start"] = request.Start.ToString(),
-            ["end"] = request.End.ToString(),
-            ["granularity"] = request.Granularity
-        };
-        var response = await _apiClient.GetAsync<object>($"/{request.WabaId}/analytics", request.AccessToken, queryParams);
+        // analytics is a WABA field with modifiers, not an edge: ?fields=analytics.start(..).end(..).granularity(..)
+        var field = $"analytics.start({request.Start}).end({request.End}).granularity({request.Granularity})"
+                    + WhatsAppFieldModifiers.List("phone_numbers", request.PhoneNumbers)
+                    + WhatsAppFieldModifiers.List("product_types", request.ProductTypes, quote: false)
+                    + WhatsAppFieldModifiers.List("country_codes", request.CountryCodes);
+        var queryParams = new Dictionary<string, string> { ["fields"] = field };
+        var response = await _apiClient.GetAsync<object>($"/{request.WabaId}", request.AccessToken, queryParams);
         if (response == null) return Result<object>.Fail("No response from WhatsApp API.");
         await LogAsync("GetAnalytics", true);
         return Result<object>.Ok(response);
@@ -819,14 +843,13 @@ public class FacebookWhatsAppService : IFacebookWhatsAppService
 
     public async Task<Result<object>> GetConversationAnalyticsAsync(WaConversationAnalyticsRequest request)
     {
-        var queryParams = new Dictionary<string, string>
-        {
-            ["start"] = request.Start.ToString(),
-            ["end"] = request.End.ToString(),
-            ["granularity"] = request.Granularity,
-            ["dimensions"] = $"[\"{string.Join("\",\"", request.Dimensions.Split(','))}\"]"
-        };
-        var response = await _apiClient.GetAsync<object>($"/{request.WabaId}/conversation_analytics", request.AccessToken, queryParams);
+        // Deprecated by Meta: unavailable from 1 Nov 2026. Use pricing analytics (api/facebook/whatsapp/analytics/pricing).
+        var dims = request.Dimensions.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                                     .Select(d => d.ToUpperInvariant()).ToList();
+        var field = $"conversation_analytics.start({request.Start}).end({request.End}).granularity({request.Granularity})"
+                    + WhatsAppFieldModifiers.List("dimensions", dims);
+        var queryParams = new Dictionary<string, string> { ["fields"] = field };
+        var response = await _apiClient.GetAsync<object>($"/{request.WabaId}", request.AccessToken, queryParams);
         if (response == null) return Result<object>.Fail("No response from WhatsApp API.");
         await LogAsync("GetConversationAnalytics", true);
         return Result<object>.Ok(response);

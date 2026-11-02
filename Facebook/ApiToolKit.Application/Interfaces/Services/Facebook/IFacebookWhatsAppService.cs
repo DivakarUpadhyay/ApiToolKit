@@ -45,7 +45,7 @@ public interface IFacebookWhatsAppService
     Task<Result<WaTemplatesResponse>> GetTemplatesAsync(string wabaId, string accessToken);
     Task<Result<WaTemplateDto>> GetTemplateAsync(string templateId, string accessToken);
     Task<Result<bool>> UpdateTemplateAsync(UpdateTemplateRequest request);
-    Task<Result<bool>> DeleteTemplateAsync(string templateId, string accessToken);
+    Task<Result<bool>> DeleteTemplateAsync(string wabaId, string templateId, string templateName, string accessToken);
 
     // QR Codes
     Task<Result<WaQrCodeDto>> CreateQrCodeAsync(CreateQrCodeRequest request);

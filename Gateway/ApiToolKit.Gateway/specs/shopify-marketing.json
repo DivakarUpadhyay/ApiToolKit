@@ -1,0 +1,957 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Shopify Marketing API",
+    "description": "Shopify Admin REST API for Price Rules, Discount Codes, and Webhooks",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/shopify/price-rules/{priceRuleId}/discount-codes": {
+      "get": {
+        "tags": [
+          "ShopifyDiscountCode"
+        ],
+        "summary": "List all discount codes for a price rule",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ShopifyDiscountCode"
+        ],
+        "summary": "Create a discount code for a price rule",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.CreateDiscountCodeRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.CreateDiscountCodeRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.CreateDiscountCodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/price-rules/{priceRuleId}/discount-codes/{discountCodeId}": {
+      "get": {
+        "tags": [
+          "ShopifyDiscountCode"
+        ],
+        "summary": "Get a discount code by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "discountCodeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ShopifyDiscountCode"
+        ],
+        "summary": "Update a discount code",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "discountCodeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.UpdateDiscountCodeRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.UpdateDiscountCodeRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.UpdateDiscountCodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ShopifyDiscountCode"
+        ],
+        "summary": "Delete a discount code",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "discountCodeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/price-rules/{priceRuleId}/discount-codes/count": {
+      "get": {
+        "tags": [
+          "ShopifyDiscountCode"
+        ],
+        "summary": "Count discount codes for a price rule",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/price-rules/{priceRuleId}/discount-codes/batch": {
+      "post": {
+        "tags": [
+          "ShopifyDiscountCode"
+        ],
+        "summary": "Batch create discount codes for a price rule",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.BatchDiscountCodeRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.BatchDiscountCodeRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.BatchDiscountCodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/price-rules/{priceRuleId}/discount-codes/batch/{batchId}": {
+      "get": {
+        "tags": [
+          "ShopifyDiscountCode"
+        ],
+        "summary": "Get batch discount code creation job status",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "batchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/price-rules": {
+      "get": {
+        "tags": [
+          "ShopifyPriceRule"
+        ],
+        "summary": "List all price rules",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ShopifyPriceRule"
+        ],
+        "summary": "Create a price rule",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.CreatePriceRuleRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.CreatePriceRuleRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.CreatePriceRuleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/price-rules/{priceRuleId}": {
+      "get": {
+        "tags": [
+          "ShopifyPriceRule"
+        ],
+        "summary": "Get a price rule by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ShopifyPriceRule"
+        ],
+        "summary": "Update a price rule",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.UpdatePriceRuleRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.UpdatePriceRuleRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.UpdatePriceRuleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ShopifyPriceRule"
+        ],
+        "summary": "Delete a price rule",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceRuleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/price-rules/count": {
+      "get": {
+        "tags": [
+          "ShopifyPriceRule"
+        ],
+        "summary": "Count price rules",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/webhooks": {
+      "get": {
+        "tags": [
+          "ShopifyWebhook"
+        ],
+        "summary": "List all webhooks",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "topic",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ShopifyWebhook"
+        ],
+        "summary": "Create a webhook",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.CreateWebhookRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.CreateWebhookRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.CreateWebhookRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/webhooks/{webhookId}": {
+      "get": {
+        "tags": [
+          "ShopifyWebhook"
+        ],
+        "summary": "Get a webhook by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "webhookId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ShopifyWebhook"
+        ],
+        "summary": "Update a webhook",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "webhookId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.UpdateWebhookRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.UpdateWebhookRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.UpdateWebhookRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ShopifyWebhook"
+        ],
+        "summary": "Delete a webhook",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "webhookId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/webhooks/count": {
+      "get": {
+        "tags": [
+          "ShopifyWebhook"
+        ],
+        "summary": "Count webhooks",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "topic",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.Shopify.Marketing.BatchDiscountCodeItem": {
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Marketing.BatchDiscountCodeRequest": {
+        "required": [
+          "codes"
+        ],
+        "type": "object",
+        "properties": {
+          "codes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Marketing.BatchDiscountCodeItem"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Marketing.CreateDiscountCodeRequest": {
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Marketing.CreatePriceRuleRequest": {
+        "required": [
+          "allocationMethod",
+          "customerSelection",
+          "startsAt",
+          "targetSelection",
+          "targetType",
+          "title",
+          "value",
+          "valueType"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "targetType": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "targetSelection": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "allocationMethod": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "valueType": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "customerSelection": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "startsAt": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "endsAt": {
+            "type": "string",
+            "nullable": true
+          },
+          "usageLimit": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "oncePerCustomer": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "entitledProductIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "entitledCollectionIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Marketing.CreateWebhookRequest": {
+        "required": [
+          "address",
+          "topic"
+        ],
+        "type": "object",
+        "properties": {
+          "topic": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "address": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "format": {
+            "type": "string",
+            "nullable": true
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Marketing.UpdateDiscountCodeRequest": {
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Marketing.UpdatePriceRuleRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "endsAt": {
+            "type": "string",
+            "nullable": true
+          },
+          "usageLimit": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "oncePerCustomer": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Marketing.UpdateWebhookRequest": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -1,0 +1,761 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Shopify Storefront API",
+    "description": "Shopify Storefront GraphQL API integration for Products, Collections, Cart management, and Customer Account operations.",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/shopify/storefront/cart": {
+      "post": {
+        "tags": [
+          "ShopifyCart"
+        ],
+        "summary": "Create a new cart",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CreateCartRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CreateCartRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CreateCartRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/cart/{cartId}": {
+      "get": {
+        "tags": [
+          "ShopifyCart"
+        ],
+        "summary": "Get cart by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/cart/{cartId}/lines": {
+      "post": {
+        "tags": [
+          "ShopifyCart"
+        ],
+        "summary": "Add lines to cart",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.AddCartLinesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.AddCartLinesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.AddCartLinesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ShopifyCart"
+        ],
+        "summary": "Update cart lines",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.UpdateCartLinesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.UpdateCartLinesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.UpdateCartLinesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ShopifyCart"
+        ],
+        "summary": "Remove lines from cart",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.RemoveCartLinesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.RemoveCartLinesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.RemoveCartLinesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/cart/{cartId}/buyer-identity": {
+      "put": {
+        "tags": [
+          "ShopifyCart"
+        ],
+        "summary": "Update cart buyer identity",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cartId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CartBuyerIdentityRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CartBuyerIdentityRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CartBuyerIdentityRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/customer/login": {
+      "post": {
+        "tags": [
+          "ShopifyStorefrontCustomer"
+        ],
+        "summary": "Customer login - get access token",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CustomerLoginRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CustomerLoginRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CustomerLoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/customer/register": {
+      "post": {
+        "tags": [
+          "ShopifyStorefrontCustomer"
+        ],
+        "summary": "Customer register",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.RegisterCustomerRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.RegisterCustomerRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.RegisterCustomerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/customer": {
+      "get": {
+        "tags": [
+          "ShopifyStorefrontCustomer"
+        ],
+        "summary": "Get customer info using access token",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customerAccessToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/customer/logout": {
+      "delete": {
+        "tags": [
+          "ShopifyStorefrontCustomer"
+        ],
+        "summary": "Customer logout - delete access token",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customerAccessToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/products": {
+      "get": {
+        "tags": [
+          "ShopifyStorefrontProduct"
+        ],
+        "summary": "Get products from storefront",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "first",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/products/handle/{handle}": {
+      "get": {
+        "tags": [
+          "ShopifyStorefrontProduct"
+        ],
+        "summary": "Get product by handle",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "handle",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/products/{productId}": {
+      "get": {
+        "tags": [
+          "ShopifyStorefrontProduct"
+        ],
+        "summary": "Get product by ID",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/collections": {
+      "get": {
+        "tags": [
+          "ShopifyStorefrontProduct"
+        ],
+        "summary": "Get collections",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "first",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/storefront/collections/{handle}": {
+      "get": {
+        "tags": [
+          "ShopifyStorefrontProduct"
+        ],
+        "summary": "Get collection by handle",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "handle",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.Shopify.Storefront.AddCartLinesRequest": {
+        "required": [
+          "lines"
+        ],
+        "type": "object",
+        "properties": {
+          "lines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CartLineInput"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Storefront.BuyerIdentityInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerAccessToken": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Storefront.CartBuyerIdentityRequest": {
+        "required": [
+          "buyerIdentity"
+        ],
+        "type": "object",
+        "properties": {
+          "buyerIdentity": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.BuyerIdentityInput"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Storefront.CartLineInput": {
+        "required": [
+          "merchandiseId"
+        ],
+        "type": "object",
+        "properties": {
+          "merchandiseId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Storefront.CartLineUpdateInput": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Storefront.CreateCartRequest": {
+        "type": "object",
+        "properties": {
+          "lines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CartLineInput"
+            },
+            "nullable": true
+          },
+          "buyerIdentity": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.BuyerIdentityInput"
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Storefront.CustomerLoginRequest": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Storefront.RegisterCustomerRequest": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "acceptsMarketing": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Storefront.RemoveCartLinesRequest": {
+        "required": [
+          "lineIds"
+        ],
+        "type": "object",
+        "properties": {
+          "lineIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Shopify.Storefront.UpdateCartLinesRequest": {
+        "required": [
+          "lines"
+        ],
+        "type": "object",
+        "properties": {
+          "lines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Shopify.Storefront.CartLineUpdateInput"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

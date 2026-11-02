@@ -1,0 +1,1591 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Google Cloud AI APIs (Vision, Speech, Natural Language, Translation)",
+    "description": "ASP.NET Core integration for Google Cloud AI APIs. Covers Vision (image annotation, face/label/text/logo/landmark detection, safe search, web detection), Speech-to-Text (synchronous and asynchronous recognition), Natural Language (entity analysis, sentiment analysis, syntax analysis, text classification, content moderation), and Translation v3 (text translation, language detection, romanization, batch translation, glossary management).",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/cloud/auth/url": {
+      "get": {
+        "tags": [
+          "CloudAuth"
+        ],
+        "summary": "Returns the Google OAuth 2.0 authorization URL to redirect the user to.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/auth/callback": {
+      "get": {
+        "tags": [
+          "CloudAuth"
+        ],
+        "summary": "OAuth 2.0 callback endpoint. Exchanges the authorization code for tokens.",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "redirectUri",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/auth/token/refresh": {
+      "post": {
+        "tags": [
+          "CloudAuth"
+        ],
+        "summary": "Refreshes an expired access token using a refresh token.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Auth.RefreshTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Auth.RefreshTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Auth.RefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/language/entities": {
+      "post": {
+        "tags": [
+          "Language"
+        ],
+        "summary": "Identifies named entities (people, places, organizations, etc.) in text.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeEntitiesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeEntitiesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeEntitiesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/language/sentiment": {
+      "post": {
+        "tags": [
+          "Language"
+        ],
+        "summary": "Analyzes the overall sentiment (positive, negative, neutral) of a block of text.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeSentimentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeSentimentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeSentimentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/language/syntax": {
+      "post": {
+        "tags": [
+          "Language"
+        ],
+        "summary": "Analyzes the grammatical structure (tokens, part-of-speech, dependency trees) of text.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeSyntaxRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeSyntaxRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeSyntaxRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/language/classify": {
+      "post": {
+        "tags": [
+          "Language"
+        ],
+        "summary": "Classifies text into predefined content categories from the Google taxonomy.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.ClassifyTextRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.ClassifyTextRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.ClassifyTextRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/language/moderate": {
+      "post": {
+        "tags": [
+          "Language"
+        ],
+        "summary": "Moderates text for harmful content categories (toxicity, violence, etc.).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.ModerateTextRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.ModerateTextRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.ModerateTextRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/language/annotate": {
+      "post": {
+        "tags": [
+          "Language"
+        ],
+        "summary": "Performs multiple Natural Language analysis tasks (entities, sentiment, syntax, classification) in a single call.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnnotateTextRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnnotateTextRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnnotateTextRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/speech/recognize": {
+      "post": {
+        "tags": [
+          "Speech"
+        ],
+        "summary": "Performs synchronous speech recognition on audio up to 1 minute in duration.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.RecognizeRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.RecognizeRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.RecognizeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/speech/long-running": {
+      "post": {
+        "tags": [
+          "Speech"
+        ],
+        "summary": "Starts an asynchronous long-running speech recognition job for audio longer than 1 minute.\r\nReturns an operation name to poll for completion.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.LongRunningRecognizeRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.LongRunningRecognizeRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.LongRunningRecognizeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/speech/operations/{operationName}": {
+      "get": {
+        "tags": [
+          "Speech"
+        ],
+        "summary": "Gets the status of a long-running Speech API operation by operation name.",
+        "parameters": [
+          {
+            "name": "operationName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/translation/translate": {
+      "post": {
+        "tags": [
+          "Translation"
+        ],
+        "summary": "Translates one or more texts into the specified target language.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.TranslateTextRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.TranslateTextRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.TranslateTextRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/translation/detect": {
+      "post": {
+        "tags": [
+          "Translation"
+        ],
+        "summary": "Detects the language of a given text.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.DetectLanguageRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.DetectLanguageRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.DetectLanguageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/translation/languages": {
+      "get": {
+        "tags": [
+          "Translation"
+        ],
+        "summary": "Returns a list of languages supported by the Translation API for a given project.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "displayLanguageCode",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/translation/romanize": {
+      "post": {
+        "tags": [
+          "Translation"
+        ],
+        "summary": "Romanizes text from a non-Latin script to Latin characters.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.RomanizeTextRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.RomanizeTextRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.RomanizeTextRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/translation/batch-translate": {
+      "post": {
+        "tags": [
+          "Translation"
+        ],
+        "summary": "Starts an asynchronous batch translation job for large volumes of text stored in Google Cloud Storage.\r\nReturns a long-running operation name.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.BatchTranslateTextRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.BatchTranslateTextRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.BatchTranslateTextRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/translation/glossaries": {
+      "post": {
+        "tags": [
+          "Translation"
+        ],
+        "summary": "Creates a custom glossary for terminology-aware translation.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.CreateGlossaryRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.CreateGlossaryRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.CreateGlossaryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Translation"
+        ],
+        "summary": "Lists all glossaries for a given project.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accessToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/translation/glossaries/{name}": {
+      "delete": {
+        "tags": [
+          "Translation"
+        ],
+        "summary": "Deletes a glossary by its resource name.",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "us-central1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/vision/annotate": {
+      "post": {
+        "tags": [
+          "Vision"
+        ],
+        "summary": "Annotates a single image with one or more features (labels, faces, text, etc.).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.AnnotateImageRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.AnnotateImageRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.AnnotateImageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/vision/batch-annotate": {
+      "post": {
+        "tags": [
+          "Vision"
+        ],
+        "summary": "Annotates multiple images in a single batch request.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.BatchAnnotateImagesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.BatchAnnotateImagesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.BatchAnnotateImagesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/vision/async-annotate": {
+      "post": {
+        "tags": [
+          "Vision"
+        ],
+        "summary": "Asynchronously annotates a file (PDF, TIFF) stored in Google Cloud Storage.\r\nReturns a long-running operation name that can be polled for completion.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.AsyncAnnotateFileRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.AsyncAnnotateFileRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.AsyncAnnotateFileRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/cloud/vision/operations/{operationName}": {
+      "get": {
+        "tags": [
+          "Vision"
+        ],
+        "summary": "Gets the status of a long-running Vision API operation by operation name.",
+        "parameters": [
+          {
+            "name": "operationName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.Cloud.Auth.RefreshTokenRequest": {
+        "required": [
+          "projectId",
+          "refreshToken"
+        ],
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeEntitiesRequest": {
+        "required": [
+          "document",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "document": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.TextDocument"
+          },
+          "encodingType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeSentimentRequest": {
+        "required": [
+          "document",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "document": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.TextDocument"
+          },
+          "encodingType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnalyzeSyntaxRequest": {
+        "required": [
+          "document",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "document": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.TextDocument"
+          },
+          "encodingType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnnotateTextFeatures": {
+        "type": "object",
+        "properties": {
+          "extractSyntax": {
+            "type": "boolean"
+          },
+          "extractEntities": {
+            "type": "boolean"
+          },
+          "extractDocumentSentiment": {
+            "type": "boolean"
+          },
+          "classifyText": {
+            "type": "boolean"
+          },
+          "moderateText": {
+            "type": "boolean"
+          },
+          "extractEntitySentiment": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnnotateTextRequest": {
+        "required": [
+          "document",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "document": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.TextDocument"
+          },
+          "features": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.AnnotateTextFeatures"
+          },
+          "encodingType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.ClassificationModelOptions": {
+        "type": "object",
+        "properties": {
+          "modelType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.ClassifyTextRequest": {
+        "required": [
+          "document",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "document": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.TextDocument"
+          },
+          "classificationModelOptions": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.ClassificationModelOptions"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.ModerateTextRequest": {
+        "required": [
+          "document",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "document": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.TextDocument"
+          },
+          "modelVersion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.NaturalLanguage.TextDocument": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "gcsContentUri": {
+            "type": "string",
+            "nullable": true
+          },
+          "language": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Speech.LongRunningRecognizeRequest": {
+        "required": [
+          "audio",
+          "config",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "config": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.RecognitionConfig"
+          },
+          "audio": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.RecognitionAudio"
+          },
+          "outputConfig": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Speech.RecognitionAudio": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "uri": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Speech.RecognitionConfig": {
+        "required": [
+          "languageCode"
+        ],
+        "type": "object",
+        "properties": {
+          "encoding": {
+            "type": "string",
+            "nullable": true
+          },
+          "sampleRateHertz": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "audioChannelCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "languageCode": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxAlternatives": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "profanityFilter": {
+            "type": "boolean"
+          },
+          "speechContexts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.SpeechContext"
+            },
+            "nullable": true
+          },
+          "enableWordTimeOffsets": {
+            "type": "boolean"
+          },
+          "enableWordConfidence": {
+            "type": "boolean"
+          },
+          "enableAutomaticPunctuation": {
+            "type": "boolean"
+          },
+          "enableSpeakerDiarization": {
+            "type": "boolean"
+          },
+          "diarizationSpeakerCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          },
+          "useEnhanced": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Speech.RecognizeRequest": {
+        "required": [
+          "audio",
+          "config",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "config": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.RecognitionConfig"
+          },
+          "audio": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Speech.RecognitionAudio"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Speech.SpeechContext": {
+        "type": "object",
+        "properties": {
+          "phrases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "boost": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.BatchInputConfig": {
+        "type": "object",
+        "properties": {
+          "gcsSource": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.BatchInputGcsSource"
+          },
+          "mimeType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.BatchInputGcsSource": {
+        "type": "object",
+        "properties": {
+          "uri": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.BatchOutputConfig": {
+        "type": "object",
+        "properties": {
+          "gcsDestination": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.BatchOutputGcsDestination"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.BatchOutputGcsDestination": {
+        "type": "object",
+        "properties": {
+          "outputUriPrefix": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.BatchTranslateTextRequest": {
+        "required": [
+          "inputConfigs",
+          "projectId",
+          "targetLanguageCodes"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "sourceLanguageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetLanguageCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inputConfigs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.BatchInputConfig"
+            }
+          },
+          "outputConfig": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.BatchOutputConfig"
+          },
+          "glossaries": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.CreateGlossaryRequest": {
+        "required": [
+          "glossaryId",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "glossaryId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "languagePair": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.LanguagePair"
+          },
+          "inputConfig": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.GlossaryInputConfig"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.DetectLanguageRequest": {
+        "required": [
+          "content",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "content": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "mimeType": {
+            "type": "string",
+            "nullable": true
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.GlossaryConfig": {
+        "type": "object",
+        "properties": {
+          "glossary": {
+            "type": "string",
+            "nullable": true
+          },
+          "ignoreCase": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.GlossaryInputConfig": {
+        "type": "object",
+        "properties": {
+          "gcsSource": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.BatchInputGcsSource"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.LanguagePair": {
+        "type": "object",
+        "properties": {
+          "sourceLanguageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetLanguageCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.RomanizeTextRequest": {
+        "required": [
+          "contents",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "contents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sourceLanguageCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Translation.TranslateTextRequest": {
+        "required": [
+          "contents",
+          "projectId",
+          "targetLanguageCode"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "contents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "targetLanguageCode": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "sourceLanguageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "mimeType": {
+            "type": "string",
+            "nullable": true
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          },
+          "glossaryConfig": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Translation.GlossaryConfig"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.AnnotateImageRequest": {
+        "required": [
+          "features",
+          "image",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "image": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.ImageSource"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.Feature"
+            }
+          },
+          "imageContext": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.ImageContext"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.AsyncAnnotateFileRequest": {
+        "required": [
+          "features",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "inputConfig": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.InputConfig"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.Feature"
+            }
+          },
+          "outputConfig": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.OutputConfig"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.BatchAnnotateImagesRequest": {
+        "required": [
+          "projectId",
+          "requests"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "requests": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.AnnotateImageRequest"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.CropHintsParams": {
+        "type": "object",
+        "properties": {
+          "aspectRatios": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.Feature": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxResults": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.GcsDestination": {
+        "type": "object",
+        "properties": {
+          "uri": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.GcsSource": {
+        "type": "object",
+        "properties": {
+          "uri": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.ImageContext": {
+        "type": "object",
+        "properties": {
+          "languageHints": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "latLongRect": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.LatLongRect"
+          },
+          "cropHintsParams": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.CropHintsParams"
+          },
+          "productSearchParams": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.ProductSearchParams"
+          },
+          "textDetectionParams": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.TextDetectionParams"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.ImageSource": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "gcsUri": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUri": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.InputConfig": {
+        "type": "object",
+        "properties": {
+          "gcsSource": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.GcsSource"
+          },
+          "mimeType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.LatLongRect": {
+        "type": "object",
+        "properties": {
+          "minLatLng": {
+            "type": "number",
+            "format": "double"
+          },
+          "maxLatLng": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.OutputConfig": {
+        "type": "object",
+        "properties": {
+          "gcsDestination": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Cloud.Vision.GcsDestination"
+          },
+          "batchSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.ProductSearchParams": {
+        "type": "object",
+        "properties": {
+          "productSet": {
+            "type": "string",
+            "nullable": true
+          },
+          "productCategories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "filter": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Cloud.Vision.TextDetectionParams": {
+        "type": "object",
+        "properties": {
+          "enableTextDetectionConfidenceScore": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

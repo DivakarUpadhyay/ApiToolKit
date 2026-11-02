@@ -45,6 +45,12 @@ var tagMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     { "FacebookWhatsAppCatalog",  "29. WhatsApp Catalog" },
     { "FacebookLeadGen",          "30. Lead Generation" },
     { "FacebookWhatsAppFlows",    "31. WhatsApp Flows" },
+    { "FacebookWhatsAppMessaging", "32. WhatsApp Messaging Extras" },
+    { "FacebookWhatsAppAccount",  "33. WhatsApp Account & Settings" },
+    { "FacebookWhatsAppAnalytics", "34. WhatsApp Analytics" },
+    { "FacebookWhatsAppGroups",   "35. WhatsApp Groups" },
+    { "FacebookWhatsAppCalling",  "36. WhatsApp Calling" },
+    { "FacebookWhatsAppPayments", "37. WhatsApp Payments (India)" },
 };
 
 builder.Services.AddSwaggerGen(c =>
@@ -53,7 +59,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "ApiToolKit — Facebook Graph API",
         Version = "v1",
-        Description = "Complete Meta platform integration: Facebook · Instagram · WhatsApp · Threads — 31 modules · 347 endpoints.",
+        Description = "Complete Meta platform integration: Facebook · Instagram · WhatsApp · Threads — 37 modules · 429 endpoints.",
         Contact = new OpenApiContact { Name = "ApiToolKit", Email = "official@amplegroupglobal.com" }
     });
 

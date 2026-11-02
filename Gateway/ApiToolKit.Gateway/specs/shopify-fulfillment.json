@@ -1,0 +1,751 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Shopify Fulfillment API",
+    "description": "Shopify Admin REST API for Fulfillments, Fulfillment Orders, Fulfillment Services, and Shipping Zones",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/shopify/fulfillments/orders/{orderId}": {
+      "get": {
+        "tags": [
+          "ShopifyFulfillment"
+        ],
+        "summary": "List fulfillments by order ID",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillments/orders/{orderId}/{fulfillmentId}": {
+      "get": {
+        "tags": [
+          "ShopifyFulfillment"
+        ],
+        "summary": "Get a specific fulfillment by order ID and fulfillment ID",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fulfillmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillments/orders/{orderId}/count": {
+      "get": {
+        "tags": [
+          "ShopifyFulfillment"
+        ],
+        "summary": "Count fulfillments for an order",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillments": {
+      "post": {
+        "tags": [
+          "ShopifyFulfillment"
+        ],
+        "summary": "Create a new fulfillment",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFulfillmentRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFulfillmentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFulfillmentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFulfillmentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillments/{fulfillmentId}/cancel": {
+      "post": {
+        "tags": [
+          "ShopifyFulfillment"
+        ],
+        "summary": "Cancel a fulfillment",
+        "parameters": [
+          {
+            "name": "fulfillmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillments/{fulfillmentId}/tracking": {
+      "post": {
+        "tags": [
+          "ShopifyFulfillment"
+        ],
+        "summary": "Update tracking information for a fulfillment",
+        "parameters": [
+          {
+            "name": "fulfillmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTrackingRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTrackingRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTrackingRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTrackingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillment-orders/orders/{orderId}": {
+      "get": {
+        "tags": [
+          "ShopifyFulfillmentOrder"
+        ],
+        "summary": "List fulfillment orders for an order",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillment-orders/{fulfillmentOrderId}": {
+      "get": {
+        "tags": [
+          "ShopifyFulfillmentOrder"
+        ],
+        "summary": "Get a specific fulfillment order",
+        "parameters": [
+          {
+            "name": "fulfillmentOrderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillment-orders/{fulfillmentOrderId}/cancel": {
+      "post": {
+        "tags": [
+          "ShopifyFulfillmentOrder"
+        ],
+        "summary": "Cancel a fulfillment order",
+        "parameters": [
+          {
+            "name": "fulfillmentOrderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillment-orders/{fulfillmentOrderId}/move": {
+      "post": {
+        "tags": [
+          "ShopifyFulfillmentOrder"
+        ],
+        "summary": "Move a fulfillment order to a new location",
+        "parameters": [
+          {
+            "name": "fulfillmentOrderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "newLocationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillment-orders/{fulfillmentOrderId}/release-holds": {
+      "post": {
+        "tags": [
+          "ShopifyFulfillmentOrder"
+        ],
+        "summary": "Release holds on a fulfillment order",
+        "parameters": [
+          {
+            "name": "fulfillmentOrderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillment-services": {
+      "get": {
+        "tags": [
+          "ShopifyFulfillmentService"
+        ],
+        "summary": "List all fulfillment services",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ShopifyFulfillmentService"
+        ],
+        "summary": "Create a new fulfillment service",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFulfillmentServiceRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFulfillmentServiceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFulfillmentServiceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFulfillmentServiceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/fulfillment-services/{fulfillmentServiceId}": {
+      "get": {
+        "tags": [
+          "ShopifyFulfillmentService"
+        ],
+        "summary": "Get a specific fulfillment service",
+        "parameters": [
+          {
+            "name": "fulfillmentServiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ShopifyFulfillmentService"
+        ],
+        "summary": "Update an existing fulfillment service",
+        "parameters": [
+          {
+            "name": "fulfillmentServiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFulfillmentServiceRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFulfillmentServiceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFulfillmentServiceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFulfillmentServiceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ShopifyFulfillmentService"
+        ],
+        "summary": "Delete a fulfillment service",
+        "parameters": [
+          {
+            "name": "fulfillmentServiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shopify/shipping-zones": {
+      "get": {
+        "tags": [
+          "ShopifyShippingZone"
+        ],
+        "summary": "List all shipping zones",
+        "parameters": [
+          {
+            "name": "shopDomain",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateFulfillmentRequest": {
+        "required": [
+          "fulfillmentOrderLineItems"
+        ],
+        "type": "object",
+        "properties": {
+          "fulfillmentOrderLineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FulfillmentOrderDto2"
+            }
+          },
+          "trackingInfo": {
+            "$ref": "#/components/schemas/TrackingInfo"
+          },
+          "notifyCustomer": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateFulfillmentServiceRequest": {
+        "required": [
+          "callbackUrl",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "callbackUrl": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "inventoryManagement": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "trackingSupport": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "requiresShippingMethod": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "format": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FulfillmentOrderDto2": {
+        "required": [
+          "fulfillmentOrderId"
+        ],
+        "type": "object",
+        "properties": {
+          "fulfillmentOrderId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fulfillmentOrderLineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FulfillmentOrderLineItemDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FulfillmentOrderLineItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TrackingInfo": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "company": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateFulfillmentServiceRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "callbackUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "inventoryManagement": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "trackingSupport": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateTrackingRequest": {
+        "required": [
+          "trackingInfo"
+        ],
+        "type": "object",
+        "properties": {
+          "trackingInfo": {
+            "$ref": "#/components/schemas/TrackingInfo"
+          },
+          "notifyCustomer": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

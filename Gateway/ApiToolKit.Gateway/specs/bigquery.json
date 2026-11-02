@@ -1,0 +1,1941 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Google BigQuery API",
+    "description": "ASP.NET Core Clean Architecture integration for Google BigQuery API. Covers OAuth 2.0 authentication, Datasets, Tables, Jobs (Query, Load, Extract, Copy), Streaming Insert, and Routines.",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/bigquery/auth/url": {
+      "get": {
+        "tags": [
+          "BigQueryAuth"
+        ],
+        "summary": "Get the OAuth 2.0 authorization URL for BigQuery.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/auth/callback": {
+      "get": {
+        "tags": [
+          "BigQueryAuth"
+        ],
+        "summary": "Handle OAuth 2.0 callback and exchange code for tokens.",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "redirectUri",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/auth/token/refresh": {
+      "post": {
+        "tags": [
+          "BigQueryAuth"
+        ],
+        "summary": "Refresh an access token using a refresh token.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Auth.RefreshTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Auth.RefreshTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Auth.RefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/datasets": {
+      "get": {
+        "tags": [
+          "BigQueryDataset"
+        ],
+        "summary": "List all datasets in a project.",
+        "parameters": [
+          {
+            "name": "ProjectId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MaxResults",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "All",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Labels",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BigQueryDataset"
+        ],
+        "summary": "Create a new dataset.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Dataset.CreateDatasetRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Dataset.CreateDatasetRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Dataset.CreateDatasetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BigQueryDataset"
+        ],
+        "summary": "Update an existing dataset.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Dataset.UpdateDatasetRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Dataset.UpdateDatasetRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Dataset.UpdateDatasetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/datasets/{projectId}/{datasetId}": {
+      "get": {
+        "tags": [
+          "BigQueryDataset"
+        ],
+        "summary": "Get a specific dataset.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BigQueryDataset"
+        ],
+        "summary": "Delete a dataset.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "deleteContents",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/jobs/query": {
+      "post": {
+        "tags": [
+          "BigQueryJob"
+        ],
+        "summary": "Run a synchronous query against BigQuery.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.QueryRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.QueryRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/jobs/results": {
+      "get": {
+        "tags": [
+          "BigQueryJob"
+        ],
+        "summary": "Get query results for a completed job.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "jobId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/jobs/insert-all": {
+      "post": {
+        "tags": [
+          "BigQueryJob"
+        ],
+        "summary": "Stream rows into a table using the insertAll API.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.InsertAllRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.InsertAllRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.InsertAllRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/jobs/rows": {
+      "get": {
+        "tags": [
+          "BigQueryJob"
+        ],
+        "summary": "List rows from a table.",
+        "parameters": [
+          {
+            "name": "ProjectId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DatasetId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TableId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MaxResults",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SelectedFields",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/jobs/create": {
+      "post": {
+        "tags": [
+          "BigQueryJob"
+        ],
+        "summary": "Create a new asynchronous job (query, load, or extract).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.CreateJobRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.CreateJobRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.CreateJobRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/jobs/{projectId}/{jobId}": {
+      "get": {
+        "tags": [
+          "BigQueryJob"
+        ],
+        "summary": "Get the status and details of a job.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BigQueryJob"
+        ],
+        "summary": "Cancel a running job.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/jobs/list": {
+      "get": {
+        "tags": [
+          "BigQueryJob"
+        ],
+        "summary": "List jobs in a project.",
+        "parameters": [
+          {
+            "name": "ProjectId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MaxResults",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "AllUsers",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Projection",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "StateFilter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MinCreationTime",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "MaxCreationTime",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "ParentJobId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/routines": {
+      "get": {
+        "tags": [
+          "BigQueryRoutine"
+        ],
+        "summary": "List routines in a dataset.",
+        "parameters": [
+          {
+            "name": "ProjectId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DatasetId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MaxResults",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BigQueryRoutine"
+        ],
+        "summary": "Create a new routine (UDF, stored procedure, or table function).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Routine.CreateRoutineRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Routine.CreateRoutineRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Routine.CreateRoutineRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/routines/{projectId}/{datasetId}/{routineId}": {
+      "get": {
+        "tags": [
+          "BigQueryRoutine"
+        ],
+        "summary": "Get a specific routine.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "routineId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BigQueryRoutine"
+        ],
+        "summary": "Delete a routine.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "routineId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/tables": {
+      "get": {
+        "tags": [
+          "BigQueryTable"
+        ],
+        "summary": "List all tables in a dataset.",
+        "parameters": [
+          {
+            "name": "ProjectId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DatasetId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MaxResults",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BigQueryTable"
+        ],
+        "summary": "Create a new table.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.CreateTableRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.CreateTableRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.CreateTableRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BigQueryTable"
+        ],
+        "summary": "Update an existing table.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.UpdateTableRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.UpdateTableRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.UpdateTableRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BigQueryTable"
+        ],
+        "summary": "Delete a table.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.DeleteTableRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.DeleteTableRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.DeleteTableRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/tables/{projectId}/{datasetId}/{tableId}": {
+      "get": {
+        "tags": [
+          "BigQueryTable"
+        ],
+        "summary": "Get a specific table.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tableId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/bigquery/tables/copy": {
+      "post": {
+        "tags": [
+          "BigQueryTable"
+        ],
+        "summary": "Copy a table to another dataset or project.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.CopyTableRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.CopyTableRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.CopyTableRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.BigQuery.Auth.RefreshTokenRequest": {
+        "required": [
+          "projectId",
+          "refreshToken"
+        ],
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Dataset.CreateDatasetRequest": {
+        "required": [
+          "datasetId",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "datasetId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "defaultTableExpirationMs": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Dataset.DatasetAccess": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
+          "userByEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupByEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "domain": {
+            "type": "string",
+            "nullable": true
+          },
+          "specialGroup": {
+            "type": "string",
+            "nullable": true
+          },
+          "iamMember": {
+            "type": "string",
+            "nullable": true
+          },
+          "routine": {
+            "nullable": true
+          },
+          "dataset": {
+            "nullable": true
+          },
+          "view": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Dataset.UpdateDatasetRequest": {
+        "required": [
+          "datasetId",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "datasetId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "defaultTableExpirationMs": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "access": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Dataset.DatasetAccess"
+            },
+            "nullable": true
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.CreateJobRequest": {
+        "required": [
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "jobId": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "queryConfig": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.JobConfigurationQuery"
+          },
+          "loadConfig": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.JobConfigurationLoad"
+          },
+          "extractConfig": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.JobConfigurationExtract"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.DefaultDataset": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "datasetId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.InsertAllRequest": {
+        "required": [
+          "datasetId",
+          "projectId",
+          "rows",
+          "tableId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "datasetId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tableId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.InsertAllRow"
+            }
+          },
+          "skipInvalidRows": {
+            "type": "boolean"
+          },
+          "ignoreUnknownValues": {
+            "type": "boolean"
+          },
+          "templateSuffix": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.InsertAllRow": {
+        "type": "object",
+        "properties": {
+          "insertId": {
+            "type": "string",
+            "nullable": true
+          },
+          "json": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.JobConfigurationExtract": {
+        "required": [
+          "destinationUris",
+          "sourceTable"
+        ],
+        "type": "object",
+        "properties": {
+          "sourceTable": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.TableReference"
+          },
+          "destinationUris": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "destinationFormat": {
+            "type": "string",
+            "nullable": true
+          },
+          "fieldDelimiter": {
+            "type": "string",
+            "nullable": true
+          },
+          "printHeader": {
+            "type": "boolean"
+          },
+          "compression": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.JobConfigurationLoad": {
+        "required": [
+          "destinationTable",
+          "sourceUris"
+        ],
+        "type": "object",
+        "properties": {
+          "sourceUris": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "destinationTable": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.TableReference"
+          },
+          "schema": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.TableSchema"
+          },
+          "sourceFormat": {
+            "type": "string",
+            "nullable": true
+          },
+          "skipLeadingRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fieldDelimiter": {
+            "type": "string",
+            "nullable": true
+          },
+          "writeDisposition": {
+            "type": "string",
+            "nullable": true
+          },
+          "createDisposition": {
+            "type": "string",
+            "nullable": true
+          },
+          "allowJaggedRows": {
+            "type": "boolean"
+          },
+          "allowQuotedNewlines": {
+            "type": "boolean"
+          },
+          "ignoreUnknownValues": {
+            "type": "boolean"
+          },
+          "maxBadRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "encoding": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.JobConfigurationQuery": {
+        "required": [
+          "query"
+        ],
+        "type": "object",
+        "properties": {
+          "query": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "defaultDataset": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.DefaultDataset"
+          },
+          "createDisposition": {
+            "type": "string",
+            "nullable": true
+          },
+          "writeDisposition": {
+            "type": "string",
+            "nullable": true
+          },
+          "destinationTable": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.TableReference"
+          },
+          "useLegacySql": {
+            "type": "boolean"
+          },
+          "queryParameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.QueryParameter"
+            },
+            "nullable": true
+          },
+          "allowLargeResults": {
+            "type": "boolean"
+          },
+          "flattenResults": {
+            "type": "boolean"
+          },
+          "priority": {
+            "type": "string",
+            "nullable": true
+          },
+          "parameterMode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.QueryParameter": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "parameterType": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.QueryParameterType"
+          },
+          "parameterValue": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.QueryParameterValue"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.QueryParameterType": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "arrayType": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.QueryParameterType"
+          },
+          "structTypes": {
+            "type": "array",
+            "items": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.QueryParameterValue": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "arrayValues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.QueryParameterValue"
+            },
+            "nullable": true
+          },
+          "structValues": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.QueryParameterValue"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Job.QueryRequest": {
+        "required": [
+          "projectId",
+          "query"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "query": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxResults": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "defaultDataset": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.DefaultDataset"
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "useLegacySql": {
+            "type": "boolean"
+          },
+          "queryParameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Job.QueryParameter"
+            },
+            "nullable": true
+          },
+          "timeoutMs": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createSession": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Routine.ArgumentDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "argumentKind": {
+            "type": "string",
+            "nullable": true
+          },
+          "mode": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataType": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Routine.DataTypeDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Routine.CreateRoutineRequest": {
+        "required": [
+          "datasetId",
+          "definitionBody",
+          "projectId",
+          "routineId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "datasetId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "routineId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "routineType": {
+            "type": "string",
+            "nullable": true
+          },
+          "language": {
+            "type": "string",
+            "nullable": true
+          },
+          "arguments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Routine.ArgumentDto"
+            },
+            "nullable": true
+          },
+          "returnType": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Routine.DataTypeDto"
+          },
+          "definitionBody": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Routine.DataTypeDto": {
+        "type": "object",
+        "properties": {
+          "typeKind": {
+            "type": "string",
+            "nullable": true
+          },
+          "arrayElementType": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Routine.DataTypeDto"
+          },
+          "structType": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.Clustering": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.CopyTableRequest": {
+        "required": [
+          "destDatasetId",
+          "destTableId",
+          "projectId",
+          "sourceDatasetId",
+          "sourceTableId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "sourceDatasetId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "sourceTableId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "destDatasetId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "destTableId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "writeDisposition": {
+            "type": "string",
+            "nullable": true
+          },
+          "createDisposition": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.CreateTableRequest": {
+        "required": [
+          "datasetId",
+          "projectId",
+          "schema",
+          "tableId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "datasetId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tableId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "schema": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.TableSchema"
+          },
+          "timePartitioning": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.TimePartitioning"
+          },
+          "rangePartitioning": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.RangePartitioning"
+          },
+          "clustering": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.Clustering"
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "expirationTime": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "requirePartitionFilter": {
+            "type": "boolean"
+          },
+          "encryptionConfiguration": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.EncryptionConfiguration"
+          },
+          "view": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.TableViewDefinition"
+          },
+          "materializedView": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.MaterializedViewDefinition"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.DeleteTableRequest": {
+        "required": [
+          "datasetId",
+          "projectId",
+          "tableId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "datasetId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tableId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.EncryptionConfiguration": {
+        "type": "object",
+        "properties": {
+          "kmsKeyName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.MaterializedViewDefinition": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "nullable": true
+          },
+          "enableRefresh": {
+            "type": "boolean"
+          },
+          "refreshIntervalMs": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.RangePartitioning": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string",
+            "nullable": true
+          },
+          "range": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.RangePartitioningRange"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.RangePartitioningRange": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "end": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "interval": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.TableFieldSchema": {
+        "required": [
+          "name",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.TableFieldSchema"
+            },
+            "nullable": true
+          },
+          "policyTags": {
+            "nullable": true
+          },
+          "maxLength": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "precision": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "scale": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "defaultValueExpression": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.TableReference": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "string",
+            "nullable": true
+          },
+          "datasetId": {
+            "type": "string",
+            "nullable": true
+          },
+          "tableId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.TableSchema": {
+        "required": [
+          "fields"
+        ],
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.TableFieldSchema"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.TableViewDefinition": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "nullable": true
+          },
+          "useLegacySql": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.TimePartitioning": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "field": {
+            "type": "string",
+            "nullable": true
+          },
+          "expirationMs": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "requirePartitionFilter": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BigQuery.Table.UpdateTableRequest": {
+        "required": [
+          "datasetId",
+          "projectId",
+          "tableId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "datasetId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tableId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "friendlyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "schema": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BigQuery.Table.TableSchema"
+          },
+          "labels": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "expirationTime": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "requirePartitionFilter": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

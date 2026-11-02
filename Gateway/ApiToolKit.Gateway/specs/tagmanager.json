@@ -1,0 +1,6474 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Google Tag Manager API",
+    "description": "ASP.NET Core Clean Architecture integration for Tag Manager API v2: accounts, containers, workspaces, tags, triggers, variables, versions and publishing. Connect a Google account with GET /api/tagmanager/auth/url?accountKey=..., then pass the same accountKey to every endpoint.",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/tagmanager/accounts": {
+      "get": {
+        "tags": [
+          "TagManagerAccount"
+        ],
+        "summary": "List Tag Manager accounts.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerAccount"
+        ],
+        "summary": "Update a Tag Manager account.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Account.UpdateAccountRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Account.UpdateAccountRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Account.UpdateAccountRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Account.UpdateAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/accounts/{accountId}": {
+      "get": {
+        "tags": [
+          "TagManagerAccount"
+        ],
+        "summary": "Get one Tag Manager account.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/auth/url": {
+      "get": {
+        "tags": [
+          "TagManagerAuth"
+        ],
+        "summary": "Get the Google OAuth 2.0 consent URL. accountKey is any name you choose for this Google account; reuse it on every other endpoint.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/auth/callback": {
+      "get": {
+        "tags": [
+          "TagManagerAuth"
+        ],
+        "summary": "OAuth 2.0 callback. Google sends the code and the accountKey (as state); tokens are stored for that account key.",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/auth/token/refresh": {
+      "post": {
+        "tags": [
+          "TagManagerAuth"
+        ],
+        "summary": "Refresh the stored access token for an account key.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Auth.RefreshTokenRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Auth.RefreshTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Auth.RefreshTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Auth.RefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/built-in-variables": {
+      "get": {
+        "tags": [
+          "TagManagerBuiltInVariable"
+        ],
+        "summary": "List enabled built-in variables.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerBuiltInVariable"
+        ],
+        "summary": "Enable built-in variables.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.BuiltInVariable.EnableBuiltInVariablesRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.BuiltInVariable.EnableBuiltInVariablesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.BuiltInVariable.EnableBuiltInVariablesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.BuiltInVariable.EnableBuiltInVariablesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerBuiltInVariable"
+        ],
+        "summary": "Disable built-in variables.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "types",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/built-in-variables/revert": {
+      "post": {
+        "tags": [
+          "TagManagerBuiltInVariable"
+        ],
+        "summary": "Revert workspace changes to a built-in variable.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.BuiltInVariable.RevertBuiltInVariableRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.BuiltInVariable.RevertBuiltInVariableRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.BuiltInVariable.RevertBuiltInVariableRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.BuiltInVariable.RevertBuiltInVariableRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/clients": {
+      "get": {
+        "tags": [
+          "TagManagerClient"
+        ],
+        "summary": "List clients in a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerClient"
+        ],
+        "summary": "Create a client.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.CreateClientRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.CreateClientRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.CreateClientRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.CreateClientRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerClient"
+        ],
+        "summary": "Update a client.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.UpdateClientRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.UpdateClientRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.UpdateClientRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.UpdateClientRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/clients/{clientId}": {
+      "get": {
+        "tags": [
+          "TagManagerClient"
+        ],
+        "summary": "Get one client.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerClient"
+        ],
+        "summary": "Delete a client.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/clients/revert": {
+      "post": {
+        "tags": [
+          "TagManagerClient"
+        ],
+        "summary": "Revert workspace changes to a client.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.RevertClientRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.RevertClientRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.RevertClientRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Client.RevertClientRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/containers": {
+      "get": {
+        "tags": [
+          "TagManagerContainer"
+        ],
+        "summary": "List containers in an account.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerContainer"
+        ],
+        "summary": "Create a container.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.CreateContainerRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.CreateContainerRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.CreateContainerRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.CreateContainerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerContainer"
+        ],
+        "summary": "Update a container.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.UpdateContainerRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.UpdateContainerRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.UpdateContainerRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.UpdateContainerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/containers/{containerId}": {
+      "get": {
+        "tags": [
+          "TagManagerContainer"
+        ],
+        "summary": "Get one container.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerContainer"
+        ],
+        "summary": "Delete a container.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/containers/{containerId}/snippet": {
+      "get": {
+        "tags": [
+          "TagManagerContainer"
+        ],
+        "summary": "Get the GTM install snippet for a container.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/containers/lookup": {
+      "get": {
+        "tags": [
+          "TagManagerContainer"
+        ],
+        "summary": "Find a container by a destination id (e.g. G-XXXX, AW-XXXX) or tag id.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "destinationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/containers/combine": {
+      "post": {
+        "tags": [
+          "TagManagerContainer"
+        ],
+        "summary": "Combine another container into this one.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.CombineContainersRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.CombineContainersRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.CombineContainersRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.CombineContainersRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/containers/move-tag-id": {
+      "post": {
+        "tags": [
+          "TagManagerContainer"
+        ],
+        "summary": "Move a Google tag id out of a container into a new destination container.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.MoveTagIdRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.MoveTagIdRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.MoveTagIdRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Container.MoveTagIdRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/destinations": {
+      "get": {
+        "tags": [
+          "TagManagerDestination"
+        ],
+        "summary": "List destinations linked to a container.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/destinations/{destinationLinkId}": {
+      "get": {
+        "tags": [
+          "TagManagerDestination"
+        ],
+        "summary": "Get one linked destination.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "destinationLinkId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/destinations/link": {
+      "post": {
+        "tags": [
+          "TagManagerDestination"
+        ],
+        "summary": "Link a destination (e.g. G-XXXX) to a container.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Destination.LinkDestinationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Destination.LinkDestinationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Destination.LinkDestinationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Destination.LinkDestinationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/environments": {
+      "get": {
+        "tags": [
+          "TagManagerEnvironment"
+        ],
+        "summary": "List environments of a container.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerEnvironment"
+        ],
+        "summary": "Create a user environment.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.CreateEnvironmentRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.CreateEnvironmentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.CreateEnvironmentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.CreateEnvironmentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerEnvironment"
+        ],
+        "summary": "Update an environment.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.UpdateEnvironmentRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.UpdateEnvironmentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.UpdateEnvironmentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.UpdateEnvironmentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/environments/{environmentId}": {
+      "get": {
+        "tags": [
+          "TagManagerEnvironment"
+        ],
+        "summary": "Get one environment.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "environmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerEnvironment"
+        ],
+        "summary": "Delete an environment.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "environmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/environments/reauthorize": {
+      "post": {
+        "tags": [
+          "TagManagerEnvironment"
+        ],
+        "summary": "Regenerate the authorization code of an environment.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.ReauthorizeEnvironmentRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.ReauthorizeEnvironmentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.ReauthorizeEnvironmentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Environment.ReauthorizeEnvironmentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/folders": {
+      "get": {
+        "tags": [
+          "TagManagerFolder"
+        ],
+        "summary": "List folders in a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerFolder"
+        ],
+        "summary": "Create a folder.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.CreateFolderRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.CreateFolderRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.CreateFolderRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.CreateFolderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerFolder"
+        ],
+        "summary": "Update a folder.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.UpdateFolderRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.UpdateFolderRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.UpdateFolderRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.UpdateFolderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/folders/{folderId}": {
+      "get": {
+        "tags": [
+          "TagManagerFolder"
+        ],
+        "summary": "Get one folder.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "folderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerFolder"
+        ],
+        "summary": "Delete a folder.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "folderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/folders/revert": {
+      "post": {
+        "tags": [
+          "TagManagerFolder"
+        ],
+        "summary": "Revert workspace changes to a folder.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.RevertFolderRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.RevertFolderRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.RevertFolderRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.RevertFolderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/folders/entities": {
+      "post": {
+        "tags": [
+          "TagManagerFolder"
+        ],
+        "summary": "List tags, triggers and variables inside a folder.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.GetFolderEntitiesRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.GetFolderEntitiesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.GetFolderEntitiesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.GetFolderEntitiesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/folders/move-entities": {
+      "post": {
+        "tags": [
+          "TagManagerFolder"
+        ],
+        "summary": "Move tags, triggers and variables into a folder.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.MoveEntitiesToFolderRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.MoveEntitiesToFolderRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.MoveEntitiesToFolderRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Folder.MoveEntitiesToFolderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/gtag-config": {
+      "get": {
+        "tags": [
+          "TagManagerGtagConfig"
+        ],
+        "summary": "List gtagconfigs in a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerGtagConfig"
+        ],
+        "summary": "Create a gtagconfig.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.GtagConfig.CreateGtagConfigRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.GtagConfig.CreateGtagConfigRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.GtagConfig.CreateGtagConfigRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.GtagConfig.CreateGtagConfigRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerGtagConfig"
+        ],
+        "summary": "Update a gtagconfig.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.GtagConfig.UpdateGtagConfigRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.GtagConfig.UpdateGtagConfigRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.GtagConfig.UpdateGtagConfigRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.GtagConfig.UpdateGtagConfigRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/gtag-config/{gtagConfigId}": {
+      "get": {
+        "tags": [
+          "TagManagerGtagConfig"
+        ],
+        "summary": "Get one gtagconfig.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gtagConfigId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerGtagConfig"
+        ],
+        "summary": "Delete a gtagconfig.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gtagConfigId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/tags": {
+      "get": {
+        "tags": [
+          "TagManagerTag"
+        ],
+        "summary": "List tags in a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerTag"
+        ],
+        "summary": "Create a tag in a workspace.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.CreateTagRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.CreateTagRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.CreateTagRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.CreateTagRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerTag"
+        ],
+        "summary": "Update a tag (full replace).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.UpdateTagRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.UpdateTagRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.UpdateTagRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.UpdateTagRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/tags/{tagId}": {
+      "get": {
+        "tags": [
+          "TagManagerTag"
+        ],
+        "summary": "Get one tag.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerTag"
+        ],
+        "summary": "Delete a tag.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/tags/revert": {
+      "post": {
+        "tags": [
+          "TagManagerTag"
+        ],
+        "summary": "Revert workspace changes to a tag.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.RevertTagRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.RevertTagRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.RevertTagRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Tag.RevertTagRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/templates": {
+      "get": {
+        "tags": [
+          "TagManagerTemplate"
+        ],
+        "summary": "List templates in a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerTemplate"
+        ],
+        "summary": "Create a template.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.CreateTemplateRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.CreateTemplateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.CreateTemplateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.CreateTemplateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerTemplate"
+        ],
+        "summary": "Update a template.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.UpdateTemplateRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.UpdateTemplateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.UpdateTemplateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.UpdateTemplateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/templates/{templateId}": {
+      "get": {
+        "tags": [
+          "TagManagerTemplate"
+        ],
+        "summary": "Get one template.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "templateId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerTemplate"
+        ],
+        "summary": "Delete a template.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "templateId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/templates/revert": {
+      "post": {
+        "tags": [
+          "TagManagerTemplate"
+        ],
+        "summary": "Revert workspace changes to a template.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.RevertTemplateRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.RevertTemplateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.RevertTemplateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.RevertTemplateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/templates/import-from-gallery": {
+      "post": {
+        "tags": [
+          "TagManagerTemplate"
+        ],
+        "summary": "Import a custom template from the Community Template Gallery.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.ImportTemplateFromGalleryRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.ImportTemplateFromGalleryRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.ImportTemplateFromGalleryRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Template.ImportTemplateFromGalleryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/transformations": {
+      "get": {
+        "tags": [
+          "TagManagerTransformation"
+        ],
+        "summary": "List transformations in a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerTransformation"
+        ],
+        "summary": "Create a transformation.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.CreateTransformationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.CreateTransformationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.CreateTransformationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.CreateTransformationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerTransformation"
+        ],
+        "summary": "Update a transformation.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.UpdateTransformationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.UpdateTransformationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.UpdateTransformationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.UpdateTransformationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/transformations/{transformationId}": {
+      "get": {
+        "tags": [
+          "TagManagerTransformation"
+        ],
+        "summary": "Get one transformation.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transformationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerTransformation"
+        ],
+        "summary": "Delete a transformation.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "transformationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/transformations/revert": {
+      "post": {
+        "tags": [
+          "TagManagerTransformation"
+        ],
+        "summary": "Revert workspace changes to a transformation.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.RevertTransformationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.RevertTransformationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.RevertTransformationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Transformation.RevertTransformationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/triggers": {
+      "get": {
+        "tags": [
+          "TagManagerTrigger"
+        ],
+        "summary": "List triggers in a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerTrigger"
+        ],
+        "summary": "Create a trigger in a workspace.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.CreateTriggerRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.CreateTriggerRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.CreateTriggerRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.CreateTriggerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerTrigger"
+        ],
+        "summary": "Update a trigger (full replace).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.UpdateTriggerRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.UpdateTriggerRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.UpdateTriggerRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.UpdateTriggerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/triggers/{triggerId}": {
+      "get": {
+        "tags": [
+          "TagManagerTrigger"
+        ],
+        "summary": "Get one trigger.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "triggerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerTrigger"
+        ],
+        "summary": "Delete a trigger.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "triggerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/triggers/revert": {
+      "post": {
+        "tags": [
+          "TagManagerTrigger"
+        ],
+        "summary": "Revert workspace changes to a trigger.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.RevertTriggerRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.RevertTriggerRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.RevertTriggerRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Trigger.RevertTriggerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/user-permissions": {
+      "get": {
+        "tags": [
+          "TagManagerUserPermission"
+        ],
+        "summary": "List users with access to an account.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerUserPermission"
+        ],
+        "summary": "Grant a user access to an account and containers.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.UserPermission.CreateUserPermissionRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.UserPermission.CreateUserPermissionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.UserPermission.CreateUserPermissionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.UserPermission.CreateUserPermissionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerUserPermission"
+        ],
+        "summary": "Change a user permission.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.UserPermission.UpdateUserPermissionRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.UserPermission.UpdateUserPermissionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.UserPermission.UpdateUserPermissionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.UserPermission.UpdateUserPermissionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/user-permissions/{permissionId}": {
+      "get": {
+        "tags": [
+          "TagManagerUserPermission"
+        ],
+        "summary": "Get one user permission.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "permissionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerUserPermission"
+        ],
+        "summary": "Remove a user from an account.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "permissionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/variables": {
+      "get": {
+        "tags": [
+          "TagManagerVariable"
+        ],
+        "summary": "List variables in a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerVariable"
+        ],
+        "summary": "Create a variable in a workspace.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.CreateVariableRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.CreateVariableRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.CreateVariableRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.CreateVariableRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerVariable"
+        ],
+        "summary": "Update a variable (full replace).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.UpdateVariableRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.UpdateVariableRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.UpdateVariableRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.UpdateVariableRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/variables/{variableId}": {
+      "get": {
+        "tags": [
+          "TagManagerVariable"
+        ],
+        "summary": "Get one variable.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "variableId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerVariable"
+        ],
+        "summary": "Delete a variable.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "variableId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/variables/revert": {
+      "post": {
+        "tags": [
+          "TagManagerVariable"
+        ],
+        "summary": "Revert workspace changes to a variable.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.RevertVariableRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.RevertVariableRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.RevertVariableRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Variable.RevertVariableRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/versions/live": {
+      "get": {
+        "tags": [
+          "TagManagerVersion"
+        ],
+        "summary": "Get the live (published) container version.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/versions/headers": {
+      "get": {
+        "tags": [
+          "TagManagerVersion"
+        ],
+        "summary": "List all container version headers.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "includeDeleted",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/versions/headers/latest": {
+      "get": {
+        "tags": [
+          "TagManagerVersion"
+        ],
+        "summary": "Get the latest container version header.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/versions/{versionId}": {
+      "get": {
+        "tags": [
+          "TagManagerVersion"
+        ],
+        "summary": "Get one container version.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerVersion"
+        ],
+        "summary": "Delete a container version.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/versions/publish": {
+      "post": {
+        "tags": [
+          "TagManagerVersion"
+        ],
+        "summary": "Publish a container version (makes it live).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.PublishVersionRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.PublishVersionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.PublishVersionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.PublishVersionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/versions": {
+      "put": {
+        "tags": [
+          "TagManagerVersion"
+        ],
+        "summary": "Update a container version name or description.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.UpdateVersionRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.UpdateVersionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.UpdateVersionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.UpdateVersionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/versions/set-latest": {
+      "post": {
+        "tags": [
+          "TagManagerVersion"
+        ],
+        "summary": "Set a version as the latest version used for synchronization.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.SetLatestVersionRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.SetLatestVersionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.SetLatestVersionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.SetLatestVersionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/versions/undelete": {
+      "post": {
+        "tags": [
+          "TagManagerVersion"
+        ],
+        "summary": "Restore a deleted container version.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.UndeleteVersionRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.UndeleteVersionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.UndeleteVersionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Version.UndeleteVersionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/workspaces": {
+      "get": {
+        "tags": [
+          "TagManagerWorkspace"
+        ],
+        "summary": "List workspaces in a container.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerWorkspace"
+        ],
+        "summary": "Create a workspace.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.CreateWorkspaceRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.CreateWorkspaceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.CreateWorkspaceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.CreateWorkspaceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerWorkspace"
+        ],
+        "summary": "Update a workspace.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.UpdateWorkspaceRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.UpdateWorkspaceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.UpdateWorkspaceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.UpdateWorkspaceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/workspaces/{workspaceId}": {
+      "get": {
+        "tags": [
+          "TagManagerWorkspace"
+        ],
+        "summary": "Get one workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerWorkspace"
+        ],
+        "summary": "Delete a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/workspaces/{workspaceId}/status": {
+      "get": {
+        "tags": [
+          "TagManagerWorkspace"
+        ],
+        "summary": "List changes and conflicts in a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/workspaces/create-version": {
+      "post": {
+        "tags": [
+          "TagManagerWorkspace"
+        ],
+        "summary": "Create a container version from a workspace (ready to publish).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.CreateVersionRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.CreateVersionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.CreateVersionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.CreateVersionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/workspaces/sync": {
+      "post": {
+        "tags": [
+          "TagManagerWorkspace"
+        ],
+        "summary": "Sync a workspace to the latest container version.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.SyncWorkspaceRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.SyncWorkspaceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.SyncWorkspaceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.SyncWorkspaceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/workspaces/quick-preview": {
+      "post": {
+        "tags": [
+          "TagManagerWorkspace"
+        ],
+        "summary": "Quick-preview a workspace by creating a fake container version.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.QuickPreviewRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.QuickPreviewRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.QuickPreviewRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.QuickPreviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/workspaces/resolve-conflict": {
+      "post": {
+        "tags": [
+          "TagManagerWorkspace"
+        ],
+        "summary": "Resolve a merge conflict for a workspace entity.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.ResolveConflictRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.ResolveConflictRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.ResolveConflictRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Workspace.ResolveConflictRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/zones": {
+      "get": {
+        "tags": [
+          "TagManagerZone"
+        ],
+        "summary": "List zones in a workspace.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TagManagerZone"
+        ],
+        "summary": "Create a zone.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.CreateZoneRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.CreateZoneRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.CreateZoneRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.CreateZoneRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TagManagerZone"
+        ],
+        "summary": "Update a zone.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.UpdateZoneRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.UpdateZoneRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.UpdateZoneRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.UpdateZoneRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/zones/{zoneId}": {
+      "get": {
+        "tags": [
+          "TagManagerZone"
+        ],
+        "summary": "Get one zone.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "zoneId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TagManagerZone"
+        ],
+        "summary": "Delete a zone.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workspaceId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "zoneId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tagmanager/zones/revert": {
+      "post": {
+        "tags": [
+          "TagManagerZone"
+        ],
+        "summary": "Revert workspace changes to a zone.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.RevertZoneRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.RevertZoneRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.RevertZoneRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.TagManager.Zone.RevertZoneRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.TagManager.Account.UpdateAccountRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "shareData": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Auth.RefreshTokenRequest": {
+        "required": [
+          "accountKey"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.BuiltInVariable.EnableBuiltInVariablesRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "types",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.BuiltInVariable.RevertBuiltInVariableRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Client.CreateClientRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parameter": {
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Client.RevertClientRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "clientId",
+          "containerId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "clientId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Client.UpdateClientRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "clientId",
+          "containerId",
+          "name",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "clientId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parameter": {
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Container.CombineContainersRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "sourceContainerId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "sourceContainerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "settingSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "allowUserPermissionFeatureUpdate": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Container.CreateContainerRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "name",
+          "usageContext"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "usageContext": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "domainName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Container.MoveTagIdRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "tagId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tagId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tagName": {
+            "type": "string",
+            "nullable": true
+          },
+          "copySettings": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "copyTermsOfService": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "copyUsers": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "allowUserPermissionFeatureUpdate": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Container.UpdateContainerRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "usageContext"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "usageContext": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "domainName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Destination.LinkDestinationRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "destinationId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "destinationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "allowUserPermissionFeatureUpdate": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Environment.CreateEnvironmentRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "enableDebug": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "containerVersionId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Environment.ReauthorizeEnvironmentRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "environmentId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "environmentId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Environment.UpdateEnvironmentRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "environmentId",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "environmentId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "enableDebug": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "containerVersionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Folder.CreateFolderRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Folder.GetFolderEntitiesRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "folderId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "folderId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "pageToken": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Folder.MoveEntitiesToFolderRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "folderId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "folderId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tagIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "triggerIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "variableIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Folder.RevertFolderRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "folderId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "folderId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Folder.UpdateFolderRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "folderId",
+          "name",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "folderId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.GtagConfig.CreateGtagConfigRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parameter": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.GtagConfig.UpdateGtagConfigRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "gtagConfigId",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "gtagConfigId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parameter": {
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Tag.CreateTagRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parameter": {
+            "nullable": true
+          },
+          "firingTriggerId": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "blockingTriggerId": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "paused": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Tag.RevertTagRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "tagId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tagId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Tag.UpdateTagRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "tagId",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tagId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parameter": {
+            "nullable": true
+          },
+          "firingTriggerId": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "blockingTriggerId": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "paused": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Template.CreateTemplateRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "templateData",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "templateData": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Template.ImportTemplateFromGalleryRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "galleryOwner",
+          "galleryRepository",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "galleryOwner": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "galleryRepository": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "gallerySha256Hash": {
+            "type": "string",
+            "nullable": true
+          },
+          "acknowledgePermissions": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Template.RevertTemplateRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "templateId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "templateId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Template.UpdateTemplateRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "templateData",
+          "templateId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "templateId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "templateData": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Transformation.CreateTransformationRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parameter": {
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Transformation.RevertTransformationRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "transformationId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "transformationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Transformation.UpdateTransformationRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "transformationId",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "transformationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parameter": {
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Trigger.CreateTriggerRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "filter": {
+            "nullable": true
+          },
+          "customEventFilter": {
+            "nullable": true
+          },
+          "autoEventFilter": {
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Trigger.RevertTriggerRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "triggerId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "triggerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Trigger.UpdateTriggerRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "triggerId",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "triggerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "filter": {
+            "nullable": true
+          },
+          "customEventFilter": {
+            "nullable": true
+          },
+          "autoEventFilter": {
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.UserPermission.CreateUserPermissionRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "accountPermission",
+          "emailAddress"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "emailAddress": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountPermission": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerAccess": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.UserPermission.UpdateUserPermissionRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "accountPermission",
+          "emailAddress",
+          "permissionId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "permissionId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "emailAddress": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountPermission": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerAccess": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Variable.CreateVariableRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "type",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parameter": {
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Variable.RevertVariableRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "variableId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "variableId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Variable.UpdateVariableRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "type",
+          "variableId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "variableId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "parameter": {
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Version.PublishVersionRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "versionId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "versionId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Version.SetLatestVersionRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "versionId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "versionId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Version.UndeleteVersionRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "versionId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "versionId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Version.UpdateVersionRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "versionId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "versionId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Workspace.CreateVersionRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Workspace.CreateWorkspaceRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Workspace.QuickPreviewRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Workspace.ResolveConflictRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "entity",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "entity": { },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Workspace.SyncWorkspaceRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Workspace.UpdateWorkspaceRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Zone.CreateZoneRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "workspaceId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "childContainer": {
+            "nullable": true
+          },
+          "boundary": {
+            "nullable": true
+          },
+          "typeRestriction": {
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Zone.RevertZoneRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "workspaceId",
+          "zoneId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "zoneId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.TagManager.Zone.UpdateZoneRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "containerId",
+          "name",
+          "workspaceId",
+          "zoneId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "containerId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "workspaceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "zoneId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "childContainer": {
+            "nullable": true
+          },
+          "boundary": {
+            "nullable": true
+          },
+          "typeRestriction": {
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "fingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -1,0 +1,2862 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Flipkart Marketplace Seller API",
+    "description": "ASP.NET Core MVC integration for Flipkart FMS APIs. Covers Listing Management (Marketplace + HyperLocal), Order Management (Shipments, Labels, Dispatch, Cancel, Self-Ship, OTC, Services), Returns Management, and Report Management.",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/flipkart/hyperlocal": {
+      "post": {
+        "tags": [
+          "FlipkartHyperLocal"
+        ],
+        "summary": "Create hyperlocal listings",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.CreateHyperLocalListingRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.CreateHyperLocalListingRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.CreateHyperLocalListingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "FlipkartHyperLocal"
+        ],
+        "summary": "Update hyperlocal listings",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHyperLocalListingRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHyperLocalListingRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHyperLocalListingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/hyperlocal/{skuIds}": {
+      "get": {
+        "tags": [
+          "FlipkartHyperLocal"
+        ],
+        "summary": "Get hyperlocal listing by SKU IDs",
+        "parameters": [
+          {
+            "name": "skuIds",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/hyperlocal/update/price": {
+      "post": {
+        "tags": [
+          "FlipkartHyperLocal"
+        ],
+        "summary": "Update hyperlocal listing price",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHLPriceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHLPriceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHLPriceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/hyperlocal/update/inventory": {
+      "post": {
+        "tags": [
+          "FlipkartHyperLocal"
+        ],
+        "summary": "Update hyperlocal listing inventory",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHLInventoryRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHLInventoryRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHLInventoryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/listings": {
+      "post": {
+        "tags": [
+          "FlipkartListing"
+        ],
+        "summary": "Create product listings (max 10 SKUs)",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.CreateListingRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.CreateListingRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.CreateListingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "FlipkartListing"
+        ],
+        "summary": "Update existing product listings",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.UpdateListingRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.UpdateListingRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.UpdateListingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/listings/{skuIds}": {
+      "get": {
+        "tags": [
+          "FlipkartListing"
+        ],
+        "summary": "Get listings by SKU IDs (comma-separated, max 10)",
+        "parameters": [
+          {
+            "name": "skuIds",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/listings/details": {
+      "post": {
+        "tags": [
+          "FlipkartListing"
+        ],
+        "summary": "Get detailed listing information for SKUs",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.GetListingDetailsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.GetListingDetailsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.GetListingDetailsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/listings/product/search": {
+      "post": {
+        "tags": [
+          "FlipkartListing"
+        ],
+        "summary": "Search listings by internal state",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.SearchListingsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.SearchListingsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.SearchListingsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/listings/search": {
+      "post": {
+        "tags": [
+          "FlipkartListing"
+        ],
+        "summary": "Get all listings with pagination",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.GetAllListingsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.GetAllListingsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.GetAllListingsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/listings/update/price": {
+      "post": {
+        "tags": [
+          "FlipkartListing"
+        ],
+        "summary": "Update pricing for SKUs",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.UpdatePriceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.UpdatePriceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.UpdatePriceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/listings/update/inventory": {
+      "post": {
+        "tags": [
+          "FlipkartListing"
+        ],
+        "summary": "Update inventory for SKUs",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.UpdateInventoryRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.UpdateInventoryRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.UpdateInventoryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/filter": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Filter shipments by criteria",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.FilterShipmentsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.FilterShipmentsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.FilterShipmentsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments": {
+      "get": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Get shipments by shipment IDs",
+        "parameters": [
+          {
+            "name": "shipmentIds",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/by-order-items": {
+      "get": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Get shipments by order item IDs",
+        "parameters": [
+          {
+            "name": "orderItemIds",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/by-orders": {
+      "get": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Get shipments by order IDs",
+        "parameters": [
+          {
+            "name": "orderIds",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/labels": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Generate labels (Pack API)",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.GenerateLabelsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.GenerateLabelsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.GenerateLabelsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/{shipmentIds}/labels": {
+      "get": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Download labels as PDF+invoice stream",
+        "parameters": [
+          {
+            "name": "shipmentIds",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/{shipmentIds}/label-only/pdf": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Download label-only PDF",
+        "parameters": [
+          {
+            "name": "shipmentIds",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reprint",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/{shipmentIds}/label-only": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Download label-only as byte stream",
+        "parameters": [
+          {
+            "name": "shipmentIds",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reprint",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/{shipmentIds}/invoices": {
+      "get": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Get invoices for shipments",
+        "parameters": [
+          {
+            "name": "shipmentIds",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/dispatch": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Mark shipments as dispatched",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.DispatchShipmentsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.DispatchShipmentsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.DispatchShipmentsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/{shipmentIds}": {
+      "get": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Get shipment details",
+        "parameters": [
+          {
+            "name": "shipmentIds",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/cancel": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Cancel shipments",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.CancelShipmentsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.CancelShipmentsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.CancelShipmentsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/handover/counts": {
+      "get": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Get handover counts for a location",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/manifest": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Generate manifest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.GenerateManifestRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.GenerateManifestRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.GenerateManifestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/self-ship/dispatch": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Mark self-ship shipment as dispatched",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipDispatchRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipDispatchRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipDispatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/self-ship/delivery": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Confirm self-ship delivery",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipDeliveryRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipDeliveryRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipDeliveryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/shipments/otc/{locationId}": {
+      "get": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Get OTC shipment details",
+        "parameters": [
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/services/attempt": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Record a service attempt",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ServiceAttemptRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ServiceAttemptRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ServiceAttemptRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/orders/services/complete": {
+      "post": {
+        "tags": [
+          "FlipkartOrder"
+        ],
+        "summary": "Mark a service as complete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ServiceCompleteRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ServiceCompleteRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ServiceCompleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/reports": {
+      "post": {
+        "tags": [
+          "FlipkartReport"
+        ],
+        "summary": "Request report generation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Reports.RequestReportRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Reports.RequestReportRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Reports.RequestReportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/reports/{reportId}": {
+      "get": {
+        "tags": [
+          "FlipkartReport"
+        ],
+        "summary": "Get report details and download URL",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/returns": {
+      "get": {
+        "tags": [
+          "FlipkartReturns"
+        ],
+        "summary": "Get all returns with optional filters",
+        "parameters": [
+          {
+            "name": "Source",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ModifiedAfter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ModifiedBefore",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreatedAfter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CreatedBefore",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LocationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ReturnIds",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TrackingIds",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/returns/approve": {
+      "post": {
+        "tags": [
+          "FlipkartReturns"
+        ],
+        "summary": "Approve return requests",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.ApproveReturnsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.ApproveReturnsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.ApproveReturnsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/returns/reject": {
+      "post": {
+        "tags": [
+          "FlipkartReturns"
+        ],
+        "summary": "Reject return requests",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.RejectReturnsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.RejectReturnsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.RejectReturnsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/returns/complete": {
+      "post": {
+        "tags": [
+          "FlipkartReturns"
+        ],
+        "summary": "Mark returns as complete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.CompleteReturnsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.CompleteReturnsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.CompleteReturnsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/returns/pickup": {
+      "post": {
+        "tags": [
+          "FlipkartReturns"
+        ],
+        "summary": "Schedule return pickup",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.PickupReturnsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.PickupReturnsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.PickupReturnsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/returns/pickup-attempt": {
+      "post": {
+        "tags": [
+          "FlipkartReturns"
+        ],
+        "summary": "Record a pickup attempt",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.PickupAttemptRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.PickupAttemptRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.PickupAttemptRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/returns/tasks/initial-load": {
+      "post": {
+        "tags": [
+          "FlipkartReturns"
+        ],
+        "summary": "Load initial return tasks",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.InitialReturnLoadRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.InitialReturnLoadRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.InitialReturnLoadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/returns/otc/start": {
+      "post": {
+        "tags": [
+          "FlipkartReturns"
+        ],
+        "summary": "Begin OTC return process",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.StartOtcReturnRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.StartOtcReturnRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.StartOtcReturnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/returns/tasks/shipments": {
+      "post": {
+        "tags": [
+          "FlipkartReturns"
+        ],
+        "summary": "Get scanned shipments for return task",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.ReturnTaskShipmentsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.ReturnTaskShipmentsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.ReturnTaskShipmentsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flipkart/returns/otc/end": {
+      "post": {
+        "tags": [
+          "FlipkartReturns"
+        ],
+        "summary": "Complete OTC return process",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.EndOtcReturnRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.EndOtcReturnRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.EndOtcReturnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.CreateHyperLocalListingRequest": {
+        "required": [
+          "listings"
+        ],
+        "type": "object",
+        "properties": {
+          "listings": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HyperLocalSkuData"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLAddressLabel": {
+        "type": "object",
+        "properties": {
+          "manufacturerDetails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "importerDetails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "countriesOfOrigin": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLDatingLabel": {
+        "type": "object",
+        "properties": {
+          "mfgDate": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "shelfLife": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLDimensions": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "number",
+            "format": "double"
+          },
+          "breadth": {
+            "type": "number",
+            "format": "double"
+          },
+          "height": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLLocation": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "inventory": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLPackage": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "dimensions": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLDimensions"
+          },
+          "weight": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLPrice": {
+        "type": "object",
+        "properties": {
+          "mrp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sellingPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLSkuInventoryData": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "locations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLLocation"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLSkuPriceData": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLPrice"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLTax": {
+        "type": "object",
+        "properties": {
+          "hsn": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HyperLocalSkuData": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLPrice"
+          },
+          "tax": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLTax"
+          },
+          "listingStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "package": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLPackage"
+          },
+          "location": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLLocation"
+          },
+          "addressLabel": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLAddressLabel"
+          },
+          "datingLabel": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLDatingLabel"
+          },
+          "archivedStatus": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHLInventoryRequest": {
+        "required": [
+          "inventories"
+        ],
+        "type": "object",
+        "properties": {
+          "inventories": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLSkuInventoryData"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHLPriceRequest": {
+        "required": [
+          "prices"
+        ],
+        "type": "object",
+        "properties": {
+          "prices": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HLSkuPriceData"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.HyperLocal.UpdateHyperLocalListingRequest": {
+        "required": [
+          "listings"
+        ],
+        "type": "object",
+        "properties": {
+          "listings": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.HyperLocal.HyperLocalSkuData"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.CreateListingRequest": {
+        "required": [
+          "listings"
+        ],
+        "type": "object",
+        "properties": {
+          "listings": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingSkuData"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.GetAllListingsRequest": {
+        "type": "object",
+        "properties": {
+          "listingStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "pageId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.GetListingDetailsRequest": {
+        "required": [
+          "skuIds"
+        ],
+        "type": "object",
+        "properties": {
+          "skuIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.ListingAddressLabel": {
+        "type": "object",
+        "properties": {
+          "manufacturerDetails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "importerDetails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "packerDetails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "countriesOfOrigin": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.ListingDatingLabel": {
+        "type": "object",
+        "properties": {
+          "mfgDate": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "shelfLife": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.ListingFulfillment": {
+        "type": "object",
+        "properties": {
+          "dispatchSla": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shippingProvider": {
+            "type": "string",
+            "nullable": true
+          },
+          "procurementType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.ListingLocation": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "inventory": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.ListingPackage": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "dimensions": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.PackageDimensions"
+          },
+          "weight": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "handling": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.PackageHandling"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.ListingPrice": {
+        "type": "object",
+        "properties": {
+          "mrp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sellingPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.ListingShippingFees": {
+        "type": "object",
+        "properties": {
+          "local": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "zonal": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "national": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.ListingSkuData": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingPrice"
+          },
+          "tax": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingTax"
+          },
+          "listingStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "shippingFees": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingShippingFees"
+          },
+          "fulfillmentProfile": {
+            "type": "string",
+            "nullable": true
+          },
+          "fulfillment": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingFulfillment"
+          },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingPackage"
+            },
+            "nullable": true
+          },
+          "locations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingLocation"
+            },
+            "nullable": true
+          },
+          "addressLabel": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingAddressLabel"
+          },
+          "datingLabel": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingDatingLabel"
+          },
+          "archivedStatus": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.ListingTax": {
+        "type": "object",
+        "properties": {
+          "hsn": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.PackageDimensions": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "number",
+            "format": "double"
+          },
+          "breadth": {
+            "type": "number",
+            "format": "double"
+          },
+          "height": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.PackageHandling": {
+        "type": "object",
+        "properties": {
+          "fragile": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.SearchListingsRequest": {
+        "type": "object",
+        "properties": {
+          "batchNo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "internalState": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchText": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.SkuInventoryData": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "locations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingLocation"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.SkuPriceData": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingPrice"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.UpdateInventoryRequest": {
+        "required": [
+          "inventories"
+        ],
+        "type": "object",
+        "properties": {
+          "inventories": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.SkuInventoryData"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.UpdateListingRequest": {
+        "required": [
+          "listings"
+        ],
+        "type": "object",
+        "properties": {
+          "listings": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.ListingSkuData"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Listing.UpdatePriceRequest": {
+        "required": [
+          "prices"
+        ],
+        "type": "object",
+        "properties": {
+          "prices": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Listing.SkuPriceData"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.CancelShipmentItem": {
+        "required": [
+          "shipmentId"
+        ],
+        "type": "object",
+        "properties": {
+          "shipmentId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancellationGroupIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.CancelShipmentsRequest": {
+        "required": [
+          "shipments"
+        ],
+        "type": "object",
+        "properties": {
+          "shipments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.CancelShipmentItem"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.DateRange": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.DispatchAddress": {
+        "type": "object",
+        "properties": {
+          "address1": {
+            "type": "string",
+            "nullable": true
+          },
+          "address2": {
+            "type": "string",
+            "nullable": true
+          },
+          "landmark": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "nullable": true
+          },
+          "pincode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.DispatchShipmentsRequest": {
+        "required": [
+          "shipmentIds"
+        ],
+        "type": "object",
+        "properties": {
+          "shipmentIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.FilterShipmentsRequest": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentFilter"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentPagination"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentSort"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.GenerateLabelsRequest": {
+        "required": [
+          "shipments"
+        ],
+        "type": "object",
+        "properties": {
+          "shipments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentLabelData"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.GenerateManifestRequest": {
+        "required": [
+          "params"
+        ],
+        "type": "object",
+        "properties": {
+          "params": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ManifestParam"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ManifestParam": {
+        "type": "object",
+        "properties": {
+          "vendorGroupCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isMps": {
+            "type": "boolean"
+          },
+          "pickUpDate": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.DateRange"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipDeliveryRequest": {
+        "required": [
+          "deliveryDate",
+          "shipmentId"
+        ],
+        "type": "object",
+        "properties": {
+          "shipmentId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "deliveryDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipDispatchLocation": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.DispatchAddress"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipDispatchRequest": {
+        "required": [
+          "shipmentId"
+        ],
+        "type": "object",
+        "properties": {
+          "shipmentId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tentativeDeliveryDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "dispatchDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "deliveryPartner": {
+            "type": "string",
+            "nullable": true
+          },
+          "deliveryPartnerCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "trackingId": {
+            "type": "string",
+            "nullable": true
+          },
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoice": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipInvoice"
+          },
+          "dispatchLocation": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipDispatchLocation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipInvoice": {
+        "type": "object",
+        "properties": {
+          "invoiceNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoiceDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipInvoiceItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.SelfShipInvoiceItem": {
+        "type": "object",
+        "properties": {
+          "orderItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "serialNumbers": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.SerialNumberItem": {
+        "type": "object",
+        "properties": {
+          "orderItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "serialNumbers": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ServiceAttemptItem": {
+        "required": [
+          "serviceFulfilmentId"
+        ],
+        "type": "object",
+        "properties": {
+          "deliveryDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "newDeliveryDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "subReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "comments": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceFulfilmentId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ServiceAttemptRequest": {
+        "required": [
+          "services"
+        ],
+        "type": "object",
+        "properties": {
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ServiceAttemptItem"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ServiceCompleteItem": {
+        "required": [
+          "serviceFulfilmentId"
+        ],
+        "type": "object",
+        "properties": {
+          "serviceFulfilmentId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "deliveryDate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ServiceCompleteRequest": {
+        "required": [
+          "services"
+        ],
+        "type": "object",
+        "properties": {
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ServiceCompleteItem"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentDimensions": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "number",
+            "format": "double"
+          },
+          "breadth": {
+            "type": "number",
+            "format": "double"
+          },
+          "height": {
+            "type": "number",
+            "format": "double"
+          },
+          "width": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentFilter": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "states": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "hold": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "sku": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "serviceProfiles": {
+            "type": "string",
+            "nullable": true
+          },
+          "mps": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "cancellationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "shipmentTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "orderDate": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.DateRange"
+          },
+          "dispatchAfterDate": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.DateRange"
+          },
+          "dispatchByDate": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.DateRange"
+          },
+          "cancellationDate": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.DateRange"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentInvoice": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoiceNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoiceDate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentLabelData": {
+        "required": [
+          "shipmentId"
+        ],
+        "type": "object",
+        "properties": {
+          "shipmentId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.TaxItem"
+            },
+            "nullable": true
+          },
+          "serialNumbers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SerialNumberItem"
+            },
+            "nullable": true
+          },
+          "subShipments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.SubShipment"
+            },
+            "nullable": true
+          },
+          "invoices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentInvoice"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentPagination": {
+        "type": "object",
+        "properties": {
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentSort": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string",
+            "nullable": true
+          },
+          "order": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.SubShipment": {
+        "type": "object",
+        "properties": {
+          "subShipmentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "dimensions": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Order.ShipmentDimensions"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Order.TaxItem": {
+        "type": "object",
+        "properties": {
+          "orderItemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "purchasePrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "taxRate": {
+            "type": "number",
+            "format": "double"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Reports.RequestReportRequest": {
+        "required": [
+          "reportTypeIdentifier"
+        ],
+        "type": "object",
+        "properties": {
+          "reportTypeIdentifier": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.ApproveReturnsRequest": {
+        "required": [
+          "returns"
+        ],
+        "type": "object",
+        "properties": {
+          "returns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.ReturnActionItem"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.CompleteReturnsRequest": {
+        "type": "object",
+        "properties": {
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "returnIds": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.EndOtcReturnRequest": {
+        "required": [
+          "taskId"
+        ],
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "feId": {
+            "type": "string",
+            "nullable": true
+          },
+          "taskType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.InitialReturnLoadRequest": {
+        "required": [
+          "sellerLocationId"
+        ],
+        "type": "object",
+        "properties": {
+          "sellerLocationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "taskType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.PickupAttemptItem": {
+        "required": [
+          "returnId"
+        ],
+        "type": "object",
+        "properties": {
+          "returnId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "pickupDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPickupDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.PickupAttemptRequest": {
+        "required": [
+          "returns"
+        ],
+        "type": "object",
+        "properties": {
+          "returns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.PickupAttemptItem"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.PickupReturnItem": {
+        "required": [
+          "pickupDate",
+          "returnId"
+        ],
+        "type": "object",
+        "properties": {
+          "returnId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "pickupDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.PickupReturnsRequest": {
+        "required": [
+          "returns"
+        ],
+        "type": "object",
+        "properties": {
+          "returns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.PickupReturnItem"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.RejectReturnsRequest": {
+        "required": [
+          "returns"
+        ],
+        "type": "object",
+        "properties": {
+          "returns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Flipkart.Returns.ReturnActionItem"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.ReturnActionItem": {
+        "required": [
+          "returnId"
+        ],
+        "type": "object",
+        "properties": {
+          "returnId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "comments": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceFulfilmentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "locationId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.ReturnTaskShipmentsRequest": {
+        "required": [
+          "taskId"
+        ],
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "feId": {
+            "type": "string",
+            "nullable": true
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Flipkart.Returns.StartOtcReturnRequest": {
+        "required": [
+          "sellerLocationId"
+        ],
+        "type": "object",
+        "properties": {
+          "sellerLocationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "taskType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

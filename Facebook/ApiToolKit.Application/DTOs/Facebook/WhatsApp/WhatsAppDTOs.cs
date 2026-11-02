@@ -424,6 +424,8 @@ public class WaWebhookSubscribeRequest
     public string AccessToken { get; set; } = string.Empty;
     public string CallbackUrl { get; set; } = string.Empty;
     public string VerifyToken { get; set; } = string.Empty;
+    /// <summary>Webhook fields to subscribe (default: messages).</summary>
+    public List<string>? Fields { get; set; }
 }
 
 public class WaWebhookPayload
@@ -500,7 +502,12 @@ public class WaAnalyticsRequest
     public string AccessToken { get; set; } = string.Empty;
     public long Start { get; set; }
     public long End { get; set; }
-    public string Granularity { get; set; } = "DAILY";
+    /// <summary>HALF_HOUR, DAY or MONTH.</summary>
+    public string Granularity { get; set; } = "DAY";
+    public List<string>? PhoneNumbers { get; set; }
+    /// <summary>0 = template, 2 = non-template, 100 = incoming.</summary>
+    public List<string>? ProductTypes { get; set; }
+    public List<string>? CountryCodes { get; set; }
 }
 
 public class WaConversationAnalyticsRequest

@@ -1,0 +1,1920 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Firebase Admin APIs (FCM, Auth, Remote Config, App Check)",
+    "description": "ASP.NET Core Clean Architecture integration for Firebase Admin APIs. Covers Firebase Cloud Messaging v1, Firebase Authentication, Firebase Remote Config, and Firebase App Check.",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/firebase/app-check/verify": {
+      "post": {
+        "tags": [
+          "AppCheck"
+        ],
+        "summary": "Verify a Firebase App Check token.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.AppCheck.VerifyAppCheckTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.AppCheck.VerifyAppCheckTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.AppCheck.VerifyAppCheckTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/app-check/configs": {
+      "get": {
+        "tags": [
+          "AppCheck"
+        ],
+        "summary": "Batch get App Check enforcement configurations for multiple apps.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "appIds",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "AppCheck"
+        ],
+        "summary": "Batch update App Check enforcement configurations for multiple apps.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.AppCheck.BatchUpdateAppCheckConfigsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.AppCheck.BatchUpdateAppCheckConfigsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.AppCheck.BatchUpdateAppCheckConfigsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/fcm/send/token": {
+      "post": {
+        "tags": [
+          "Fcm"
+        ],
+        "summary": "Send a push notification to a specific device token using FCM v1.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SendToTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SendToTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SendToTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/fcm/send/topic": {
+      "post": {
+        "tags": [
+          "Fcm"
+        ],
+        "summary": "Send a push notification to a topic using FCM v1.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SendToTopicRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SendToTopicRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SendToTopicRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/fcm/send/condition": {
+      "post": {
+        "tags": [
+          "Fcm"
+        ],
+        "summary": "Send a push notification based on a topic condition using FCM v1.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SendToConditionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SendToConditionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SendToConditionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/fcm/send/multicast": {
+      "post": {
+        "tags": [
+          "Fcm"
+        ],
+        "summary": "Send push notifications to multiple device tokens (up to 500) using FCM v1.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.MulticastRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.MulticastRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.MulticastRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/fcm/topics/subscribe": {
+      "post": {
+        "tags": [
+          "Fcm"
+        ],
+        "summary": "Subscribe device tokens to a FCM topic.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SubscribeToTopicRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SubscribeToTopicRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.SubscribeToTopicRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/fcm/topics/unsubscribe": {
+      "post": {
+        "tags": [
+          "Fcm"
+        ],
+        "summary": "Unsubscribe device tokens from a FCM topic.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.UnsubscribeFromTopicRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.UnsubscribeFromTopicRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.UnsubscribeFromTopicRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/auth/url": {
+      "get": {
+        "tags": [
+          "FirebaseOAuth"
+        ],
+        "summary": "Get the Google OAuth 2.0 authorization URL for Firebase scopes.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/auth/callback": {
+      "get": {
+        "tags": [
+          "FirebaseOAuth"
+        ],
+        "summary": "Handle the OAuth 2.0 callback and exchange the authorization code for Firebase tokens.",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "redirectUri",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/auth/token/refresh": {
+      "post": {
+        "tags": [
+          "FirebaseOAuth"
+        ],
+        "summary": "Refresh a Firebase OAuth access token using a refresh token.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Auth.RefreshTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Auth.RefreshTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Auth.RefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/users/signup": {
+      "post": {
+        "tags": [
+          "FirebaseUser"
+        ],
+        "summary": "Sign up a new Firebase user with email and password.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.FirebaseSignUpRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.FirebaseSignUpRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.FirebaseSignUpRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/users/signin": {
+      "post": {
+        "tags": [
+          "FirebaseUser"
+        ],
+        "summary": "Sign in an existing Firebase user with email and password.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.FirebaseSignInRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.FirebaseSignInRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.FirebaseSignInRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/users/account": {
+      "get": {
+        "tags": [
+          "FirebaseUser"
+        ],
+        "summary": "Get Firebase user account info using an ID token, localId, or email.",
+        "parameters": [
+          {
+            "name": "idToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "localId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/users/profile": {
+      "put": {
+        "tags": [
+          "FirebaseUser"
+        ],
+        "summary": "Update the Firebase user's display name or photo URL.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.UpdateFirebaseUserRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.UpdateFirebaseUserRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.UpdateFirebaseUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/users/admin/list": {
+      "get": {
+        "tags": [
+          "FirebaseUser"
+        ],
+        "summary": "List all users in a Firebase project (Admin).",
+        "parameters": [
+          {
+            "name": "ProjectId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MaxResults",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "NextPageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "AccessToken",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/users/admin": {
+      "post": {
+        "tags": [
+          "FirebaseUser"
+        ],
+        "summary": "Create a new Firebase user (Admin).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.AdminCreateUserRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.AdminCreateUserRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.AdminCreateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "FirebaseUser"
+        ],
+        "summary": "Update an existing Firebase user (Admin).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.AdminUpdateUserRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.AdminUpdateUserRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.AdminUpdateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/users/admin/{localId}": {
+      "delete": {
+        "tags": [
+          "FirebaseUser"
+        ],
+        "summary": "Delete a Firebase user by localId (Admin).",
+        "parameters": [
+          {
+            "name": "localId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/users/verify-token": {
+      "post": {
+        "tags": [
+          "FirebaseUser"
+        ],
+        "summary": "Verify a Firebase ID token.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.VerifyIdTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.VerifyIdTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.VerifyIdTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/users/custom-token": {
+      "post": {
+        "tags": [
+          "FirebaseUser"
+        ],
+        "summary": "Create a Firebase custom token for a user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.CreateCustomTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.CreateCustomTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.CreateCustomTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/remote-config/{projectId}": {
+      "get": {
+        "tags": [
+          "RemoteConfig"
+        ],
+        "summary": "Get the current Firebase Remote Config template for a project.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "RemoteConfig"
+        ],
+        "summary": "Update the Firebase Remote Config template for a project.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.UpdateRemoteConfigRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.UpdateRemoteConfigRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.UpdateRemoteConfigRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/remote-config/{projectId}/versions": {
+      "get": {
+        "tags": [
+          "RemoteConfig"
+        ],
+        "summary": "List all versions of the Firebase Remote Config template.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/firebase/remote-config/{projectId}/rollback": {
+      "post": {
+        "tags": [
+          "RemoteConfig"
+        ],
+        "summary": "Rollback the Firebase Remote Config to a specific version.",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RollbackRemoteConfigRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RollbackRemoteConfigRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RollbackRemoteConfigRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.Firebase.AppCheck.AppCheckConfig": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "enforcementMode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.AppCheck.BatchUpdateAppCheckConfigsRequest": {
+        "required": [
+          "accessToken",
+          "configs",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accessToken": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "configs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.AppCheck.AppCheckConfig"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.AppCheck.VerifyAppCheckTokenRequest": {
+        "required": [
+          "accessToken",
+          "appCheckToken",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "appCheckToken": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accessToken": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Auth.RefreshTokenRequest": {
+        "required": [
+          "projectId",
+          "refreshToken"
+        ],
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.ApnsFcmOptions": {
+        "type": "object",
+        "properties": {
+          "analyticsLabel": {
+            "type": "string",
+            "nullable": true
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.ApnsPayload": {
+        "type": "object",
+        "properties": {
+          "aps": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.Aps"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.Aps": {
+        "type": "object",
+        "properties": {
+          "alert": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.ApsAlert"
+          },
+          "badge": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "sound": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentAvailable": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "mutableContent": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "threadId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.ApsAlert": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "subtitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "launchImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleLocKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleLocArgs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "locKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "locArgs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "actionLocKey": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.FcmAndroidConfig": {
+        "type": "object",
+        "properties": {
+          "priority": {
+            "type": "string",
+            "nullable": true
+          },
+          "ttl": {
+            "type": "string",
+            "nullable": true
+          },
+          "collapseKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "restrictedPackageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notification": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.FcmAndroidNotification"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.FcmAndroidNotification": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "clickAction": {
+            "type": "string",
+            "nullable": true
+          },
+          "color": {
+            "type": "string",
+            "nullable": true
+          },
+          "sound": {
+            "type": "string",
+            "nullable": true
+          },
+          "tag": {
+            "type": "string",
+            "nullable": true
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          },
+          "bodyLocKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "bodyLocArgs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "titleLocKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleLocArgs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "androidSmallIcon": {
+            "type": "string",
+            "nullable": true
+          },
+          "largeIcon": {
+            "type": "string",
+            "nullable": true
+          },
+          "channelId": {
+            "type": "string",
+            "nullable": true
+          },
+          "notificationPriority": {
+            "type": "string",
+            "nullable": true
+          },
+          "visibility": {
+            "type": "string",
+            "nullable": true
+          },
+          "notificationCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.FcmApnsConfig": {
+        "type": "object",
+        "properties": {
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "payload": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.ApnsPayload"
+          },
+          "fcmOptions": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.ApnsFcmOptions"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.FcmWebpushConfig": {
+        "type": "object",
+        "properties": {
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "notification": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.WebpushNotification"
+          },
+          "fcmOptions": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.WebpushFcmOptions"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.MulticastRequest": {
+        "required": [
+          "body",
+          "projectId",
+          "title",
+          "tokens"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tokens": {
+            "maxItems": 500,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "body": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.SendToConditionRequest": {
+        "required": [
+          "body",
+          "condition",
+          "projectId",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "condition": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "body": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.SendToTokenRequest": {
+        "required": [
+          "body",
+          "projectId",
+          "title",
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "token": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "body": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "android": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.FcmAndroidConfig"
+          },
+          "apns": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.FcmApnsConfig"
+          },
+          "webpush": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.FcmWebpushConfig"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.SendToTopicRequest": {
+        "required": [
+          "body",
+          "projectId",
+          "title",
+          "topic"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "topic": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "body": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "android": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.FcmAndroidConfig"
+          },
+          "apns": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.FcmApnsConfig"
+          },
+          "webpush": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.FcmWebpushConfig"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.SubscribeToTopicRequest": {
+        "required": [
+          "projectId",
+          "registrationTokens",
+          "topic"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "registrationTokens": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "topic": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.UnsubscribeFromTopicRequest": {
+        "required": [
+          "projectId",
+          "registrationTokens",
+          "topic"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "registrationTokens": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "topic": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.WebpushFcmOptions": {
+        "type": "object",
+        "properties": {
+          "link": {
+            "type": "string",
+            "nullable": true
+          },
+          "analyticsLabel": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.WebpushNotification": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "nullable": true
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          },
+          "badge": {
+            "type": "string",
+            "nullable": true
+          },
+          "tag": {
+            "type": "string",
+            "nullable": true
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "language": {
+            "type": "string",
+            "nullable": true
+          },
+          "renotify": {
+            "type": "boolean"
+          },
+          "requireInteraction": {
+            "type": "boolean"
+          },
+          "silent": {
+            "type": "boolean"
+          },
+          "vibrate": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          },
+          "data": {
+            "nullable": true
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.Fcm.WebpushNotificationAction"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.Fcm.WebpushNotificationAction": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.AdminCreateUserRequest": {
+        "required": [
+          "accessToken",
+          "email",
+          "password",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "email": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "photoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailVerified": {
+            "type": "boolean"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "accessToken": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.AdminUpdateUserRequest": {
+        "required": [
+          "accessToken",
+          "localId",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "localId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "photoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailVerified": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "disabled": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "accessToken": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.CreateCustomTokenRequest": {
+        "required": [
+          "accessToken",
+          "projectId",
+          "uid"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "uid": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "claims": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          },
+          "accessToken": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.FirebaseSignInRequest": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "returnSecureToken": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.FirebaseSignUpRequest": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "returnSecureToken": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.UpdateFirebaseUserRequest": {
+        "required": [
+          "idToken"
+        ],
+        "type": "object",
+        "properties": {
+          "idToken": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "photoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "deleteAttribute": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "returnSecureToken": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.FirebaseAuth.VerifyIdTokenRequest": {
+        "required": [
+          "accessToken",
+          "idToken",
+          "projectId"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "idToken": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accessToken": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigCondition": {
+        "required": [
+          "expression",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "expression": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tagColor": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigParameter": {
+        "type": "object",
+        "properties": {
+          "defaultValue": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigParameterValue"
+          },
+          "conditionalValues": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigParameterValue"
+            },
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "valueType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigParameterValue": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "useInAppDefault": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigTemplate": {
+        "required": [
+          "parameters"
+        ],
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigParameter"
+            }
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigCondition"
+            },
+            "nullable": true
+          },
+          "version": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigVersion"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigVersion": {
+        "type": "object",
+        "properties": {
+          "versionNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "updateTime": {
+            "type": "string",
+            "nullable": true
+          },
+          "updateUser": {
+            "nullable": true
+          },
+          "updateOrigin": {
+            "type": "string",
+            "nullable": true
+          },
+          "updateType": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "isLegacy": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RollbackRemoteConfigRequest": {
+        "required": [
+          "accessToken",
+          "projectId",
+          "versionNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accessToken": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "versionNumber": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Firebase.RemoteConfig.UpdateRemoteConfigRequest": {
+        "required": [
+          "accessToken",
+          "eTag",
+          "projectId",
+          "template"
+        ],
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accessToken": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "template": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Firebase.RemoteConfig.RemoteConfigTemplate"
+          },
+          "eTag": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "validateOnly": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

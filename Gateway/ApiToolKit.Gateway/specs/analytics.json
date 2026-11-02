@@ -1,0 +1,1558 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Google Analytics (GA4) API",
+    "description": "ASP.NET Core Clean Architecture integration for Google Analytics Data API v1beta (GA4). Covers OAuth 2.0 authentication, standard reports, batch reports, pivot reports, funnel reports, realtime reports, metadata, and property/account management via the Analytics Admin API.",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/analytics/auth/url": {
+      "get": {
+        "tags": [
+          "AnalyticsAuth"
+        ],
+        "summary": "Get the Google OAuth 2.0 authorization URL for GA4 access.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/auth/callback": {
+      "get": {
+        "tags": [
+          "AnalyticsAuth"
+        ],
+        "summary": "OAuth 2.0 callback endpoint. Exchange authorization code for access and refresh tokens.",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "propertyId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/auth/token/refresh": {
+      "post": {
+        "tags": [
+          "AnalyticsAuth"
+        ],
+        "summary": "Refresh an expired access token using the stored refresh token for a given property.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Auth.RefreshTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Auth.RefreshTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Auth.RefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/reports/pivot/batch": {
+      "post": {
+        "tags": [
+          "AnalyticsDataApi"
+        ],
+        "summary": "Run several pivot reports in one request (body: { \"requests\": [ RunPivotReportRequest, ... ] }).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/reports/compatibility": {
+      "post": {
+        "tags": [
+          "AnalyticsDataApi"
+        ],
+        "summary": "Check which dimensions and metrics can be combined in one Core report.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/audience-exports/{propertyId}": {
+      "get": {
+        "tags": [
+          "AnalyticsDataApi"
+        ],
+        "summary": "List audience exports of a property.",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/audience-exports/{propertyId}/{audienceExportId}": {
+      "get": {
+        "tags": [
+          "AnalyticsDataApi"
+        ],
+        "summary": "Get one audience export (state, row count, creation time).",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "audienceExportId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/audience-exports": {
+      "post": {
+        "tags": [
+          "AnalyticsDataApi"
+        ],
+        "summary": "Create an audience export (body: { \"audience\": \"properties/123/audiences/456\", \"dimensions\": [ { \"dimensionName\": \"deviceId\" } ] }).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/audience-exports/query": {
+      "post": {
+        "tags": [
+          "AnalyticsDataApi"
+        ],
+        "summary": "Read the users in a finished audience export (body: { \"offset\": 0, \"limit\": 10000 }).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyResourceBodyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyResourceBodyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyResourceBodyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/{propertyId}/quotas": {
+      "get": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "Get all quota usage of a property (Core, Realtime, Funnel tokens).",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/{propertyId}/audience-lists": {
+      "get": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "List audience lists of a property.",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/{propertyId}/audience-lists/{audienceListId}": {
+      "get": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "Get one audience list.",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "audienceListId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/audience-lists": {
+      "post": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "Create an audience list.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/audience-lists/query": {
+      "post": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "Read the users in an audience list.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyResourceBodyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyResourceBodyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyResourceBodyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/{propertyId}/recurring-audience-lists": {
+      "get": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "List recurring audience lists of a property.",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/{propertyId}/recurring-audience-lists/{recurringAudienceListId}": {
+      "get": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "Get one recurring audience list.",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "recurringAudienceListId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/recurring-audience-lists": {
+      "post": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "Create a recurring audience list (refreshed daily).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/{propertyId}/report-tasks": {
+      "get": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "List report tasks (long-running reports) of a property.",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/{propertyId}/report-tasks/{reportTaskId}": {
+      "get": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "Get one report task.",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reportTaskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/report-tasks": {
+      "post": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "Create a report task (runs a large report asynchronously).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/report-tasks/query": {
+      "post": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "Read the rows of a finished report task.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyResourceBodyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyResourceBodyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyResourceBodyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/alpha/chat": {
+      "post": {
+        "tags": [
+          "AnalyticsDataApiAlpha"
+        ],
+        "summary": "Ask a natural-language question about a property's data (v1alpha chat).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/metadata/{propertyId}": {
+      "get": {
+        "tags": [
+          "AnalyticsMetadata"
+        ],
+        "summary": "Get all available dimensions and metrics metadata for a GA4 property.\r\nUse \"GA4:propertyId\" format or \"properties/{propertyId}\".",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/properties/accounts": {
+      "get": {
+        "tags": [
+          "AnalyticsProperty"
+        ],
+        "summary": "List all Google Analytics accounts accessible to the authenticated user.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/properties/list": {
+      "get": {
+        "tags": [
+          "AnalyticsProperty"
+        ],
+        "summary": "List all GA4 properties under a specific account.",
+        "parameters": [
+          {
+            "name": "accountName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/properties/{propertyId}": {
+      "get": {
+        "tags": [
+          "AnalyticsProperty"
+        ],
+        "summary": "Get detailed information for a specific GA4 property by its resource name (e.g. \"properties/123456\").",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/properties/{propertyId}/streams": {
+      "get": {
+        "tags": [
+          "AnalyticsProperty"
+        ],
+        "summary": "List all data streams (web, Android, iOS) for a GA4 property.",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/realtime/report": {
+      "post": {
+        "tags": [
+          "AnalyticsRealtime"
+        ],
+        "summary": "Run a realtime report showing currently active users in GA4.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Realtime.RunRealtimeReportRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Realtime.RunRealtimeReportRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Realtime.RunRealtimeReportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/reports/run": {
+      "post": {
+        "tags": [
+          "AnalyticsReport"
+        ],
+        "summary": "Run a standard GA4 report for dimensions and metrics over specified date ranges.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.RunReportRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.RunReportRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.RunReportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/reports/batch": {
+      "post": {
+        "tags": [
+          "AnalyticsReport"
+        ],
+        "summary": "Run multiple GA4 reports in a single batch request.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.BatchRunReportsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.BatchRunReportsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.BatchRunReportsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/reports/pivot": {
+      "post": {
+        "tags": [
+          "AnalyticsReport"
+        ],
+        "summary": "Run a pivot report for multi-dimensional analysis in GA4.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.PivotReport.RunPivotReportRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.PivotReport.RunPivotReportRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.PivotReport.RunPivotReportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/analytics/reports/funnel": {
+      "post": {
+        "tags": [
+          "AnalyticsReport"
+        ],
+        "summary": "Run a funnel report to analyze user progression through conversion steps in GA4.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.FunnelReport.RunFunnelReportRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.FunnelReport.RunFunnelReportRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.FunnelReport.RunFunnelReportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.Analytics.Auth.RefreshTokenRequest": {
+        "required": [
+          "propertyId"
+        ],
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyBodyRequest": {
+        "required": [
+          "propertyId"
+        ],
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "body": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/System.Text.Json.Nodes.JsonNode"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.DataApi.PropertyResourceBodyRequest": {
+        "required": [
+          "propertyId",
+          "resourceId"
+        ],
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "body": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/System.Text.Json.Nodes.JsonNode"
+            },
+            "nullable": true
+          },
+          "resourceId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.FunnelReport.FunnelDefinition": {
+        "type": "object",
+        "properties": {
+          "steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.FunnelReport.FunnelStep"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.FunnelReport.FunnelNextAction": {
+        "type": "object",
+        "properties": {
+          "drillDownFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.FunnelReport.FunnelStep": {
+        "required": [
+          "filterExpression",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "filterExpression": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression"
+          },
+          "isDirectlyFollowedBy": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.FunnelReport.RunFunnelReportRequest": {
+        "required": [
+          "dateRanges",
+          "propertyId"
+        ],
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "dateRanges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.DateRange"
+            }
+          },
+          "funnel": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.FunnelReport.FunnelDefinition"
+          },
+          "funnelBreakdown": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.Dimension"
+          },
+          "funnelNextAction": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.FunnelReport.FunnelNextAction"
+          },
+          "segments": {
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.PivotReport.PivotDimension": {
+        "type": "object",
+        "properties": {
+          "dimensionColumn": {
+            "type": "string",
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.PivotReport.RunPivotReportRequest": {
+        "required": [
+          "dateRanges",
+          "dimensions",
+          "metrics",
+          "pivots",
+          "propertyId"
+        ],
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "dateRanges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.DateRange"
+            }
+          },
+          "pivots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.PivotReport.PivotDimension"
+            }
+          },
+          "dimensions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.Dimension"
+            }
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.Metric"
+            }
+          },
+          "dimensionFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression"
+          },
+          "metricFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Realtime.RunRealtimeReportRequest": {
+        "required": [
+          "metrics",
+          "propertyId"
+        ],
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "dimensions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.Dimension"
+            },
+            "nullable": true
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.Metric"
+            }
+          },
+          "dimensionFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression"
+          },
+          "metricFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "metricAggregations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "orderBys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.OrderBy"
+            },
+            "nullable": true
+          },
+          "returnPropertyQuota": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.BatchRunReportsRequest": {
+        "required": [
+          "propertyId",
+          "requests"
+        ],
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "requests": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.RunReportRequest"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.BetweenFilter": {
+        "type": "object",
+        "properties": {
+          "fromValue": {
+            "nullable": true
+          },
+          "toValue": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.DateRange": {
+        "required": [
+          "endDate",
+          "startDate"
+        ],
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "endDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.Dimension": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.DimensionOrderBy": {
+        "type": "object",
+        "properties": {
+          "dimensionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "orderType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.Filter": {
+        "type": "object",
+        "properties": {
+          "fieldName": {
+            "type": "string",
+            "nullable": true
+          },
+          "stringFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.StringFilter"
+          },
+          "numericFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.NumericFilter"
+          },
+          "betweenFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.BetweenFilter"
+          },
+          "inListFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.InListFilter"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.Filter"
+          },
+          "andGroup": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpressionList"
+          },
+          "orGroup": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpressionList"
+          },
+          "notExpression": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpressionList": {
+        "type": "object",
+        "properties": {
+          "expressions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.InListFilter": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "caseSensitive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.Metric": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.MetricOrderBy": {
+        "type": "object",
+        "properties": {
+          "metricName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.NumericFilter": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.OrderBy": {
+        "type": "object",
+        "properties": {
+          "dimension": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.DimensionOrderBy"
+          },
+          "metric": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.MetricOrderBy"
+          },
+          "pivot": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.PivotOrderBy"
+          },
+          "desc": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.PivotOrderBy": {
+        "type": "object",
+        "properties": {
+          "pivotSelectionCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "subtotals": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.RunReportRequest": {
+        "required": [
+          "dateRanges",
+          "dimensions",
+          "metrics",
+          "propertyId"
+        ],
+        "type": "object",
+        "properties": {
+          "propertyId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "dateRanges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.DateRange"
+            }
+          },
+          "dimensions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.Dimension"
+            }
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.Metric"
+            }
+          },
+          "dimensionFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression"
+          },
+          "metricFilter": {
+            "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.FilterExpression"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "metricAggregations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "orderBys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.Analytics.Reports.OrderBy"
+            },
+            "nullable": true
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "cohortSpec": {
+            "nullable": true
+          },
+          "keepEmptyRows": {
+            "type": "boolean"
+          },
+          "returnPropertyQuota": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.Analytics.Reports.StringFilter": {
+        "type": "object",
+        "properties": {
+          "matchType": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "caseSensitive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "System.Text.Json.Nodes.JsonNode": {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/System.Text.Json.Nodes.JsonNodeOptions"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/System.Text.Json.Nodes.JsonNode"
+          },
+          "root": {
+            "$ref": "#/components/schemas/System.Text.Json.Nodes.JsonNode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "System.Text.Json.Nodes.JsonNodeOptions": {
+        "type": "object",
+        "properties": {
+          "propertyNameCaseInsensitive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

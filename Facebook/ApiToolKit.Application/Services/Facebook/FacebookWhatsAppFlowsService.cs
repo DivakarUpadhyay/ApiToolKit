@@ -9,9 +9,9 @@ namespace ApiToolKit.Application.Services.Facebook;
 public class FacebookWhatsAppFlowsService : IFacebookWhatsAppFlowsService
 {
     private readonly IFacebookAuthRepository _authRepo;
-    private readonly IFacebookApiClient _apiClient;
+    private readonly IWhatsAppApiClient _apiClient;
 
-    public FacebookWhatsAppFlowsService(IFacebookAuthRepository authRepo, IFacebookApiClient apiClient)
+    public FacebookWhatsAppFlowsService(IFacebookAuthRepository authRepo, IWhatsAppApiClient apiClient)
     {
         _authRepo = authRepo;
         _apiClient = apiClient;
@@ -25,11 +25,10 @@ public class FacebookWhatsAppFlowsService : IFacebookWhatsAppFlowsService
             {
                 ["fields"] = "id,name,status,categories,json_version,data_api_version,endpoint_uri,preview,whatsapp_business_account",
                 ["limit"] = request.Limit.ToString(),
-                ["access_token"] = accessToken
             };
             if (request.After != null) queryParams["after"] = request.After;
 
-            var response = await _apiClient.GetAsync<dynamic>($"/{request.WabaId}/flows", queryParams);
+            var response = await _apiClient.GetAsync<dynamic>($"/{request.WabaId}/flows", accessToken, queryParams);
             if (response == null) return Result<List<WhatsAppFlowResponse>>.Fail("No response from Facebook API.");
 
             var flows = JsonConvert.DeserializeObject<List<WhatsAppFlowResponse>>(
@@ -46,10 +45,9 @@ public class FacebookWhatsAppFlowsService : IFacebookWhatsAppFlowsService
             var queryParams = new Dictionary<string, string>
             {
                 ["fields"] = "id,name,status,categories,json_version,data_api_version,endpoint_uri,preview,whatsapp_business_account,validation_errors",
-                ["access_token"] = accessToken
             };
 
-            var response = await _apiClient.GetAsync<dynamic>($"/{flowId}", queryParams);
+            var response = await _apiClient.GetAsync<dynamic>($"/{flowId}", accessToken, queryParams);
             if (response == null) return Result<WhatsAppFlowResponse>.Fail("No response from Facebook API.");
 
             var flow = JsonConvert.DeserializeObject<WhatsAppFlowResponse>(JsonConvert.SerializeObject(response)) ?? new WhatsAppFlowResponse();
@@ -70,7 +68,7 @@ public class FacebookWhatsAppFlowsService : IFacebookWhatsAppFlowsService
             if (request.EndpointUri != null) body["endpoint_uri"] = request.EndpointUri;
             if (request.FlowJson != null) body["flow_json"] = request.FlowJson;
 
-            var response = await _apiClient.PostAsync<object>($"/{request.WabaId}/flows", body, accessToken);
+            var response = await _apiClient.PostAsync<object>($"/{request.WabaId}/flows", accessToken, body);
             if (response == null) return Result<object>.Fail("No response from Facebook API.");
             return Result<object>.Ok(response);
         }
@@ -87,7 +85,7 @@ public class FacebookWhatsAppFlowsService : IFacebookWhatsAppFlowsService
             if (request.EndpointUri != null) body["endpoint_uri"] = request.EndpointUri;
             if (request.ApplicationId != null) body["application_id"] = request.ApplicationId;
 
-            await _apiClient.PostAsync<object>($"/{request.FlowId}", body, accessToken);
+            await _apiClient.PostAsync<object>($"/{request.FlowId}", accessToken, body);
             return Result<bool>.Ok(true);
         }
         catch (Exception ex) { return Result<bool>.Fail(ex.Message); }
@@ -107,7 +105,7 @@ public class FacebookWhatsAppFlowsService : IFacebookWhatsAppFlowsService
     {
         try
         {
-            await _apiClient.PostAsync<object>($"/{flowId}/publish", null, accessToken);
+            await _apiClient.PostAsync<object>($"/{flowId}/publish", accessToken, null);
             return Result<bool>.Ok(true);
         }
         catch (Exception ex) { return Result<bool>.Fail(ex.Message); }
@@ -117,7 +115,7 @@ public class FacebookWhatsAppFlowsService : IFacebookWhatsAppFlowsService
     {
         try
         {
-            await _apiClient.PostAsync<object>($"/{flowId}/deprecate", null, accessToken);
+            await _apiClient.PostAsync<object>($"/{flowId}/deprecate", accessToken, null);
             return Result<bool>.Ok(true);
         }
         catch (Exception ex) { return Result<bool>.Fail(ex.Message); }
@@ -127,9 +125,9 @@ public class FacebookWhatsAppFlowsService : IFacebookWhatsAppFlowsService
     {
         try
         {
-            var queryParams = new Dictionary<string, string> { ["access_token"] = accessToken };
+            var queryParams = new Dictionary<string, string>();
 
-            var response = await _apiClient.GetAsync<dynamic>($"/{flowId}/assets", queryParams);
+            var response = await _apiClient.GetAsync<dynamic>($"/{flowId}/assets", accessToken, queryParams);
             if (response == null) return Result<List<WhatsAppFlowAsset>>.Fail("No response from Facebook API.");
 
             var assets = JsonConvert.DeserializeObject<List<WhatsAppFlowAsset>>(
@@ -145,9 +143,14 @@ public class FacebookWhatsAppFlowsService : IFacebookWhatsAppFlowsService
         {
             var content = new MultipartFormDataContent();
             var jsonBytes = System.Text.Encoding.UTF8.GetBytes(request.FlowJson);
-            content.Add(new ByteArrayContent(jsonBytes), "file", "flow.json");
+            var file = new ByteArrayContent(jsonBytes);
+            file.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            content.Add(file, "file", "flow.json");
+            // Meta requires name=flow.json and asset_type=FLOW_JSON alongside the file.
+            content.Add(new StringContent("flow.json"), "name");
+            content.Add(new StringContent("FLOW_JSON"), "asset_type");
 
-            var response = await _apiClient.PostMultipartAsync<object>($"/{request.FlowId}/assets", content, accessToken);
+            var response = await _apiClient.PostMultipartAsync<object>($"/{request.FlowId}/assets", accessToken, content);
             if (response == null) return Result<object>.Fail("No response from Facebook API.");
             return Result<object>.Ok(response);
         }
@@ -161,10 +164,9 @@ public class FacebookWhatsAppFlowsService : IFacebookWhatsAppFlowsService
             var queryParams = new Dictionary<string, string>
             {
                 ["fields"] = "preview",
-                ["access_token"] = accessToken
             };
 
-            var response = await _apiClient.GetAsync<dynamic>($"/{flowId}", queryParams);
+            var response = await _apiClient.GetAsync<dynamic>($"/{flowId}", accessToken, queryParams);
             if (response == null) return Result<WhatsAppFlowPreview>.Fail("No response from Facebook API.");
 
             var preview = JsonConvert.DeserializeObject<WhatsAppFlowPreview>(

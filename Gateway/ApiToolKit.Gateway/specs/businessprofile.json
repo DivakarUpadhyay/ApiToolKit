@@ -1,0 +1,4222 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Google Business Profile APIs",
+    "description": "ASP.NET Core Clean Architecture integration for Business Profile APIs: accounts, locations (Business Information API), categories, reviews and replies, local posts, and performance metrics (Performance API). Connect a Google account with GET /api/businessprofile/auth/url?accountKey=..., then pass the same accountKey to every endpoint.",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/businessprofile/accounts": {
+      "get": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "List Business Profile accounts for the signed-in user.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "Create a location group or organization account.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.CreateAccountRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.CreateAccountRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.CreateAccountRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.CreateAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "Update an account (fields in UpdateMask).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateAccountRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateAccountRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateAccountRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/accounts/{accountId}": {
+      "get": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "Get one Business Profile account.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/accounts/{accountId}/admins": {
+      "get": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "List admins of an account.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/accounts/admins": {
+      "post": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "Invite a user to be an admin of an account.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.InviteAccountAdminRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.InviteAccountAdminRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.InviteAccountAdminRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.InviteAccountAdminRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "Change the role of an account admin.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateAccountAdminRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateAccountAdminRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateAccountAdminRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateAccountAdminRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/accounts/{accountId}/admins/{adminId}": {
+      "delete": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "Remove an admin from an account.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "adminId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/accounts/{accountId}/invitations": {
+      "get": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "List pending invitations for an account.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/accounts/invitations/accept": {
+      "post": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "Accept an invitation.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.AcceptInvitationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.AcceptInvitationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.AcceptInvitationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.AcceptInvitationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/accounts/invitations/decline": {
+      "post": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "Decline an invitation.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.DeclineInvitationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.DeclineInvitationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.DeclineInvitationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.DeclineInvitationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/accounts/{accountId}/notification-setting": {
+      "get": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "Get the Pub/Sub notification setting of an account (Notifications API).",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/accounts/notification-setting": {
+      "put": {
+        "tags": [
+          "BusinessProfileAccount"
+        ],
+        "summary": "Set the Pub/Sub topic and notification types for an account.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateNotificationSettingRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateNotificationSettingRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateNotificationSettingRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateNotificationSettingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/auth/url": {
+      "get": {
+        "tags": [
+          "BusinessProfileAuth"
+        ],
+        "summary": "Get the Google OAuth 2.0 consent URL. accountKey is any name you choose for this Google account; reuse it on every other endpoint.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/auth/callback": {
+      "get": {
+        "tags": [
+          "BusinessProfileAuth"
+        ],
+        "summary": "OAuth 2.0 callback. Google sends the code and the accountKey (as state); tokens are stored for that account key.",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/auth/token/refresh": {
+      "post": {
+        "tags": [
+          "BusinessProfileAuth"
+        ],
+        "summary": "Refresh the stored access token for an account key.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Auth.RefreshTokenRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Auth.RefreshTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Auth.RefreshTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Auth.RefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/categories": {
+      "get": {
+        "tags": [
+          "BusinessProfileCategory"
+        ],
+        "summary": "List business categories for a region and language.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "regionCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "languageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/categories/batch": {
+      "get": {
+        "tags": [
+          "BusinessProfileCategory"
+        ],
+        "summary": "Get several categories by name.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "names",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "languageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "regionCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/categories/attributes": {
+      "get": {
+        "tags": [
+          "BusinessProfileCategory"
+        ],
+        "summary": "List attributes available for a category or location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categoryName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parent",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "regionCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "languageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/categories/chains/{chainId}": {
+      "get": {
+        "tags": [
+          "BusinessProfileCategory"
+        ],
+        "summary": "Get a business chain (brand).",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "chainId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/categories/chains": {
+      "get": {
+        "tags": [
+          "BusinessProfileCategory"
+        ],
+        "summary": "Search business chains by name.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "chainName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/posts": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocalPost"
+        ],
+        "summary": "List local posts for a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BusinessProfileLocalPost"
+        ],
+        "summary": "Publish a local post on a location.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.CreateLocalPostRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.CreateLocalPostRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.CreateLocalPostRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.CreateLocalPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BusinessProfileLocalPost"
+        ],
+        "summary": "Delete a local post.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "postId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BusinessProfileLocalPost"
+        ],
+        "summary": "Update a local post (fields in UpdateMask).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.UpdateLocalPostRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.UpdateLocalPostRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.UpdateLocalPostRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.UpdateLocalPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/posts/{postId}": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocalPost"
+        ],
+        "summary": "Get one local post.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/posts/insights": {
+      "post": {
+        "tags": [
+          "BusinessProfileLocalPost"
+        ],
+        "summary": "Get insights (views, actions) for local posts.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.GetLocalPostInsightsRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.GetLocalPostInsightsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.GetLocalPostInsightsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.GetLocalPostInsightsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "List locations under an account.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Create a new business location.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.CreateLocationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.CreateLocationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.CreateLocationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.CreateLocationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Update location fields listed in UpdateMask.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Get one location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Delete a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}/attributes": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Get attributes (amenities, services) of a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}/google-updated": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Get the Google-updated version of a location (suggested edits).",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/attributes": {
+      "put": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Update attributes of a location.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationAttributesRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationAttributesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationAttributesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationAttributesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}/attributes/google-updated": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Get Google-updated attributes of a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/transfer": {
+      "post": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Move a location to another account.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.TransferLocationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.TransferLocationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.TransferLocationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.TransferLocationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}/admins": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "List admins of a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/admins": {
+      "post": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Invite a user to manage a location.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.InviteLocationAdminRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.InviteLocationAdminRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.InviteLocationAdminRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.InviteLocationAdminRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Change the role of a location admin.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationAdminRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationAdminRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationAdminRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationAdminRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}/admins/{adminId}": {
+      "delete": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Remove an admin from a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "adminId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/google-locations/search": {
+      "post": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Search Google Maps for existing locations that match a business.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.SearchGoogleLocationsRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.SearchGoogleLocationsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.SearchGoogleLocationsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.SearchGoogleLocationsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}/followers": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Get follower count of a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}/food-menus": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Get food menus of a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/food-menus": {
+      "put": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Replace food menus of a location.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateFoodMenusRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateFoodMenusRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateFoodMenusRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateFoodMenusRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}/service-list": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Get the service list of a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/service-list": {
+      "put": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Replace the service list of a location.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateServiceListRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateServiceListRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateServiceListRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateServiceListRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}/health-provider-attributes": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Get health provider attributes of a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "languageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/health-provider-attributes": {
+      "put": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "Update health provider attributes of a location.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateHealthProviderAttributesRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateHealthProviderAttributesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateHealthProviderAttributesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateHealthProviderAttributesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/{locationId}/insurance-networks": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "List insurance networks Google supports for a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "languageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/locations/recommended": {
+      "get": {
+        "tags": [
+          "BusinessProfileLocation"
+        ],
+        "summary": "List Google locations recommended for the account to claim.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/lodging/{locationId}": {
+      "get": {
+        "tags": [
+          "BusinessProfileLodging"
+        ],
+        "summary": "Get lodging attributes of a hotel location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/lodging": {
+      "put": {
+        "tags": [
+          "BusinessProfileLodging"
+        ],
+        "summary": "Update lodging attributes (fields in UpdateMask).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Lodging.UpdateLodgingRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Lodging.UpdateLodgingRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Lodging.UpdateLodgingRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Lodging.UpdateLodgingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/lodging/{locationId}/google-updated": {
+      "get": {
+        "tags": [
+          "BusinessProfileLodging"
+        ],
+        "summary": "Get Google-updated lodging attributes.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/media": {
+      "get": {
+        "tags": [
+          "BusinessProfileMedia"
+        ],
+        "summary": "List owner media of a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BusinessProfileMedia"
+        ],
+        "summary": "Add a photo or video to a location from a public URL.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.CreateMediaRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.CreateMediaRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.CreateMediaRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.CreateMediaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BusinessProfileMedia"
+        ],
+        "summary": "Update media metadata (fields in UpdateMask).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.UpdateMediaRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.UpdateMediaRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.UpdateMediaRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.UpdateMediaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/media/{mediaId}": {
+      "get": {
+        "tags": [
+          "BusinessProfileMedia"
+        ],
+        "summary": "Get one media item.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mediaId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BusinessProfileMedia"
+        ],
+        "summary": "Delete a media item.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mediaId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/media/start-upload": {
+      "post": {
+        "tags": [
+          "BusinessProfileMedia"
+        ],
+        "summary": "Start a byte upload; returns a resource name to upload bytes to.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.StartMediaUploadRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.StartMediaUploadRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.StartMediaUploadRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Media.StartMediaUploadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/media/customers": {
+      "get": {
+        "tags": [
+          "BusinessProfileMedia"
+        ],
+        "summary": "List media uploaded by customers.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/media/customers/{mediaId}": {
+      "get": {
+        "tags": [
+          "BusinessProfileMedia"
+        ],
+        "summary": "Get one customer media item.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mediaId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/performance/daily-metrics": {
+      "get": {
+        "tags": [
+          "BusinessProfilePerformance"
+        ],
+        "summary": "Daily metrics such as BUSINESS_IMPRESSIONS_DESKTOP_SEARCH, CALL_CLICKS, WEBSITE_CLICKS, BUSINESS_DIRECTION_REQUESTS.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dailyMetrics",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/performance/search-keywords": {
+      "get": {
+        "tags": [
+          "BusinessProfilePerformance"
+        ],
+        "summary": "Monthly search keywords that showed the business in Search and Maps.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startMonth",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endMonth",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/performance/daily-metric": {
+      "get": {
+        "tags": [
+          "BusinessProfilePerformance"
+        ],
+        "summary": "Single daily metric time series for a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dailyMetric",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/place-actions": {
+      "get": {
+        "tags": [
+          "BusinessProfilePlaceAction"
+        ],
+        "summary": "List place action links of a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BusinessProfilePlaceAction"
+        ],
+        "summary": "Create a place action link.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.PlaceAction.CreatePlaceActionLinkRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.PlaceAction.CreatePlaceActionLinkRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.PlaceAction.CreatePlaceActionLinkRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.PlaceAction.CreatePlaceActionLinkRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BusinessProfilePlaceAction"
+        ],
+        "summary": "Update a place action link (fields in UpdateMask).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.PlaceAction.UpdatePlaceActionLinkRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.PlaceAction.UpdatePlaceActionLinkRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.PlaceAction.UpdatePlaceActionLinkRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.PlaceAction.UpdatePlaceActionLinkRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/place-actions/{linkId}": {
+      "get": {
+        "tags": [
+          "BusinessProfilePlaceAction"
+        ],
+        "summary": "Get one place action link.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "linkId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BusinessProfilePlaceAction"
+        ],
+        "summary": "Delete a place action link.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "linkId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/place-actions/types": {
+      "get": {
+        "tags": [
+          "BusinessProfilePlaceAction"
+        ],
+        "summary": "List place action types available for a location or region.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "languageCode",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/reviews": {
+      "get": {
+        "tags": [
+          "BusinessProfileReview"
+        ],
+        "summary": "List reviews for a location with average rating and total count.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/reviews/{reviewId}": {
+      "get": {
+        "tags": [
+          "BusinessProfileReview"
+        ],
+        "summary": "Get one review.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/reviews/reply": {
+      "post": {
+        "tags": [
+          "BusinessProfileReview"
+        ],
+        "summary": "Create or update the owner reply to a review.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Review.ReplyToReviewRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Review.ReplyToReviewRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Review.ReplyToReviewRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Review.ReplyToReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BusinessProfileReview"
+        ],
+        "summary": "Delete the owner reply to a review.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reviewId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/reviews/batch": {
+      "post": {
+        "tags": [
+          "BusinessProfileReview"
+        ],
+        "summary": "Get reviews for several locations of an account in one call.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Review.BatchGetReviewsRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Review.BatchGetReviewsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Review.BatchGetReviewsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Review.BatchGetReviewsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/verifications/options": {
+      "post": {
+        "tags": [
+          "BusinessProfileVerification"
+        ],
+        "summary": "List verification methods available for a location.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.FetchVerificationOptionsRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.FetchVerificationOptionsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.FetchVerificationOptionsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.FetchVerificationOptionsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/verifications/verify": {
+      "post": {
+        "tags": [
+          "BusinessProfileVerification"
+        ],
+        "summary": "Start verification of a location.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.VerifyLocationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.VerifyLocationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.VerifyLocationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.VerifyLocationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/verifications": {
+      "get": {
+        "tags": [
+          "BusinessProfileVerification"
+        ],
+        "summary": "List verifications of a location.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/verifications/complete": {
+      "post": {
+        "tags": [
+          "BusinessProfileVerification"
+        ],
+        "summary": "Complete a pending verification with the PIN.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.CompleteVerificationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.CompleteVerificationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.CompleteVerificationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.BusinessProfile.Verification.CompleteVerificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/businessprofile/verifications/voice-of-merchant": {
+      "get": {
+        "tags": [
+          "BusinessProfileVerification"
+        ],
+        "summary": "Check whether the location is verified and can be edited.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "locationId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.BusinessProfile.Account.AcceptInvitationRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "invitationId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "invitationId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Account.CreateAccountRequest": {
+        "required": [
+          "accountKey",
+          "accountName",
+          "primaryOwner",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "primaryOwner": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Account.DeclineInvitationRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "invitationId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "invitationId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Account.InviteAccountAdminRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "admin",
+          "role"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "admin": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "role": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateAccountAdminRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "adminId",
+          "role"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "adminId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "role": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateAccountRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "updateMask"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "updateMask": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          },
+          "validateOnly": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Account.UpdateNotificationSettingRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "notificationTypes",
+          "pubsubTopic"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "pubsubTopic": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "notificationTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Auth.RefreshTokenRequest": {
+        "required": [
+          "accountKey"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.CreateLocalPostRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "languageCode",
+          "locationId",
+          "summary"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "summary": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "languageCode": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "topicType": {
+            "type": "string",
+            "nullable": true
+          },
+          "callToActionType": {
+            "type": "string",
+            "nullable": true
+          },
+          "callToActionUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "mediaUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "event": {
+            "nullable": true
+          },
+          "offer": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.GetLocalPostInsightsRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "basicRequest",
+          "localPostNames",
+          "locationId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "localPostNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "basicRequest": { }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.LocalPost.UpdateLocalPostRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "locationId",
+          "postId",
+          "updateMask"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "postId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "updateMask": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          },
+          "event": {
+            "nullable": true
+          },
+          "offer": {
+            "nullable": true
+          },
+          "callToAction": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Location.CreateLocationRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "languageCode",
+          "primaryCategory",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "languageCode": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "primaryCategory": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "storefrontAddress": {
+            "nullable": true
+          },
+          "phoneNumbers": {
+            "nullable": true
+          },
+          "websiteUri": {
+            "type": "string",
+            "nullable": true
+          },
+          "regularHours": {
+            "nullable": true
+          },
+          "validateOnly": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Location.InviteLocationAdminRequest": {
+        "required": [
+          "accountKey",
+          "admin",
+          "locationId",
+          "role"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "admin": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "role": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Location.SearchGoogleLocationsRequest": {
+        "required": [
+          "accountKey"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "query": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "nullable": true
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Location.TransferLocationRequest": {
+        "required": [
+          "accountKey",
+          "destinationAccount",
+          "locationId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "destinationAccount": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateFoodMenusRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "locationId",
+          "menus"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "menus": { },
+          "updateMask": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateHealthProviderAttributesRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "insuranceNetworks",
+          "locationId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "insuranceNetworks": { },
+          "updateMask": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationAdminRequest": {
+        "required": [
+          "accountKey",
+          "adminId",
+          "locationId",
+          "role"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "adminId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "role": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationAttributesRequest": {
+        "required": [
+          "accountKey",
+          "attributeMask",
+          "attributes",
+          "locationId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "attributeMask": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "attributes": { }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateLocationRequest": {
+        "required": [
+          "accountKey",
+          "locationId",
+          "updateMask"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "updateMask": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "websiteUri": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumbers": {
+            "nullable": true
+          },
+          "regularHours": {
+            "nullable": true
+          },
+          "storefrontAddress": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Location.UpdateServiceListRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "locationId",
+          "serviceItems"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "serviceItems": { },
+          "updateMask": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Lodging.UpdateLodgingRequest": {
+        "required": [
+          "accountKey",
+          "locationId",
+          "lodging",
+          "updateMask"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "updateMask": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "lodging": { }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Media.CreateMediaRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "locationId",
+          "mediaFormat",
+          "sourceUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "mediaFormat": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "sourceUrl": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Media.StartMediaUploadRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "locationId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Media.UpdateMediaRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "locationId",
+          "mediaId",
+          "updateMask"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "mediaId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "updateMask": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.PlaceAction.CreatePlaceActionLinkRequest": {
+        "required": [
+          "accountKey",
+          "locationId",
+          "placeActionType",
+          "uri"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "uri": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "placeActionType": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "isPreferred": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.PlaceAction.UpdatePlaceActionLinkRequest": {
+        "required": [
+          "accountKey",
+          "linkId",
+          "locationId",
+          "updateMask"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "linkId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "updateMask": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "uri": {
+            "type": "string",
+            "nullable": true
+          },
+          "placeActionType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPreferred": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Review.BatchGetReviewsRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "locationNames"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "pageToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "orderBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "ignoreRatingOnlyReviews": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Review.ReplyToReviewRequest": {
+        "required": [
+          "accountId",
+          "accountKey",
+          "comment",
+          "locationId",
+          "reviewId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "reviewId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "comment": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Verification.CompleteVerificationRequest": {
+        "required": [
+          "accountKey",
+          "locationId",
+          "pin",
+          "verificationId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "verificationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "pin": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Verification.FetchVerificationOptionsRequest": {
+        "required": [
+          "accountKey",
+          "languageCode",
+          "locationId"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "languageCode": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "context": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.BusinessProfile.Verification.VerifyLocationRequest": {
+        "required": [
+          "accountKey",
+          "locationId",
+          "method"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "method": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "mailerContact": {
+            "type": "string",
+            "nullable": true
+          },
+          "token": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -1,0 +1,804 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiToolKit - Google Search Console & Indexing API",
+    "description": "ASP.NET Core Clean Architecture integration for Search Console API (search analytics, keyword rankings, sites, sitemaps, URL inspection) and the Indexing API (job posting and livestream pages only). Connect a Google account with GET /api/searchconsole/auth/url?accountKey=..., then pass the same accountKey to every endpoint.",
+    "contact": {
+      "name": "ApiToolKit",
+      "email": "official@amplegroupglobal.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/searchconsole/auth/url": {
+      "get": {
+        "tags": [
+          "SearchConsoleAuth"
+        ],
+        "summary": "Get the Google OAuth 2.0 consent URL. accountKey is any name you choose for this Google account; reuse it on every other endpoint.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/searchconsole/auth/callback": {
+      "get": {
+        "tags": [
+          "SearchConsoleAuth"
+        ],
+        "summary": "OAuth 2.0 callback. Google sends the code and the accountKey (as state); tokens are stored for that account key.",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/searchconsole/auth/token/refresh": {
+      "post": {
+        "tags": [
+          "SearchConsoleAuth"
+        ],
+        "summary": "Refresh the stored access token for an account key.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Auth.RefreshTokenRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Auth.RefreshTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Auth.RefreshTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Auth.RefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/indexing/publish": {
+      "post": {
+        "tags": [
+          "SearchConsoleIndexing"
+        ],
+        "summary": "Tell Google a job posting or livestream URL was updated or deleted.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Indexing.PublishUrlNotificationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Indexing.PublishUrlNotificationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Indexing.PublishUrlNotificationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Indexing.PublishUrlNotificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/indexing/metadata": {
+      "get": {
+        "tags": [
+          "SearchConsoleIndexing"
+        ],
+        "summary": "Get the latest notification Google received for a URL.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/searchconsole/search-analytics/query": {
+      "post": {
+        "tags": [
+          "SearchConsoleSearchAnalytics"
+        ],
+        "summary": "Query clicks, impressions, CTR and average position grouped by any dimensions.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.QuerySearchAnalyticsRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.QuerySearchAnalyticsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.QuerySearchAnalyticsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.QuerySearchAnalyticsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/searchconsole/search-analytics/keyword-rankings": {
+      "post": {
+        "tags": [
+          "SearchConsoleSearchAnalytics"
+        ],
+        "summary": "Keyword rankings: top search queries with clicks, impressions, CTR and average position.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.GetKeywordRankingsRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.GetKeywordRankingsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.GetKeywordRankingsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.GetKeywordRankingsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/searchconsole/search-analytics/top-pages": {
+      "post": {
+        "tags": [
+          "SearchConsoleSearchAnalytics"
+        ],
+        "summary": "Top landing pages from organic search with clicks, impressions, CTR and position.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.GetTopPagesRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.GetTopPagesRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.GetTopPagesRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.GetTopPagesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/searchconsole/sites": {
+      "get": {
+        "tags": [
+          "SearchConsoleSite"
+        ],
+        "summary": "List all Search Console properties the account can access.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SearchConsoleSite"
+        ],
+        "summary": "Add a property to Search Console (ownership must then be verified).",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Site.AddSiteRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Site.AddSiteRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Site.AddSiteRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Site.AddSiteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SearchConsoleSite"
+        ],
+        "summary": "Remove a property from Search Console.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "siteUrl",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/searchconsole/sites/detail": {
+      "get": {
+        "tags": [
+          "SearchConsoleSite"
+        ],
+        "summary": "Get permission level for one property.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "siteUrl",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/searchconsole/sitemaps": {
+      "get": {
+        "tags": [
+          "SearchConsoleSitemap"
+        ],
+        "summary": "List sitemaps submitted for a property.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "siteUrl",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sitemapIndex",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SearchConsoleSitemap"
+        ],
+        "summary": "Submit a sitemap for a property.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Sitemap.SubmitSitemapRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Sitemap.SubmitSitemapRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Sitemap.SubmitSitemapRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.Sitemap.SubmitSitemapRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SearchConsoleSitemap"
+        ],
+        "summary": "Delete a sitemap from a property.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "siteUrl",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "feedpath",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/searchconsole/sitemaps/detail": {
+      "get": {
+        "tags": [
+          "SearchConsoleSitemap"
+        ],
+        "summary": "Get status, errors and warnings for one sitemap.",
+        "parameters": [
+          {
+            "name": "accountKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "siteUrl",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "feedpath",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/searchconsole/url-inspection": {
+      "post": {
+        "tags": [
+          "SearchConsoleUrlInspection"
+        ],
+        "summary": "Inspect how Google crawled and indexed a URL.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.UrlInspection.InspectUrlRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.UrlInspection.InspectUrlRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.UrlInspection.InspectUrlRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiToolKit.Application.DTOs.SearchConsole.UrlInspection.InspectUrlRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToolKit.Application.DTOs.SearchConsole.Auth.RefreshTokenRequest": {
+        "required": [
+          "accountKey"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.SearchConsole.Indexing.PublishUrlNotificationRequest": {
+        "required": [
+          "accountKey",
+          "type",
+          "url"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "url": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.GetKeywordRankingsRequest": {
+        "required": [
+          "accountKey",
+          "endDate",
+          "siteUrl",
+          "startDate"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "siteUrl": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "startDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "endDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rowLimit": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.GetTopPagesRequest": {
+        "required": [
+          "accountKey",
+          "endDate",
+          "siteUrl",
+          "startDate"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "siteUrl": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "startDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "endDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rowLimit": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.SearchConsole.SearchAnalytics.QuerySearchAnalyticsRequest": {
+        "required": [
+          "accountKey",
+          "endDate",
+          "siteUrl",
+          "startDate"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "siteUrl": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "startDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "endDate": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "dimensions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "aggregationType": {
+            "type": "string",
+            "nullable": true
+          },
+          "rowLimit": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "startRow": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "dataState": {
+            "type": "string",
+            "nullable": true
+          },
+          "dimensionFilterGroups": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.SearchConsole.Site.AddSiteRequest": {
+        "required": [
+          "accountKey",
+          "siteUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "siteUrl": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.SearchConsole.Sitemap.SubmitSitemapRequest": {
+        "required": [
+          "accountKey",
+          "feedpath",
+          "siteUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "siteUrl": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "feedpath": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiToolKit.Application.DTOs.SearchConsole.UrlInspection.InspectUrlRequest": {
+        "required": [
+          "accountKey",
+          "inspectionUrl",
+          "siteUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "accountKey": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "inspectionUrl": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "siteUrl": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "languageCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

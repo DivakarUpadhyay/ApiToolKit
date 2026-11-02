@@ -298,11 +298,11 @@ public class FacebookWhatsAppController : ControllerBase
         return Ok(result);
     }
 
-    /// <summary>Delete a message template</summary>
+    /// <summary>Delete one language version of a message template (needs the WABA ID and the template name)</summary>
     [HttpDelete("templates/{templateId}")]
-    public async Task<IActionResult> DeleteTemplateAsync(string templateId, [FromQuery] string accessToken)
+    public async Task<IActionResult> DeleteTemplateAsync(string templateId, [FromQuery] string wabaId, [FromQuery] string name, [FromQuery] string accessToken)
     {
-        var result = await _waService.DeleteTemplateAsync(templateId, accessToken);
+        var result = await _waService.DeleteTemplateAsync(wabaId, templateId, name, accessToken);
         return Ok(result);
     }
 
